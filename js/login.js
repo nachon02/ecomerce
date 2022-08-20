@@ -62,7 +62,7 @@ button.addEventListener("click", function validar() {
 
     if (!valorEmail) {
         errorMail();
-
+        mail = false;
         console.log(valorEmail);
     } else if (!caracterMail(valorEmail)) {
         errorMail();
@@ -77,6 +77,7 @@ button.addEventListener("click", function validar() {
     if (!valorPass) {
         errorPass();
         console.log(valorPass);
+        pass = false;
     } else if (valorPass.length < 8) {
         console.log("menor a 8");
         errorPass();
@@ -87,4 +88,19 @@ button.addEventListener("click", function validar() {
         validPass();
         pass = true;
     }
+
+    localStorage.setItem("passOK", pass);
+    console.log(localStorage.getItem("passOK"));
+    localStorage.setItem("mailOK", mail);
+    console.log(localStorage.getItem("mailOK"));
+
+    // Funcion para ir al index cuando este validado tanto la contraseña como el email
+
+    setTimeout(function goToIndex() {
+        if (pass && mail) {
+            location.replace("https://nachon02.github.io/ecomerce/");
+        }
+    }, 2000);
+
+    // const myTimeout = setTimeout(goToIndex(), 30000);
 });
