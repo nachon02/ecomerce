@@ -12,6 +12,8 @@ button.addEventListener("click", function validar() {
     const commPass = document.getElementById("passValidationComment");
     const commEmail = document.getElementById("validationServer03Feedback");
 
+    // funciones que muestran los mensajes de error
+
     function errorPass() {
         commPass.classList.remove("invalid-feedback");
         inputPass.classList.add("is-invalid");
@@ -39,13 +41,14 @@ button.addEventListener("click", function validar() {
         inputEmail.classList.add("is-valid");
     }
 
-    /** Validaciones  */
+    /* Validaciones  */
 
-    // if (!valorEmail || !valorPass || valorPass.length < 8) {
-    //     errorMail();
-    //     errorPass();
+    // variables vacias para comprobar si el usuario esta loggueado
+
     let pass = null;
     let mail = null;
+
+    // regex de validacion de email
     const caracterMail = (e) => {
         return /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
             e
@@ -54,6 +57,8 @@ button.addEventListener("click", function validar() {
     const spaces = (p) => {
         return / /.test(p);
     };
+
+    // validacion de email
 
     if (!valorEmail) {
         errorMail();
@@ -66,6 +71,8 @@ button.addEventListener("click", function validar() {
         validMail();
         mail = true;
     }
+
+    // validacion de contraseña
 
     if (!valorPass) {
         errorPass();
@@ -80,5 +87,4 @@ button.addEventListener("click", function validar() {
         validPass();
         pass = true;
     }
-    console.log(!spaces(valorPass));
 });
