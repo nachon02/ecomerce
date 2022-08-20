@@ -90,9 +90,8 @@ button.addEventListener("click", function validar() {
     }
 
     localStorage.setItem("passOK", pass);
-    console.log(localStorage.getItem("passOK"));
+
     localStorage.setItem("mailOK", mail);
-    console.log(localStorage.getItem("mailOK"));
 
     // Funcion para ir al index cuando este validado tanto la contraseña como el email
 

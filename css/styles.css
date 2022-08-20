@@ -189,7 +189,12 @@ a.custom-card:hover {
   color: orange;
 }
 
-#login{
+#login {
   max-width: 450px;
   margin: auto;
+}
+
+#validationServer03Feedback,
+#passValidationComment {
+  color: #dc3545;
 }
