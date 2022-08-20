@@ -101,6 +101,4 @@ button.addEventListener("click", function validar() {
             location.replace("https://nachon02.github.io/ecomerce/");
         }
     }, 2000);
-
-    // const myTimeout = setTimeout(goToIndex(), 30000);
 });
