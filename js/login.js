@@ -23,31 +23,62 @@ button.addEventListener("click", function validar() {
     function validPass() {
         if (inputPass.classList.contains("is-invalid")) {
             inputPass.classList.remove("is-invalid");
-            inputPass.classList.add("is-valid");
 
             commPass.classList.add("invalid-feedback");
 
             console.log(valorPass);
         }
+        inputPass.classList.add("is-valid");
     }
     function validMail() {
         if (inputEmail.classList.contains("is-invalid")) {
             inputEmail.classList.remove("is-invalid");
-            inputEmail.classList.add("is-valid");
 
             commEmail.classList.add("invalid-feedback");
-
-            console.log(valorEmail);
         }
+        inputEmail.classList.add("is-valid");
     }
 
     /** Validaciones  */
 
-    if (!valorEmail || !valorPass || valorPass.length < 8) {
+    // if (!valorEmail || !valorPass || valorPass.length < 8) {
+    //     errorMail();
+    //     errorPass();
+    let pass = null;
+    let mail = null;
+    const caracterMail = (e) => {
+        return /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
+            e
+        );
+    };
+    const spaces = (p) => {
+        return / /.test(p);
+    };
+
+    if (!valorEmail) {
         errorMail();
-        errorPass();
+
+        console.log(valorEmail);
+    } else if (!caracterMail(valorEmail)) {
+        errorMail();
+        console.log(valorEmail + 1212);
     } else {
         validMail();
-        validPass();
+        mail = true;
     }
+
+    if (!valorPass) {
+        errorPass();
+        console.log(valorPass);
+    } else if (valorPass.length < 8) {
+        console.log("menor a 8");
+        errorPass();
+    } else if (spaces(valorPass)) {
+        console.log("tiene espacios");
+        errorPass();
+    } else {
+        validPass();
+        pass = true;
+    }
+    console.log(!spaces(valorPass));
 });
