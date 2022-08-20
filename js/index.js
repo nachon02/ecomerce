@@ -12,13 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location = "products.html";
     });
 
-    console.log(localStorage.getItem("passOK"));
-    console.log(localStorage.getItem("mailOK"));
-
     let pass = localStorage.getItem("passOK");
     let mail = localStorage.getItem("mailOK");
 
     if (!pass || !mail) {
-        location.replace("https://nachon02.github.io/ecomerce/login.html");
+        location.replace("login.html");
     }
+    // setTimeout(function clearStorage() {
+    //     localStorage.clear();
+    // }, 3000);
 });

@@ -27,8 +27,6 @@ button.addEventListener("click", function validar() {
             inputPass.classList.remove("is-invalid");
 
             commPass.classList.add("invalid-feedback");
-
-            console.log(valorPass);
         }
         inputPass.classList.add("is-valid");
     }
@@ -63,10 +61,8 @@ button.addEventListener("click", function validar() {
     if (!valorEmail) {
         errorMail();
         mail = false;
-        console.log(valorEmail);
     } else if (!caracterMail(valorEmail)) {
         errorMail();
-        console.log(valorEmail + 1212);
     } else {
         validMail();
         mail = true;
@@ -76,13 +72,11 @@ button.addEventListener("click", function validar() {
 
     if (!valorPass) {
         errorPass();
-        console.log(valorPass);
+
         pass = false;
     } else if (valorPass.length < 8) {
-        console.log("menor a 8");
         errorPass();
     } else if (spaces(valorPass)) {
-        console.log("tiene espacios");
         errorPass();
     } else {
         validPass();
@@ -97,7 +91,7 @@ button.addEventListener("click", function validar() {
 
     setTimeout(function goToIndex() {
         if (pass && mail) {
-            location.replace("https://nachon02.github.io/ecomerce/");
+            location.replace("index.html");
         }
-    }, 2000);
+    }, 1000);
 });
