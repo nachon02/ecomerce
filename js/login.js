@@ -43,8 +43,8 @@ button.addEventListener("click", function validar() {
 
     // variables vacias para comprobar si el usuario esta loggueado
 
-    let pass = null;
-    let mail = null;
+    let pass = false;
+    let mail = false;
 
     // regex de validacion de email
     const caracterMail = (e) => {
