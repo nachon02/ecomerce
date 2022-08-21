@@ -3,8 +3,8 @@ let listaProductos = [];
 
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
 function verProductos(array, catName) {
-    let htmlContentToAppend = "";
-    htmlContentToAppend = `
+    let contenido = "";
+    contenido = `
        <div class="text-center mt-3">
         <h2>Productos</h2>
             <div id="info"><h3 class="mb-4 text-muted">Verás aquí todos los productos de la categoría <span class="text-dark">${catName}</span></h3></div>
@@ -14,7 +14,7 @@ function verProductos(array, catName) {
 
     for (let i = 0; i < array.length; i++) {
         let product = array[i];
-        htmlContentToAppend += `
+        contenido += `
         
         <div class="list-group-item list-group-item-action">
             
@@ -34,10 +34,9 @@ function verProductos(array, catName) {
             </div>
         </div>
         `;
-        document.getElementById("product_container").innerHTML =
-            htmlContentToAppend;
+        document.getElementById("product_container").innerHTML = contenido;
     }
-    // console.log(htmlContentToAppend);
+    // console.log(contenido);
 }
 
 /* 
@@ -68,9 +67,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
             return catID;
         }
     });*/
-    getJSONData(
-        "https://japceibal.github.io/emercado-api/cats_products/101.json"
-    ).then(function (resultObj) {
+    let id = localStorage.getItem("catID");
+    getJSONData(`${PRODUCTS_URL}${id}${EXT_TYPE}`).then(function (resultObj) {
         // console.log(`${PRODUCTS_URL}${catID}${EXT_TYPE}`);
         if (resultObj.status === "ok") {
             listaProductos = resultObj.data.products;
