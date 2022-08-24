@@ -66,6 +66,7 @@ button.addEventListener("click", function validar() {
     } else {
         validMail();
         mail = true;
+        localStorage.setItem("email", valorEmail);
     }
 
     // validacion de contraseña

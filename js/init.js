@@ -41,6 +41,18 @@ let getJSONData = function (url) {
             return result;
         });
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+    const nav = document.getElementsByClassName("nav-item");
+    const navMail = nav[nav.length - 1];
+    console.log(navMail);
+
+    navMail.innerHTML = `
+    <a class="nav-link" href="my-profile.html">${localStorage.getItem(
+        "email"
+    )}</a>
+    `;
+});
 /*
 let getID = function () {
     document.addEventListener("DOMContentLoaded", function (e) {
