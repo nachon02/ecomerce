@@ -103,4 +103,12 @@ function onSignIn(googleUser) {
     console.log("Image URL: " + profile.getImageUrl());
     console.log("Email: " + profile.getEmail());
     console.log("hola"); // This is null if the 'email' scope is not present.
+    pass = true;
+    mail = true;
+
+    setTimeout(function goToIndex() {
+        if (pass && mail) {
+            location.replace("index.html");
+        }
+    }, 1000);
 }
