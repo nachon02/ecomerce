@@ -111,4 +111,7 @@ function onSignIn(googleUser) {
             location.replace("index.html");
         }
     }, 1000);
+    localStorage.setItem("passOK", pass);
+
+    localStorage.setItem("mailOK", mail);
 }
