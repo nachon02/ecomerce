@@ -7,7 +7,7 @@ const rel = "rel";
 function ordenarArray(criterio, array) {
     let arrayOrdenado = [];
     if (criterio === asc) {
-        arrayOrdenado = array.sort((a, b) => {
+        arrayOrdenado = listaProductos.sort((a, b) => {
             if (a.cost > b.cost) {
                 return -1;
             }
@@ -17,7 +17,7 @@ function ordenarArray(criterio, array) {
             return 0;
         });
     } else if (criterio === desc) {
-        arrayOrdenado = array.sort((a, b) => {
+        arrayOrdenado = listaProductos.sort((a, b) => {
             if (a.cost < b.cost) {
                 return -1;
             }
@@ -27,7 +27,7 @@ function ordenarArray(criterio, array) {
             return 0;
         });
     } else if (criterio === rel) {
-        arrayOrdenado = array.sort((a, b) => {
+        arrayOrdenado = listaProductos.sort((a, b) => {
             if (a.soldCount > b.soldCount) {
                 return -1;
             }
@@ -44,27 +44,29 @@ function ordenarArray(criterio, array) {
 
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
 
-function verProductos(array, catName) {
+function verProductos() {
     let contenido = "";
     let contenidoT = "";
+
+    // console.log(nameCat);
 
     // if (ordenarArray(rel, array).length > 0) {
     //     console.log(ordenarArray(rel, array));
     //     console.log(array);
     // }
 
-    if (array.length > 0) {
+    if (listaProductos.length > 0) {
         document.getElementById("filtros").style.display = "block";
 
         contenidoT = `
        <div class="text-center mt-3">
         <h2>Productos</h2>
-            <div id="info"><h3 class="mb-4 text-muted">Verás aquí todos los productos de la categoría <span class="text-dark">${catName}</span></h3></div>
+            <div id="info"><h3 class="mb-4 text-muted">Verás aquí todos los productos de la categoría <span class="text-dark">${nameCat}</span></h3></div>
     </div>
     `;
         document.getElementById("pTitulo").innerHTML = contenidoT;
-        for (let i = 0; i < array.length; i++) {
-            let product = array[i];
+        for (let i = 0; i < listaProductos.length; i++) {
+            let product = listaProductos[i];
 
             contenido += `
         
@@ -106,24 +108,24 @@ document.addEventListener("DOMContentLoaded", function (e) {
         // console.log(`${PRODUCTS_URL}${catID}${EXT_TYPE}`);
         if (resultObj.status === "ok") {
             listaProductos = resultObj.data.products;
-            catName = resultObj.data.catName;
+            nameCat = resultObj.data.catName;
 
-            verProductos(listaProductos, resultObj.data.catName);
+            verProductos();
         }
     });
 
     // Agrego a los filtros la funcion verProductos con el array ordenado
 
     document.getElementById("sortAsc").addEventListener("click", () => {
-        verProductos(ordenarArray(asc, listaProductos), catName);
+        verProductos(ordenarArray(asc, listaProductos), nameCat);
         console.log(ordenarArray(asc, listaProductos));
     });
     document.getElementById("sortDesc").addEventListener("click", () => {
-        verProductos(ordenarArray(desc, listaProductos), catName);
+        verProductos(ordenarArray(desc, listaProductos), nameCat);
         console.log(ordenarArray(desc, listaProductos));
     });
     document.getElementById("sortByCount").addEventListener("click", () => {
-        verProductos(ordenarArray(rel, listaProductos), catName);
+        verProductos(ordenarArray(rel, listaProductos), nameCat);
         console.log(ordenarArray(rel, listaProductos));
     });
 });
