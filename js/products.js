@@ -1,12 +1,57 @@
 //array donde se cargarán los datos recibidos:
 let listaProductos = [];
+const asc = "asc";
+const desc = "desc";
+const rel = "rel";
+
+function ordenarArray(criterio, array) {
+    let arrayOrdenado = [];
+    if (criterio === asc) {
+        arrayOrdenado = array.sort((a, b) => {
+            if (a.cost > b.cost) {
+                return -1;
+            }
+            if (a.cost < b.cost) {
+                return 1;
+            }
+            return 0;
+        });
+    } else if (criterio === desc) {
+        arrayOrdenado = array.sort((a, b) => {
+            if (a.cost < b.cost) {
+                return -1;
+            }
+            if (a.cost > b.cost) {
+                return 1;
+            }
+            return 0;
+        });
+    } else if (criterio === rel) {
+        arrayOrdenado = array.sort((a, b) => {
+            if (a.soldCount > b.soldCount) {
+                return -1;
+            }
+            if (a.soldCount < b.soldCount) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+    return arrayOrdenado;
+    console.log(arrayOrdenado);
+    document.getElementById("product_container").innerHTML = contenido;
+}
 
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
 
 function verProductos(array, catName) {
-    // console.log(array.length);
     let contenido = "";
     let contenidoT = "";
+
+    // if (ordenarArray(rel, array).length > 0) {
+    //     console.log(ordenarArray(rel, array));
+    //     console.log(array);
+    // }
 
     if (array.length > 0) {
         document.getElementById("filtros").style.display = "block";
@@ -44,9 +89,7 @@ function verProductos(array, catName) {
 
             document.getElementById("product_container").innerHTML = contenido;
         }
-
-        // console.log(localStorage.getItem("cont"));
-    } // console.log(contenido);
+    }
 }
 
 /* 
@@ -56,36 +99,31 @@ EJECUCIÓN:
 -Se verifica el estado del objeto que devuelve, y, si es correcto, se cargan los datos en listaProductos.
 -Por último, se llama a verProductos() pasándole por parámetro listaProductos.
 
-*/ /* document.addEventListener("DOMContentLoaded", function (e) {
-    getID(
-        "https://japceibal.github.io/emercado-api/cats_products/101.json"
-    ).then(function (id) {
-        if (id.status === "ok") {
-            let catID = id.data.catID;
-            console.log(catID);
-        }
-    });
-});
 */
 document.addEventListener("DOMContentLoaded", function (e) {
-    /* getID(
-        "https://japceibal.github.io/emercado-api/cats_products/101.json"
-    ).then(function (id) {
-        if (id.status === "ok") {
-            let catID = '"' + id.data.catID + '"';
-            console.log(catID);
-            return catID;
-        }
-    });*/
     let id = localStorage.getItem("catID");
     getJSONData(`${PRODUCTS_URL}${id}${EXT_TYPE}`).then(function (resultObj) {
         // console.log(`${PRODUCTS_URL}${catID}${EXT_TYPE}`);
         if (resultObj.status === "ok") {
             listaProductos = resultObj.data.products;
+            catName = resultObj.data.catName;
 
             verProductos(listaProductos, resultObj.data.catName);
-        } else {
-            // console.log(PRODUCTS_URL + catID + EXT_TYPE);
         }
+    });
+
+    // Agrego a los filtros la funcion verProductos con el array ordenado
+
+    document.getElementById("sortAsc").addEventListener("click", () => {
+        verProductos(ordenarArray(asc, listaProductos), catName);
+        console.log(ordenarArray(asc, listaProductos));
+    });
+    document.getElementById("sortDesc").addEventListener("click", () => {
+        verProductos(ordenarArray(desc, listaProductos), catName);
+        console.log(ordenarArray(desc, listaProductos));
+    });
+    document.getElementById("sortByCount").addEventListener("click", () => {
+        verProductos(ordenarArray(rel, listaProductos), catName);
+        console.log(ordenarArray(rel, listaProductos));
     });
 });
