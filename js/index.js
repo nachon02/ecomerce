@@ -12,12 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location = "products.html";
     });
 
-    let pass = localStorage.getItem("passOK");
-    let mail = localStorage.getItem("mailOK");
-
-    if (!pass || !mail) {
-        location.replace("login.html");
-    }
+    
     // setTimeout(function clearStorage() {
     //     localStorage.clear();
     // }, 3000);

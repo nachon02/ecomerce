@@ -45,13 +45,21 @@ let getJSONData = function (url) {
 document.addEventListener("DOMContentLoaded", function () {
     const nav = document.getElementsByClassName("nav-item");
     const navMail = nav[nav.length - 1];
-    console.log(navMail);
 
-    navMail.innerHTML = `
+    if (localStorage.getItem("email") !== null) {
+        navMail.innerHTML = `
     <a class="nav-link" href="my-profile.html">${localStorage.getItem(
         "email"
     )}</a>
     `;
+    }
+
+    let pass = localStorage.getItem("passOK");
+    let mail = localStorage.getItem("mailOK");
+
+    if (!pass || !mail) {
+        location.replace("login.html");
+    }
 });
 /*
 let getID = function () {
