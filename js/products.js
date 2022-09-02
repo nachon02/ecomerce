@@ -3,9 +3,10 @@ let listaProductos = [];
 const asc = "asc";
 const desc = "desc";
 const rel = "rel";
-const pMin = undefined;
-const pMax = undefined;
+let pMin = undefined;
+let pMax = undefined;
 
+/* Sorting the array by the criteria that is passed as a parameter. */
 function ordenarArray(criterio, array) {
     let arrayOrdenado = [];
     if (criterio === asc) {
@@ -62,7 +63,17 @@ function verProductos() {
         for (let i = 0; i < listaProductos.length; i++) {
             let product = listaProductos[i];
 
-            contenido += `
+            /* Checking if the value of pMin is not undefined and not empty and if it is greater than
+            0. If
+            it is, it will parse the value of pMin to an integer. If not, it will set pMin to
+            undefined. */
+            if (
+                (pMin == undefined ||
+                    (pMin != undefined && parseInt(product.cost) >= pMin)) &&
+                (pMax == undefined ||
+                    (pMax != undefined && parseInt(product.cost) <= pMax))
+            ) {
+                contenido += `
         
         <div class="list-group-item list-group-item-action">
             
@@ -82,7 +93,7 @@ function verProductos() {
             </div>
         </div>
         `;
-
+            }
             document.getElementById("product_container").innerHTML = contenido;
         }
     }
@@ -108,6 +119,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
         }
     });
 
+    /* funcion que limpia los inputs y muestro los productos */
+    document.getElementById("limpiar").addEventListener("click", function () {
+        document.getElementById("precioMin").value = "";
+        document.getElementById("precioMax").value = "";
+
+        pMin = undefined;
+        pMax = undefined;
+
+        verProductos();
+    });
     // Agrego a los filtros la funcion verProductos con el array ordenado
 
     document.getElementById("sortAsc").addEventListener("click", () => {
@@ -124,7 +145,21 @@ document.addEventListener("DOMContentLoaded", function (e) {
         pMin = document.getElementById("precioMin").value;
         pMax = document.getElementById("precioMax").value;
 
-        console.log(pMin);
-        console.log(pMax);
+        /* Checking if the value of pMin is not undefined and not empty and if it is greater than 0. If
+        it is, it will parse the value of pMin to an integer. If not, it will set pMin to undefined. */
+        if (pMin != undefined && pMin != "" && parseInt(pMin) >= 0) {
+            pMin = parseInt(pMin);
+        } else {
+            pMin = undefined;
+        }
+
+        if (pMax != undefined && pMax != "" && parseInt(pMax) >= 0) {
+            pMax = parseInt(pMax);
+        } else {
+            pMax = undefined;
+        }
+
+        verProductos();
+        console.log(listaProductos);
     });
 });
