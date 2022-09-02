@@ -96,6 +96,13 @@ button.addEventListener("click", function validar() {
         }
     }, 1000);
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("passOK") || localStorage.getItem("mailOK")) {
+        location.replace("index.html");
+    }
+    console.log(localStorage.getItem("pass"));
+});
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.

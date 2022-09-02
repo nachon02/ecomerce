@@ -3,11 +3,13 @@ let listaProductos = [];
 const asc = "asc";
 const desc = "desc";
 const rel = "rel";
+const pMin = undefined;
+const pMax = undefined;
 
 function ordenarArray(criterio, array) {
     let arrayOrdenado = [];
     if (criterio === asc) {
-        arrayOrdenado = listaProductos.sort((a, b) => {
+        arrayOrdenado = array.sort((a, b) => {
             if (a.cost > b.cost) {
                 return -1;
             }
@@ -17,7 +19,7 @@ function ordenarArray(criterio, array) {
             return 0;
         });
     } else if (criterio === desc) {
-        arrayOrdenado = listaProductos.sort((a, b) => {
+        arrayOrdenado = array.sort((a, b) => {
             if (a.cost < b.cost) {
                 return -1;
             }
@@ -27,7 +29,7 @@ function ordenarArray(criterio, array) {
             return 0;
         });
     } else if (criterio === rel) {
-        arrayOrdenado = listaProductos.sort((a, b) => {
+        arrayOrdenado = array.sort((a, b) => {
             if (a.soldCount > b.soldCount) {
                 return -1;
             }
@@ -38,8 +40,6 @@ function ordenarArray(criterio, array) {
         });
     }
     return arrayOrdenado;
-    console.log(arrayOrdenado);
-    document.getElementById("product_container").innerHTML = contenido;
 }
 
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
@@ -47,13 +47,6 @@ function ordenarArray(criterio, array) {
 function verProductos() {
     let contenido = "";
     let contenidoT = "";
-
-    // console.log(nameCat);
-
-    // if (ordenarArray(rel, array).length > 0) {
-    //     console.log(ordenarArray(rel, array));
-    //     console.log(array);
-    // }
 
     if (listaProductos.length > 0) {
         document.getElementById("filtros").style.display = "block";
@@ -65,6 +58,7 @@ function verProductos() {
     </div>
     `;
         document.getElementById("pTitulo").innerHTML = contenidoT;
+
         for (let i = 0; i < listaProductos.length; i++) {
             let product = listaProductos[i];
 
@@ -118,14 +112,19 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
     document.getElementById("sortAsc").addEventListener("click", () => {
         verProductos(ordenarArray(asc, listaProductos), nameCat);
-        console.log(ordenarArray(asc, listaProductos));
     });
     document.getElementById("sortDesc").addEventListener("click", () => {
         verProductos(ordenarArray(desc, listaProductos), nameCat);
-        console.log(ordenarArray(desc, listaProductos));
     });
     document.getElementById("sortByCount").addEventListener("click", () => {
         verProductos(ordenarArray(rel, listaProductos), nameCat);
-        console.log(ordenarArray(rel, listaProductos));
+    });
+
+    document.getElementById("filtrar").addEventListener("click", () => {
+        pMin = document.getElementById("precioMin").value;
+        pMax = document.getElementById("precioMax").value;
+
+        console.log(pMin);
+        console.log(pMax);
     });
 });
