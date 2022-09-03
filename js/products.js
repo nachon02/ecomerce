@@ -5,6 +5,7 @@ const desc = "desc";
 const rel = "rel";
 let pMin = undefined;
 let pMax = undefined;
+let buscarVal = undefined;
 
 /* Sorting the array by the criteria that is passed as a parameter. */
 function ordenarArray(criterio, array) {
@@ -71,7 +72,9 @@ function verProductos() {
                 (pMin == undefined ||
                     (pMin != undefined && parseInt(product.cost) >= pMin)) &&
                 (pMax == undefined ||
-                    (pMax != undefined && parseInt(product.cost) <= pMax))
+                    (pMax != undefined && parseInt(product.cost) <= pMax)) &&
+                (buscarVal == undefined || 
+                    (buscarVal != undefined && (product.name.toLowerCase().includes(buscarVal)) || (product.description.toLowerCase().includes(buscarVal))))
             ) {
                 contenido += `
         
@@ -162,4 +165,18 @@ document.addEventListener("DOMContentLoaded", function (e) {
         verProductos();
         console.log(listaProductos);
     });
+    // funcion que al dejar de presionar una tecla usa el valor del buscador para llamar a la funcinon ver productos
+    buscar = document.getElementById('buscar');
+    buscar.addEventListener("keyup",()=> {
+        buscarVal = document.getElementById('buscar').value;
+        if (buscarVal.trim() != "" && buscarVal != undefined) {
+            buscarVal = buscarVal.toLowerCase();
+            
+
+        }else{
+            buscarVal = undefined;
+        } 
+        verProductos();     
+
+    })
 });
