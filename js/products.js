@@ -64,17 +64,15 @@ function verProductos() {
         for (let i = 0; i < listaProductos.length; i++) {
             let product = listaProductos[i];
 
-            /* Checking if the value of pMin is not undefined and not empty and if it is greater than
-            0. If
-            it is, it will parse the value of pMin to an integer. If not, it will set pMin to
-            undefined. */
             if (
                 (pMin == undefined ||
                     (pMin != undefined && parseInt(product.cost) >= pMin)) &&
                 (pMax == undefined ||
                     (pMax != undefined && parseInt(product.cost) <= pMax)) &&
-                (buscarVal == undefined || 
-                    (buscarVal != undefined && (product.name.toLowerCase().includes(buscarVal)) || (product.description.toLowerCase().includes(buscarVal))))
+                (buscarVal == undefined ||
+                    (buscarVal != undefined &&
+                        product.name.toLowerCase().includes(buscarVal)) ||
+                    product.description.toLowerCase().includes(buscarVal))
             ) {
                 contenido += `
         
@@ -87,7 +85,7 @@ function verProductos() {
                 <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <div class="mb-1">
-                                <h4>${product.name} -${product.currency} ${product.cost} </h4> 
+                                <h4>${product.name} - ${product.currency} ${product.cost} </h4> 
                                 <p mb-1=""> ${product.description} </p> 
                             </div>
                             <small class="text-muted">${product.soldCount} vendidos</small> 
@@ -109,6 +107,7 @@ EJECUCIÓN:
 -Se verifica el estado del objeto que devuelve, y, si es correcto, se cargan los datos en listaProductos.
 -Por último, se llama a verProductos() pasándole por parámetro listaProductos.
 
+
 */
 document.addEventListener("DOMContentLoaded", function (e) {
     let id = localStorage.getItem("catID");
@@ -122,17 +121,20 @@ document.addEventListener("DOMContentLoaded", function (e) {
         }
     });
 
-    /* funcion que limpia los inputs y muestro los productos */
+    // funcion que limpia los inputs
+
     document.getElementById("limpiar").addEventListener("click", function () {
         document.getElementById("precioMin").value = "";
         document.getElementById("precioMax").value = "";
+        document.getElementById("buscar").value = "";
 
+        buscarVal = undefined;
         pMin = undefined;
         pMax = undefined;
 
         verProductos();
     });
-    // Agrego a los filtros la funcion verProductos con el array ordenado
+    // Agrego validaciones  alos filtros
 
     document.getElementById("sortAsc").addEventListener("click", () => {
         verProductos(ordenarArray(asc, listaProductos), nameCat);
@@ -143,13 +145,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
     document.getElementById("sortByCount").addEventListener("click", () => {
         verProductos(ordenarArray(rel, listaProductos), nameCat);
     });
-
+    // cuando se cumplen las condiciones convierte los valores a enteros
     document.getElementById("filtrar").addEventListener("click", () => {
         pMin = document.getElementById("precioMin").value;
         pMax = document.getElementById("precioMax").value;
 
-        /* Checking if the value of pMin is not undefined and not empty and if it is greater than 0. If
-        it is, it will parse the value of pMin to an integer. If not, it will set pMin to undefined. */
         if (pMin != undefined && pMin != "" && parseInt(pMin) >= 0) {
             pMin = parseInt(pMin);
         } else {
@@ -163,20 +163,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
         }
 
         verProductos();
-        console.log(listaProductos);
     });
-    // funcion que al dejar de presionar una tecla usa el valor del buscador para llamar a la funcinon ver productos
-    buscar = document.getElementById('buscar');
-    buscar.addEventListener("keyup",()=> {
-        buscarVal = document.getElementById('buscar').value;
+    // agrego evento input que filtre los productos segun el valor del buscador y el nombre y descripcion de los mismos
+    buscar = document.getElementById("buscar");
+    buscar.addEventListener("input", () => {
+        buscarVal = document.getElementById("buscar").value;
         if (buscarVal.trim() != "" && buscarVal != undefined) {
             buscarVal = buscarVal.toLowerCase();
-            
-
-        }else{
+        } else {
             buscarVal = undefined;
-        } 
-        verProductos();     
-
-    })
+        }
+        verProductos();
+    });
 });
