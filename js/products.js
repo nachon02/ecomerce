@@ -44,6 +44,10 @@ function ordenarArray(criterio, array) {
     return arrayOrdenado;
 }
 
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+}
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
 
 function verProductos() {
@@ -74,9 +78,11 @@ function verProductos() {
                         product.name.toLowerCase().includes(buscarVal)) ||
                     product.description.toLowerCase().includes(buscarVal))
             ) {
+
+                // console.log(product.id);
                 contenido += `
         
-        <div class="list-group-item list-group-item-action">
+        <div onclick="setProdID(${product.id})" class="list-group-item list-group-item-action">
             
             <div class="row">
                 <div class="col-3">
@@ -120,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             verProductos();
         }
     });
-
+    // console.log(localStorage.getItem("catID"));
     // funcion que limpia los inputs
 
     document.getElementById("limpiar").addEventListener("click", function () {
