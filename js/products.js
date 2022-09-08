@@ -46,7 +46,7 @@ function ordenarArray(criterio, array) {
 
 function setProdID(id) {
     localStorage.setItem("prodID", id);
-    window.location = "product-info.html"
+    window.location = "product-info.html";
 }
 //función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
 
@@ -78,11 +78,10 @@ function verProductos() {
                         product.name.toLowerCase().includes(buscarVal)) ||
                     product.description.toLowerCase().includes(buscarVal))
             ) {
-
                 // console.log(product.id);
                 contenido += `
         
-        <div onclick="setProdID(${product.id})" class="list-group-item list-group-item-action">
+        <div onclick="setProdID(${product.id})" class="list-group-item list-group-item-action cursor-active">
             
             <div class="row">
                 <div class="col-3">

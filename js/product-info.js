@@ -1,5 +1,6 @@
 let infoProd = [];
 let comProd = [];
+let estrellaCom = "";
 
 function mostrarInfo() {
     let infoT = "";
@@ -50,22 +51,154 @@ function mostrarInfo() {
         // }
     }
 }
+function verEstrellas(numero) {
+    let puntuacion = "";
+    // console.log(numero);
+    for (let i = 1; i <= 5; i++) {
+        if (i <= numero) {
+            puntuacion += `<i class="fa fa-star checked"></i>`;
+        } else {
+            puntuacion += `<i class="fa fa-star"></i>`;
+        }
+    }
+    return puntuacion;
+}
 function mostrarComm() {
+    // let puntuacion = "";
     let comments = `<h4 class="">Comentarios</h4>
         `;
 
     for (let i = 0; i < comProd.length; i++) {
-        let commentario = comProd[i];
+        let comentario = comProd[i];
+        // console.log(comentario);
+        // puntuacion = comentario.score;
+        // console.log(puntuacion);
 
-        comments += `
+        comments +=
+            `
     
-    <div class="list-group-item list-group-item-action"> 
-    <p class="bold">${commentario.user} -<span class="lighter"> ${commentario.dateTime} - ${commentario.score}</span></p>
-    <p>${commentario.description}</p>
+    <div class="list-group-item list-group-item-action "> 
+        <p class="bold d-flex justify-content-between">${comentario.user} -
+            <span class="lighter"> ${comentario.dateTime} - 
+                ` +
+            verEstrellas(comentario.score) +
+            `
+            </span></p>
+        <p>${comentario.description}</p>
     </div>
         
     `;
         document.getElementById("comments").innerHTML = comments;
+    }
+    // console.log(
+    //     document
+    //         .getElementById("agregar_com")
+    //         .getElementsByClassName("estrella")
+    // );
+}
+
+// comments += ;
+document.getElementById("nuevoComentario").innerHTML = `
+    <h4 class="mt-3">Comentarios</h4>
+    <form>
+        <div id="agregar_com" class="form-group">
+            
+            <label for="opinion" class="mt-3">Tu opinión:</label>
+            <textarea class="form-control" id="opinion" rows="3"></textarea>
+            <p class="m-0 mt-3">Tu puntuación:</p>
+            <div class="bold">
+                <i id="estrella1" class="fa fa-star cursor-active estrella" onclick="puntuar(1)"></i>
+                <i id="estrella2" class="fa fa-star cursor-active estrella" onclick="puntuar(2)"></i>
+                <i id="estrella3" class="fa fa-star cursor-active estrella" onclick="puntuar(3)"></i>
+                <i id="estrella4" class="fa fa-star cursor-active estrella" onclick="puntuar(4)"></i>
+                <i id="estrella5" class="fa fa-star cursor-active estrella" onclick="puntuar(5)"></i>
+            </div>
+        
+        
+            <input id="comentar" type="button" class="btn btn-primary mt-3" value="Comentar" onclick="addComent()"></input>
+        </div>
+    </form>
+    `;
+
+function puntuar(n) {
+    // console.log(n);
+    // let puntuacionComent = n;
+    estrellaCom = n;
+
+    for (let i = 1; i <= n; i++) {
+        if (i <= n) {
+            document.getElementById(`estrella${i}`).classList.add("checked");
+        }
+    }
+    for (let i = 1; i <= 5; i++) {
+        if (
+            i > n &&
+            document
+                .getElementById(`estrella${i}`)
+                .classList.contains("checked")
+        ) {
+            document.getElementById(`estrella${i}`).classList.remove("checked");
+        }
+    }
+}
+
+function addComent() {
+    let opinion = document.getElementById("opinion").value;
+    let stars = estrellaCom;
+    let newComent = "";
+    let user = localStorage.getItem("email");
+
+    if (opinion != "" && stars != "") {
+        console.log(opinion);
+        console.log(stars);
+        console.log(user);
+        let hoy = new Date();
+        let fecha = hoy.getFullYear();
+
+        // console.log;
+        if (JSON.stringify(hoy.getMonth()).length == 1) {
+            fecha += "-0" + (hoy.getMonth() + 1);
+        } else {
+            fecha += "-" + (hoy.getMonth() + 1);
+        }
+        if (JSON.stringify(hoy.getDay()).length == 1) {
+            fecha +=
+                "-0" +
+                hoy.getDay() +
+                " " +
+                hoy.getHours() +
+                ":" +
+                hoy.getMinutes() +
+                ":" +
+                hoy.getSeconds();
+        } else {
+            fecha +=
+                "-" +
+                hoy.getDay() +
+                " " +
+                hoy.getHours() +
+                ":" +
+                hoy.getMinutes() +
+                ":" +
+                hoy.getSeconds();
+        }
+
+        console.log(fecha);
+        newComent +=
+            `
+    
+    <div class="list-group-item list-group-item-action"> 
+        <p class="bold d-flex justify-content-between">${user} -
+            <span class="lighter"> ${fecha} - 
+                ` +
+            verEstrellas(stars) +
+            `
+            </span></p>
+        <p>${opinion}</p>
+    </div>
+        
+    `;
+        document.getElementById("comments").innerHTML += newComent;
     }
 }
 
@@ -76,8 +209,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
     ) {
         if (resultObj.status === "ok") {
             infoProd = resultObj.data;
-            console.log(infoProd);
-            console.log(localStorage.getItem("prodID"));
+            // console.log(infoProd);
+            // console.log(localStorage.getItem("prodID"));
             mostrarInfo();
         }
     });
@@ -86,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         function (resultObj) {
             if (resultObj.status === "ok") {
                 comProd = resultObj.data;
-                console.log(comProd);
+                // console.log(comProd);
                 // console.log(localStorage.getItem("prodID"));
                 mostrarComm();
             }
