@@ -220,3 +220,7 @@ a.custom-card:hover {
 .lighter {
   font-weight: lighter;
 }
+
+.hide {
+  display: none;
+}
