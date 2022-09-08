@@ -2,10 +2,15 @@ let infoProd = [];
 let comProd = [];
 let estrellaCom = "";
 
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html";
+}
 function mostrarInfo() {
     let infoT = "";
     let info = "";
     let imagenes = "";
+    // console.log(infoProd.relatedProducts);
 
     if (infoProd.name != "") {
         infoT = `
@@ -49,6 +54,19 @@ function mostrarInfo() {
         //     const imgs = infoProd.images[i];
         //     console.log(imgs);
         // }
+
+        for (let i = 0; i < infoProd.relatedProducts.length; i++) {
+            let rel = infoProd.relatedProducts[i];
+
+            document.getElementById("productos_relacionados").innerHTML += `
+            <div class="list-group-item list-group-item-action cursor-active container w-50 border mx-3" onclick="setProdID(${rel.id})">
+            <h4>${rel.name}</h4>
+            <img class="p-0 img-thumbnail"src="${rel.image}"/>
+            </div>
+            
+           
+    `;
+        }
     }
 }
 function verEstrellas(numero) {
@@ -184,7 +202,7 @@ function addComent() {
 
         setTimeout(function () {
             document.getElementById("alerta").classList.add("hide");
-        }, 3000);
+        }, 2000);
     }
 
     if (o && s) {
@@ -228,16 +246,10 @@ function addComent() {
 
         console.log(fecha);
         newComent +=
-            `
-    
-    
-        
-
-    <div id="userCom"class="list-group-item list-group-item-action "> 
+            `<div id="userCom"class="list-group-item list-group-item-action "> 
         <div class="d-flex justify-content-between">
         <p class="bold ">${user}</p><span class="lighter"> ${fecha}</span>
         
-                
         </div>    
         <div class="d-flex justify-content-between">
             <p>${opinion} </p> <div>` +
@@ -247,19 +259,15 @@ function addComent() {
     </div>
     `;
         document.getElementById("comments").innerHTML += newComent;
-        localStorage.setItem("userCom", newComent);
+        let id = localStorage.getItem("prodID");
+        let lcom = { id, newComent };
+        console.log(lcom);
+        localStorage.setItem("userCom", JSON.stringify(lcom));
     }
 }
 
 document.addEventListener("DOMContentLoaded", function (e) {
     let prodID = localStorage.getItem("prodID");
-
-    setTimeout(function () {
-        if (localStorage.getItem("userCom")) {
-            document.getElementById("comments").innerHTML +=
-                localStorage.getItem("userCom");
-        }
-    }, 200);
 
     // console.log(localStorage.getItem("userCom"));
     getJSONData(`${PRODUCT_INFO_URL}${prodID}${EXT_TYPE}`).then(function (
@@ -270,6 +278,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
             // console.log(infoProd);
             // console.log(localStorage.getItem("prodID"));
             mostrarInfo();
+
+            console.log(`${PRODUCT_INFO_URL}${prodID}${EXT_TYPE}`);
         }
     });
 
@@ -278,9 +288,21 @@ document.addEventListener("DOMContentLoaded", function (e) {
             if (resultObj.status === "ok") {
                 comProd = resultObj.data;
                 // console.log(comProd);
-                // console.log(localStorage.getItem("prodID"));
+                console.log(localStorage.getItem("prodID"));
                 mostrarComm();
             }
         }
     );
+
+    setTimeout(function com() {
+        if (
+            localStorage.getItem("userCom") &&
+            prodID === JSON.parse(localStorage.getItem("userCom")).id
+        ) {
+            document.getElementById("comments").innerHTML += JSON.parse(
+                localStorage.getItem("userCom")
+            ).newComent;
+        }
+        console.log(JSON.parse(localStorage.getItem("userCom")).id);
+    }, 1000);
 });

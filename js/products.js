@@ -142,13 +142,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
     // Agrego validaciones  alos filtros
 
     document.getElementById("sortAsc").addEventListener("click", () => {
-        verProductos(ordenarArray(asc, listaProductos), nameCat);
+        ordenarArray(asc, listaProductos);
+        verProductos();
     });
     document.getElementById("sortDesc").addEventListener("click", () => {
-        verProductos(ordenarArray(desc, listaProductos), nameCat);
+        ordenarArray(desc, listaProductos);
+        verProductos();
     });
     document.getElementById("sortByCount").addEventListener("click", () => {
-        verProductos(ordenarArray(rel, listaProductos), nameCat);
+        ordenarArray(rel, listaProductos);
+        verProductos();
     });
     // cuando se cumplen las condiciones convierte los valores a enteros
     document.getElementById("filtrar").addEventListener("click", () => {
