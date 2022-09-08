@@ -196,18 +196,20 @@ function addComent() {
         s = false;
     }
 
-    if (document.getElementById("userCom")) {
-        o = false;
-        s = false;
-        document.getElementById("alerta").classList.remove("hide");
-
-        setTimeout(function () {
-            document.getElementById("alerta").classList.add("hide");
-        }, 2000);
-    }
-
     if (o && s) {
-        ok = true;
+        if (document.getElementById("userCom")) {
+            o = false;
+            s = false;
+            document.getElementById("alerta").classList.remove("hide");
+            document.getElementById("opinion").value = "";
+            puntuar(0);
+
+            setTimeout(function () {
+                document.getElementById("alerta").classList.add("hide");
+            }, 2000);
+        } else {
+            ok = true;
+        }
     }
     if (ok) {
         console.log(opinion);
