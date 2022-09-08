@@ -165,6 +165,7 @@ function puntuar(n) {
 
 function addComent() {
     let opinion = document.getElementById("opinion").value;
+
     let stars = estrellaCom;
     let newComent = "";
     let user = localStorage.getItem("email");
@@ -261,7 +262,9 @@ function addComent() {
         document.getElementById("comments").innerHTML += newComent;
         let id = localStorage.getItem("prodID");
         let lcom = { id, newComent };
-        console.log(lcom);
+        // console.log(lcom);
+        document.getElementById("opinion").value = "";
+        puntuar(0);
         localStorage.setItem("userCom", JSON.stringify(lcom));
     }
 }
