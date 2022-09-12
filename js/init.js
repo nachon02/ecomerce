@@ -41,18 +41,39 @@ let getJSONData = function (url) {
             return result;
         });
 };
+function out(){
+    localStorage.removeItem("passOK")
+    localStorage.removeItem("mailOK")
+    localStorage.removeItem("email")
+    location.replace("login.html");
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const nav = document.getElementsByClassName("nav-item");
     const navMail = nav[nav.length - 1];
 
+    // if (localStorage.getItem("email") !== null) {
+    //     navMail.innerHTML = `
+    // <a class="nav-link" href="my-profile.html">${localStorage.getItem(
+    //     "email"
+    // )}</a>
+    // `;
+    // }
     if (localStorage.getItem("email") !== null) {
         navMail.innerHTML = `
-    <a class="nav-link" href="my-profile.html">${localStorage.getItem(
-        "email"
-    )}</a>
-    `;
-    }
+        <button type="button" class="btn nav-link">
+            <span class="ml-2">${localStorage.getItem("email")}</span>
+        </button>
+        <button type="button" class="btn nav-link dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only"></span>
+            </button>
+        <div class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="userMenu">
+            <a class="dropdown-item" href="my-profile.html">Perfil</a>
+            <p class="dropdown-item text-danger cursor-active mb-0" href="#" onclick="out()">Cerrar Sesion</p>
+        </div>
+        `}            
+        
 
     let pass = localStorage.getItem("passOK");
     let mail = localStorage.getItem("mailOK");

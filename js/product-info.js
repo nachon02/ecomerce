@@ -140,6 +140,12 @@ document.getElementById("nuevoComentario").innerHTML = `
         </div>
     </form>
     `;
+    document.getElementById("opinion").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+        
+        addComent()
+        }
+    })
 
 function puntuar(n) {
     // console.log(n);
