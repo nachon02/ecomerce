@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <button type="button" class="btn nav-link">
             <span class="ml-2">${localStorage.getItem("email")}</span>
         </button>
-        <button type="button" class="btn nav-link dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn nav-link border-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="sr-only"></span>
             </button>
         <div class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="userMenu">
