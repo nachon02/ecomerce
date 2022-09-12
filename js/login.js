@@ -5,8 +5,21 @@ const inputPass = document.getElementById("form2Example2");
 const button = document.getElementById("enviarBtn");
 
 // Valores y errores
+inputPass.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+    
+    validar()
+    }
+})
+inputEmail.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+    
+    validar()
+    }
+})
 
-button.addEventListener("click", function validar() {
+
+function validar() {
     let valorPass = inputPass.value;
     let valorEmail = inputEmail.value;
     const commPass = document.getElementById("passValidationComment");
@@ -95,7 +108,7 @@ button.addEventListener("click", function validar() {
             location.replace("index.html");
         }
     }, 1000);
-});
+};
 
 document.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem("passOK") || localStorage.getItem("mailOK")) {
