@@ -24,13 +24,13 @@ function mostrarInfo() {
         <div>
 
         <h4 class="bold">Precio: </h4>
-        <h5>${infoProd.currency} ${infoProd.cost}</h5>
+        <p>${infoProd.currency} ${infoProd.cost}</p>
         <h4 class="bold">Descripcion: </h4>
-        <h5>${infoProd.description}</h5>
+        <p>${infoProd.description}</p>
         <h4 class="bold">Categoria: </h4>
-        <h5>${infoProd.category}</h5>
+        <p>${infoProd.category}</p>
         <h4 class="bold">Cantidad de vendidos: </h4>
-        <h5>${infoProd.soldCount}</h5>
+        <p>${infoProd.soldCount}</p>
         <h4 class="bold">Imagenes Ilustrativas: </h4>
         <div id="images" class="row">
          
