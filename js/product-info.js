@@ -97,12 +97,12 @@ function mostrarComm() {
     
     <div class="list-group-item list-group-item-action "> 
         <div class="d-flex justify-content-between">
-        <p class="bold ">${comentario.user}</p><span class="lighter"> ${comentario.dateTime}</span>
+        <p class="bold col">${comentario.user}</p><span class="lighter col-3 text-end"> ${comentario.dateTime}</span>
         
                 
         </div>    
         <div class="d-flex justify-content-between">
-            <p>${comentario.description} </p> <div>` +
+            <p class="col">${comentario.description} </p> <div class="col-1 text-end">` +
             verEstrellas(comentario.score) +
             `</div>
          </div>
@@ -257,11 +257,11 @@ function addComent() {
         newComent +=
             `<div id="userCom"class="list-group-item list-group-item-action "> 
         <div class="d-flex justify-content-between">
-        <p class="bold ">${user}</p><span class="lighter"> ${fecha}</span>
+        <p class="bold col">${user}</p><span class="lighter col-3 text-end"> ${fecha}</span>
         
         </div>    
         <div class="d-flex justify-content-between">
-            <p>${opinion} </p> <div>` +
+            <p class="col">${opinion} </p> <div class="col-1 text-end">` +
             verEstrellas(stars) +
             `</div>
          </div>
