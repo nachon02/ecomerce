@@ -6,6 +6,23 @@ function setProdID(id) {
     localStorage.setItem("prodID", id);
     window.location = "product-info.html";
 }
+function verImg(id) {
+    let img= document.getElementById(`img${id}`)
+    img.classList.add("imgBg")
+    document.getElementById("cortina").classList.remove("hide")
+}
+function salir(){
+    let bg = document.getElementsByClassName("imgBg")[0]
+    bg.classList.remove('imgBg')
+    document.getElementById("cortina").classList.add("hide")
+}
+//     // console.log(img);
+
+// }
+// function salir(id){
+//     let img= document.getElementById(`img${id}`)
+//     img.classList.remove("imgBg")
+// }
 function mostrarInfo() {
     let infoT = "";
     let info = "";
@@ -40,12 +57,25 @@ function mostrarInfo() {
         document.getElementById("info_container").innerHTML = info;
 
         if (infoProd.images.length > 0) {
+            let i =0;
             infoProd.images.forEach((src) => {
-                imagenes += `
+                i++;
+        //         imagenes += `
+        // <div class="col">
+        //     <a href="${src}" target="_blank">
+        //         <img class="p-0 img-thumbnail" src="${src}" alt="${infoProd.name +' '+ i}">
+        //     </a>
+        // </div>
+        // `;
+        imagenes += `
         <div class="col">
-        <img class="p-0 img-thumbnail" src="${src}">
+
+            
+                <img id="img${i}" onclick="verImg(${i})"class="p-0 img-thumbnail" src="${src}" alt="${infoProd.name +' '+ i}">
+            
         </div>
         `;
+        
                 //
             });
             document.getElementById("images").innerHTML = imagenes;
