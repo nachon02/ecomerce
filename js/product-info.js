@@ -71,7 +71,7 @@ function mostrarInfo() {
         <div class="col">
 
             
-                <img id="img${i}" onclick="verImg(${i})"class="p-0 img-thumbnail" src="${src}" alt="${infoProd.name +' '+ i}">
+                <img id="img${i}" onclick="verImg(${i})"class="p-0 img-thumbnail cursor-active" src="${src}" alt="${infoProd.name +' '+ i}">
             
         </div>
         `;
