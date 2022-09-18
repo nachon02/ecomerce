@@ -43,12 +43,12 @@ function ordenarArray(criterio, array) {
     }
     return arrayOrdenado;
 }
-
+//guarda en el LS el id del producto y redirecciona a product info
 function setProdID(id) {
     localStorage.setItem("prodID", id);
     window.location = "product-info.html";
 }
-//función que recibe un array con los datos, y los muestra en pantalla a través el uso del DOM
+//función que obtiene datos, y los muestra en pantalla a través el uso del DOM
 
 function verProductos() {
     let contenido = "";

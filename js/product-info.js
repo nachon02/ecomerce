@@ -1,20 +1,23 @@
 let estrellaCom = "";
 
+// guarda en el LS el id del producto y redirecciona a product info, usada en prodctos relacionados
 function setProdID(id) {
     localStorage.setItem("prodID", id);
     window.location = "product-info.html";
 }
+//agranda la imagen
 function verImg(id) {
     let img = document.getElementById(`img${id}`);
     img.classList.add("imgBg");
     document.getElementById("cortina").classList.remove("hide");
 }
+//achica la imagen
 function salir() {
     let bg = document.getElementsByClassName("imgBg")[0];
     bg.classList.remove("imgBg");
     document.getElementById("cortina").classList.add("hide");
 }
-
+// obtiene info del getJsonData y la muestra en la pagina
 function mostrarInfo() {
     let infoT = "";
     let info = "";
@@ -79,6 +82,7 @@ function mostrarInfo() {
         }
     }
 }
+// bucle de 5 que dependiendo si el parametro es mayor a i agrega la clase checked o no
 function verEstrellas(numero) {
     let puntuacion = "";
 
@@ -91,6 +95,7 @@ function verEstrellas(numero) {
     }
     return puntuacion;
 }
+// bucle que muestra los comentarios obtenidos con getJSONData
 function mostrarComm() {
     let comments = `<h4 class="">Comentarios</h4>
         `;
@@ -147,7 +152,7 @@ document
             addComent();
         }
     });
-
+//funcion que depenedieno del parametro agrega n cantidad de veces la clase checked
 function puntuar(n) {
     estrellaCom = n;
 
@@ -167,7 +172,7 @@ function puntuar(n) {
         }
     }
 }
-
+// funcion que agrega comentario del usuario
 function addComent() {
     let opinion = document.getElementById("opinion").value;
 
