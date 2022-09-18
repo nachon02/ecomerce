@@ -277,8 +277,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
             infoProd = resultObj.data;
             mostrarInfo();
-
-            console.log(`${PRODUCT_INFO_URL}${prodID}${EXT_TYPE}`);
         }
     });
 
@@ -286,7 +284,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         function (resultObj) {
             if (resultObj.status === "ok") {
                 comProd = resultObj.data;
-                console.log(localStorage.getItem("prodID"));
                 mostrarComm();
             }
         }
