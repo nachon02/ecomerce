@@ -1,5 +1,3 @@
-let infoProd = [];
-let comProd = [];
 let estrellaCom = "";
 
 function setProdID(id) {
@@ -7,28 +5,20 @@ function setProdID(id) {
     window.location = "product-info.html";
 }
 function verImg(id) {
-    let img= document.getElementById(`img${id}`)
-    img.classList.add("imgBg")
-    document.getElementById("cortina").classList.remove("hide")
+    let img = document.getElementById(`img${id}`);
+    img.classList.add("imgBg");
+    document.getElementById("cortina").classList.remove("hide");
 }
-function salir(){
-    let bg = document.getElementsByClassName("imgBg")[0]
-    bg.classList.remove('imgBg')
-    document.getElementById("cortina").classList.add("hide")
+function salir() {
+    let bg = document.getElementsByClassName("imgBg")[0];
+    bg.classList.remove("imgBg");
+    document.getElementById("cortina").classList.add("hide");
 }
-//     // console.log(img);
 
-// }
-// function salir(id){
-//     let img= document.getElementById(`img${id}`)
-//     img.classList.remove("imgBg")
-// }
 function mostrarInfo() {
     let infoT = "";
     let info = "";
     let imagenes = "";
-    // console.log(infoProd.relatedProducts);
-
     if (infoProd.name != "") {
         infoT = `
        <div class="text-center mt-3">
@@ -57,33 +47,23 @@ function mostrarInfo() {
         document.getElementById("info_container").innerHTML = info;
 
         if (infoProd.images.length > 0) {
-            let i =0;
+            let i = 0;
             infoProd.images.forEach((src) => {
                 i++;
-        //         imagenes += `
-        // <div class="col">
-        //     <a href="${src}" target="_blank">
-        //         <img class="p-0 img-thumbnail" src="${src}" alt="${infoProd.name +' '+ i}">
-        //     </a>
-        // </div>
-        // `;
-        imagenes += `
+
+                imagenes += `
         <div class="col">
 
             
-                <img id="img${i}" onclick="verImg(${i})"class="p-0 img-thumbnail cursor-active" src="${src}" alt="${infoProd.name +' '+ i}">
+                <img id="img${i}" onclick="verImg(${i})"class="p-0 img-thumbnail cursor-active" src="${src}" alt="${
+                    infoProd.name + " " + i
+                }">
             
         </div>
         `;
-        
-                //
             });
             document.getElementById("images").innerHTML = imagenes;
         }
-        // for (let i = 0; i < infoProd.images.length; i++) {
-        //     const imgs = infoProd.images[i];
-        //     console.log(imgs);
-        // }
 
         for (let i = 0; i < infoProd.relatedProducts.length; i++) {
             let rel = infoProd.relatedProducts[i];
@@ -101,7 +81,7 @@ function mostrarInfo() {
 }
 function verEstrellas(numero) {
     let puntuacion = "";
-    // console.log(numero);
+
     for (let i = 1; i <= 5; i++) {
         if (i <= numero) {
             puntuacion += `<i class="fa fa-star checked"></i>`;
@@ -112,15 +92,11 @@ function verEstrellas(numero) {
     return puntuacion;
 }
 function mostrarComm() {
-    // let puntuacion = "";
     let comments = `<h4 class="">Comentarios</h4>
         `;
 
     for (let i = 0; i < comProd.length; i++) {
         let comentario = comProd[i];
-        // console.log(comentario);
-        // puntuacion = comentario.score;
-        // console.log(puntuacion);
 
         comments +=
             `
@@ -141,14 +117,8 @@ function mostrarComm() {
     `;
         document.getElementById("comments").innerHTML = comments;
     }
-    // console.log(
-    //     document
-    //         .getElementById("agregar_com")
-    //         .getElementsByClassName("estrella")
-    // );
 }
 
-// comments += ;
 document.getElementById("nuevoComentario").innerHTML = `
     <h4 class="mt-3">Comentarios</h4>
     <form>
@@ -170,16 +140,15 @@ document.getElementById("nuevoComentario").innerHTML = `
         </div>
     </form>
     `;
-    document.getElementById("opinion").addEventListener("keypress", function(event) {
+document
+    .getElementById("opinion")
+    .addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
-        
-        addComent()
+            addComent();
         }
-    })
+    });
 
 function puntuar(n) {
-    // console.log(n);
-    // let puntuacionComent = n;
     estrellaCom = n;
 
     for (let i = 1; i <= n; i++) {
@@ -248,22 +217,18 @@ function addComent() {
         }
     }
     if (ok) {
-        console.log(opinion);
-        console.log(stars);
-        console.log(user);
         let hoy = new Date();
         let fecha = hoy.getFullYear();
 
-        // console.log;
+        if (JSON.stringify(hoy.getDate()).length == 1) {
+            fecha += "-0" + hoy.getDate();
+        } else {
+            fecha += "-" + hoy.getDate();
+        }
         if (JSON.stringify(hoy.getMonth()).length == 1) {
             fecha += "-0" + (hoy.getMonth() + 1);
         } else {
             fecha += "-" + (hoy.getMonth() + 1);
-        }
-        if (JSON.stringify(hoy.getDay()).length == 1) {
-            fecha += "-0" + hoy.getDay();
-        } else {
-            fecha += "-" + hoy.getDay();
         }
         if (JSON.stringify(hoy.getHours()).length == 1) {
             fecha += " 0" + hoy.getHours();
@@ -281,9 +246,6 @@ function addComent() {
             fecha += ":" + hoy.getSeconds();
         }
 
-        ":" + hoy.getSeconds();
-
-        console.log(fecha);
         newComent +=
             `<div id="userCom"class="list-group-item list-group-item-action "> 
         <div class="d-flex justify-content-between">
@@ -300,7 +262,6 @@ function addComent() {
         document.getElementById("comments").innerHTML += newComent;
         let id = localStorage.getItem("prodID");
         let lcom = { id, newComent };
-        // console.log(lcom);
         document.getElementById("opinion").value = "";
         puntuar(0);
         localStorage.setItem("userCom", JSON.stringify(lcom));
@@ -310,14 +271,11 @@ function addComent() {
 document.addEventListener("DOMContentLoaded", function (e) {
     let prodID = localStorage.getItem("prodID");
 
-    // console.log(localStorage.getItem("userCom"));
     getJSONData(`${PRODUCT_INFO_URL}${prodID}${EXT_TYPE}`).then(function (
         resultObj
     ) {
         if (resultObj.status === "ok") {
             infoProd = resultObj.data;
-            // console.log(infoProd);
-            // console.log(localStorage.getItem("prodID"));
             mostrarInfo();
 
             console.log(`${PRODUCT_INFO_URL}${prodID}${EXT_TYPE}`);
@@ -328,7 +286,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         function (resultObj) {
             if (resultObj.status === "ok") {
                 comProd = resultObj.data;
-                // console.log(comProd);
                 console.log(localStorage.getItem("prodID"));
                 mostrarComm();
             }
@@ -344,6 +301,5 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 localStorage.getItem("userCom")
             ).newComent;
         }
-        console.log(JSON.parse(localStorage.getItem("userCom")).id);
     }, 1000);
 });
