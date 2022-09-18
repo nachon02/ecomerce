@@ -287,7 +287,7 @@ function addComent() {
         newComent +=
             `<div id="userCom"class="list-group-item list-group-item-action "> 
         <div class="d-flex justify-content-between">
-        <p class="bold col">${user}</p><span class="lighter col-3 text-end"> ${fecha}</span>
+        <p class="bold col">${user}</p><span class="lighter col-3 text-end"> ${fecha}</span> 
         
         </div>    
         <div class="d-flex justify-content-between">
