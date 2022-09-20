@@ -17,6 +17,91 @@ function salir() {
     bg.classList.remove("imgBg");
     document.getElementById("cortina").classList.add("hide");
 }
+
+function carruselImg() {
+    console.log(infoProd.images.length);
+    let content = "";
+    for (let i = 0; i < infoProd.images.length; i++) {
+        let imagen = infoProd.images[i];
+        if (i == 0) {
+            content += `
+        <div class="carousel-item active">
+            <div class="d-flex justify-content-center">
+                <a href='${imagen}' target='_blank'>
+                    <img src="${imagen}" class=" cursor-active" alt="...">
+                </a>
+            </div>
+        </div>
+        `;
+        } else {
+            content += `
+        <div class="carousel-item">
+            <div class="d-flex justify-content-center">
+                <a href='${imagen}' target='_blank'>
+                    <img src="${imagen}" class=" cursor-active" alt="...">
+                </a>
+            </div>
+        </div>
+        `;
+        }
+    }
+    // console.log(content);
+    return content;
+}
+function carruselBtn() {
+    console.log(infoProd.images.length);
+    let buttons = "";
+    for (let i = 0; i < infoProd.images.length; i++) {
+        let imagen = infoProd.images[i];
+        if (i == 0) {
+            buttons += `
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}" aria-label="Slide 1" class="active" aria-current="true"></button>
+        `;
+        } else {
+            buttons += `
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}" aria-label="Slide ${
+                i + 1
+            }" class="" ></button>
+        `;
+        }
+    }
+    // console.log(content);
+    return buttons;
+}
+
+function carrusel() {
+    let carrusel = "";
+
+    carrusel +=
+        `
+    <div class='d-flex justify-content-center'>
+                <div id="carouselExampleIndicators" class="carousel w-75 carousel-dark slide" data-bs-ride="true">
+                    <div id='carousel_buttons'class="carousel-indicators">
+                       ` +
+        carruselBtn() +
+        `
+                    </div>
+                    <div id='carousel_images'class="carousel-inner">
+
+                     ` +
+        carruselImg() +
+        `
+                        
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+    `;
+    document.getElementById("images").innerHTML += carrusel;
+}
+
 // obtiene info del getJsonData y la muestra en la pagina
 function mostrarInfo() {
     let infoT = "";
@@ -43,30 +128,43 @@ function mostrarInfo() {
         <p>${infoProd.soldCount}</p>
         <h4 class="bold">Imagenes Ilustrativas: </h4>
         <div id="images" class="row">
+        
+
+
+        
          
         </div>
     `;
 
         document.getElementById("info_container").innerHTML = info;
+        carrusel();
 
-        if (infoProd.images.length > 0) {
-            let i = 0;
-            infoProd.images.forEach((src) => {
-                i++;
+        // if (infoProd.images.length > 0) {
+        //     let i = 0;
+        //     infoProd.images.forEach((src) => {
+        //         i++;
 
-                imagenes += `
-        <div class="col">
+        //         //         imagenes += `
+        //         // <div class="col">
 
-            
-                <img id="img${i}" onclick="verImg(${i})"class="p-0 img-thumbnail cursor-active" src="${src}" alt="${
-                    infoProd.name + " " + i
-                }">
-            
-        </div>
-        `;
-            });
-            document.getElementById("images").innerHTML = imagenes;
-        }
+        //         //         <img id="img${i}" onclick="verImg(${i})"class="p-0 img-thumbnail cursor-active" src="${src}" alt="${
+        //         //             infoProd.name + " " + i
+        //         //         }">
+
+        //         // </div>
+        //         // `;
+        //         imagenes += `
+        // <div class="col">
+
+        //         <img id="img${i}"class="p-0 img-thumbnail" src="${src}" alt="${
+        //             infoProd.name + " " + i
+        //         }">
+
+        // </div>
+        // `;
+        //     });
+        //     document.getElementById("images").innerHTML = imagenes;
+        // }
 
         for (let i = 0; i < infoProd.relatedProducts.length; i++) {
             let rel = infoProd.relatedProducts[i];
