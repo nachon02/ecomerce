@@ -28,7 +28,9 @@ function carruselImg() {
         <div class="carousel-item active">
             <div class="d-flex justify-content-center">
                 <a href='${imagen}' target='_blank'>
-                    <img src="${imagen}" class=" cursor-active" alt="...">
+                    <img src="${imagen}" class=" cursor-active" alt="Imagen de ${
+                infoProd.name
+            } ${1}">
                 </a>
             </div>
         </div>
@@ -38,14 +40,15 @@ function carruselImg() {
         <div class="carousel-item">
             <div class="d-flex justify-content-center">
                 <a href='${imagen}' target='_blank'>
-                    <img src="${imagen}" class=" cursor-active" alt="...">
+                    <img src="${imagen}" class=" cursor-active" alt="Imagen de ${
+                infoProd.name
+            } ${i + 1}">
                 </a>
             </div>
         </div>
         `;
         }
     }
-    // console.log(content);
     return content;
 }
 function carruselBtn() {
@@ -65,7 +68,6 @@ function carruselBtn() {
         `;
         }
     }
-    // console.log(content);
     return buttons;
 }
 
@@ -127,44 +129,12 @@ function mostrarInfo() {
         <h4 class="bold">Cantidad de vendidos: </h4>
         <p>${infoProd.soldCount}</p>
         <h4 class="bold">Imagenes Ilustrativas: </h4>
-        <div id="images" class="row">
-        
-
-
-        
-         
+        <div id="images" class="row">        
         </div>
     `;
 
         document.getElementById("info_container").innerHTML = info;
         carrusel();
-
-        // if (infoProd.images.length > 0) {
-        //     let i = 0;
-        //     infoProd.images.forEach((src) => {
-        //         i++;
-
-        //         //         imagenes += `
-        //         // <div class="col">
-
-        //         //         <img id="img${i}" onclick="verImg(${i})"class="p-0 img-thumbnail cursor-active" src="${src}" alt="${
-        //         //             infoProd.name + " " + i
-        //         //         }">
-
-        //         // </div>
-        //         // `;
-        //         imagenes += `
-        // <div class="col">
-
-        //         <img id="img${i}"class="p-0 img-thumbnail" src="${src}" alt="${
-        //             infoProd.name + " " + i
-        //         }">
-
-        // </div>
-        // `;
-        //     });
-        //     document.getElementById("images").innerHTML = imagenes;
-        // }
 
         for (let i = 0; i < infoProd.relatedProducts.length; i++) {
             let rel = infoProd.relatedProducts[i];
@@ -172,7 +142,7 @@ function mostrarInfo() {
             document.getElementById("productos_relacionados").innerHTML += `
             <div class="list-group-item list-group-item-action cursor-active container w-50 border mx-3" onclick="setProdID(${rel.id})">
             <h4>${rel.name}</h4>
-            <img class="p-0 img-thumbnail"src="${rel.image}"/>
+            <img class="p-0 img-thumbnail"src="${rel.image}" alt="Imagen de ${rel.name}"/>
             </div>
             
            

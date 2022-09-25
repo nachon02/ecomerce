@@ -85,7 +85,7 @@ function verProductos() {
             
             <div class="row">
                 <div class="col-3">
-                    <img src=${product.image} alt="product image" class="p-0 img-thumbnail">                    
+                    <img src=${product.image} alt="Imagen de ${product.name}" class="p-0 img-thumbnail">                    
                 </div>
                 <div class="col">
                         <div class="d-flex w-100 justify-content-between">
