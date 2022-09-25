@@ -1,5 +1,20 @@
 let estrellaCom = "";
 
+//funcion que ordena el array
+function ordenarArray(array) {
+    let arrayOrdenado = [];
+        arrayOrdenado = array.sort((a, b) => {
+            if (a.score > b.score) {
+                return -1;
+            }
+            if (a.score < b.score) {
+                return 1;
+            }
+            return 0;
+        });
+    return arrayOrdenado;
+}
+
 // guarda en el LS el id del producto y redirecciona a product info, usada en prodctos relacionados
 function setProdID(id) {
     localStorage.setItem("prodID", id);
@@ -49,7 +64,7 @@ function carruselImg() {
     return content;
 }
 function carruselBtn() {
-    console.log(infoProd.images.length);
+    // console.log(infoProd.images.length);
     let buttons = "";
     for (let i = 0; i < infoProd.images.length; i++) {
         let imagen = infoProd.images[i];
@@ -139,32 +154,7 @@ function mostrarInfo() {
         document.getElementById("info_container").innerHTML = info;
         carrusel();
 
-        // if (infoProd.images.length > 0) {
-        //     let i = 0;
-        //     infoProd.images.forEach((src) => {
-        //         i++;
-
-        //         //         imagenes += `
-        //         // <div class="col">
-
-        //         //         <img id="img${i}" onclick="verImg(${i})"class="p-0 img-thumbnail cursor-active" src="${src}" alt="${
-        //         //             infoProd.name + " " + i
-        //         //         }">
-
-        //         // </div>
-        //         // `;
-        //         imagenes += `
-        // <div class="col">
-
-        //         <img id="img${i}"class="p-0 img-thumbnail" src="${src}" alt="${
-        //             infoProd.name + " " + i
-        //         }">
-
-        // </div>
-        // `;
-        //     });
-        //     document.getElementById("images").innerHTML = imagenes;
-        // }
+        
 
         for (let i = 0; i < infoProd.relatedProducts.length; i++) {
             let rel = infoProd.relatedProducts[i];
@@ -195,7 +185,55 @@ function verEstrellas(numero) {
 }
 // bucle que muestra los comentarios obtenidos con getJSONData
 function mostrarComm() {
-    let comments = `<h4 class="">Comentarios</h4>
+    let comments = `<div class='d-flex justify-content-between mb-4'> <h4 class="">Comentarios</h4>
+    <div
+                id="filtros"
+                class="mr-2"
+            >
+                <div class="row">
+                    <div class="col text-end">
+                        <div
+                            class="btn-group btn-group-toggle"
+                            data-bs-toggle="buttons"
+                        >
+                            <input
+                                type="radio"
+                                class="btn-check"
+                                name="options"
+                                id="star"
+                                checked=""
+                            />
+                            <label
+                                class="btn btn-light"
+                                for="star"
+                                ><i class="fa fa-star checked"></i></label
+                            >
+                            <input
+                                type="radio"
+                                class="btn-check"
+                                name="options"
+                                id="Pos"
+                            />
+                            <label
+                                class="btn btn-light bg-success text-light"
+                                for="Pos"
+                                >Positivos</label>
+                            <input
+                                type="radio"
+                                class="btn-check"
+                                name="options"
+                                id="Neg"
+                            />
+                            <label
+                                class="btn btn-light bg-danger text-light"
+                                for="Neg"
+                                >Negativos</label>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
         `;
 
     for (let i = 0; i < comProd.length; i++) {
@@ -211,7 +249,10 @@ function mostrarComm() {
                 
         </div>    
         <div class="d-flex justify-content-between">
-            <p class="col">${comentario.description} </p> <div class="col-1 text-end">` +
+            <p class="col">${comentario.description} </p> 
+            
+            
+            <div class="col-1 text-end">` +
             verEstrellas(comentario.score) +
             `</div>
          </div>
@@ -270,6 +311,10 @@ function puntuar(n) {
         }
     }
 }
+
+// ordenar y filtrar
+
+
 // funcion que agrega comentario del usuario
 function addComent() {
     let opinion = document.getElementById("opinion").value;
