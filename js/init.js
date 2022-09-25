@@ -41,13 +41,12 @@ let getJSONData = function (url) {
             return result;
         });
 };
-function out(){
-    localStorage.removeItem("passOK")
-    localStorage.removeItem("mailOK")
-    localStorage.removeItem("email")
+function out() {
+    localStorage.removeItem("passOK");
+    localStorage.removeItem("mailOK");
+    localStorage.removeItem("email");
     location.replace("login.html");
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const nav = document.getElementsByClassName("nav-item");
@@ -73,8 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
             <a class="dropdown-item" href="cart.html">Ver Carrito</a>
             <p class="dropdown-item text-danger cursor-active mb-0" href="#" onclick="out()">Cerrar Sesion</p>
         </div>
-        `}            
-        
+        `;
+    }
 
     let pass = localStorage.getItem("passOK");
     let mail = localStorage.getItem("mailOK");
