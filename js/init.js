@@ -82,39 +82,3 @@ document.addEventListener("DOMContentLoaded", function () {
         location.replace("login.html");
     }
 });
-/*
-let getID = function () {
-    document.addEventListener("DOMContentLoaded", function (e) {
-        getJSONData(
-            "https://japceibal.github.io/emercado-api/cats_products/101.json"
-        ).then(function (resultObj) {
-            if (resultObj.status === "ok") {
-                catID = resultObj.data.catID;
-                console.log(catID);
-            }
-        });
-    });
-};
-
-let getID = function (url) {
-    let result = {};
-    return fetch(url)
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw Error(response.statusText);
-            }
-        })
-        .then(function (response) {
-            result.status = "ok";
-            result.data = response;
-            return result;
-        })
-        .catch(function (error) {
-            result.status = "error";
-            result.data = error;
-            return result;
-        });
-};
-*/
