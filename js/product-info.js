@@ -32,7 +32,7 @@ function salir() {
     bg.classList.remove("imgBg");
     document.getElementById("cortina").classList.add("hide");
 }
-
+//agrego imagenes al carrusel
 function carruselImg() {
     console.log(infoProd.images.length);
     let content = "";
@@ -403,10 +403,15 @@ function addComent() {
     `;
         document.getElementById("comments").innerHTML += newComent;
         let id = localStorage.getItem("prodID");
-        let lcom = { id, newComent };
+        // let lcom = { id, newComent };
         document.getElementById("opinion").value = "";
         puntuar(0);
-        localStorage.setItem("userCom", JSON.stringify(lcom));
+        // localStorage.setItem("userCom", JSON.stringify(lcom));
+
+        localStorage.setItem(
+            `userCom${localStorage.getItem("prodID")}`,
+            newComent
+        );
     }
 }
 
@@ -433,12 +438,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
     setTimeout(function com() {
         if (
-            localStorage.getItem("userCom") &&
-            prodID === JSON.parse(localStorage.getItem("userCom")).id
+            // localStorage.getItem("userCom") &&
+            // prodID === JSON.parse(localStorage.getItem("userCom")).id
+            localStorage.getItem(`userCom${localStorage.getItem("prodID")}`)
         ) {
-            document.getElementById("comments").innerHTML += JSON.parse(
-                localStorage.getItem("userCom")
-            ).newComent;
+            document.getElementById("comments").innerHTML +=
+                localStorage.getItem(
+                    `userCom${localStorage.getItem("prodID")}`
+                );
         }
     }, 1000);
 });

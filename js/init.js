@@ -42,9 +42,7 @@ let getJSONData = function (url) {
         });
 };
 function out() {
-    localStorage.removeItem("passOK");
-    localStorage.removeItem("mailOK");
-    localStorage.removeItem("email");
+    localStorage.clear();
     location.replace("login.html");
 }
 
