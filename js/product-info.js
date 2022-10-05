@@ -291,7 +291,7 @@ function mostrarComm() {
 }
 
 document.getElementById("nuevoComentario").innerHTML = `
-    <h4 class="mt-3">Escriba su comentario</h4>
+    <h4 class="mt-5">Escriba su comentario</h4>
     <form>
         <div id="agregar_com" class="form-group">
             
