@@ -1,9 +1,10 @@
 const user = 25801;
-let articles = {};
-console.log(articles);
+let articulos = JSON.parse(localStorage.getItem("carrito"));
+let articulo = articulos[0];
+console.log(articulos);
 
 const verCarro = () => {
-	let subtotal = parseInt(articles.unitCost);
+	let subtotal = parseInt(articulo.unitCost);
 	let contenido = `
         <div id="titulo" class=" mt-3">
             <h2 class="text-center">Carrito de compras</h2>
@@ -54,19 +55,19 @@ const verCarro = () => {
 	document.getElementById("carrito").innerHTML = contenido;
 
 	let carrito = `<tr class="borde-btm">
-    <td><img src="${articles.image}" width="100px" class="my-2"></td>
-    <td>${articles.name}</td>
-    <td>${articles.currency} ${articles.unitCost}</td>
-    <td><input type="number" value="${articles.count}" class='cantidad'></input> </td>
-    <td><b id='subtotal'>${articles.currency}${articles.unitCost}</b></td>
+    <td><img src="${articulo.image}" width="100px" class="my-2"></td>
+    <td>${articulo.name}</td>
+    <td>${articulo.currency} ${articulo.unitCost}</td>
+    <td><input type="number" value="${articulo.count}" class='cantidad' min="0"></input> </td>
+    <td><b id='subtotal'>${articulo.currency} ${articulo.unitCost}</b></td>
   </tr>`;
 
 	// console.log(carrito);
 	document.getElementById("carritoInfo").innerHTML += carrito;
 	let inputCant = document.getElementsByClassName("cantidad")[0];
 	inputCant.addEventListener("input", () => {
-		subtotal = parseInt(inputCant.value * articles.unitCost);
-		document.getElementById("subtotal").innerHTML = `${articles.currency} ${subtotal}`;
+		subtotal = parseInt(inputCant.value * articulo.unitCost);
+		document.getElementById("subtotal").innerHTML = `${articulo.currency} ${subtotal}`;
 	});
 };
 
@@ -74,11 +75,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	getJSONData(`${CART_INFO_URL}${user}${EXT_TYPE}`).then(function (resultObj) {
 		// console.log(`${CART_INFO_URL}${user}${EXT_TYPE}`);
 		if (resultObj.status === "ok") {
-			console.log(articles);
+			// console.log(articles);
 			cart = resultObj.data;
-			articles = cart.articles[0];
+			compras = cart.articles;
 
-			console.log(cart.articles[0]);
+			localStorage.setItem("carrito", JSON.stringify(compras));
+
+			// console.log(articles);
 			verCarro();
 		}
 	});

@@ -254,3 +254,12 @@ a.custom-card:hover {
   border-radius: 10%;
   border: 1px solid;
 }
+
+.flechas {
+
+  background-color: #333;
+  padding: 10px;
+  border-radius: 20%;
+  width: 30%;
+
+}
