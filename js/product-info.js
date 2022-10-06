@@ -136,6 +136,9 @@ function mostrarInfo() {
         <p>${infoProd.soldCount}</p>
 
 		<button type="button" class="btn btn-primary" onclick="addCart()">Comprar</button>
+		<br>
+		<button type="button" class="mt-2 btn btn-dark" onclick="addCart()">Ir al Carrito</button>
+		</div>
 		</div>
         
         
