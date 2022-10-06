@@ -263,3 +263,7 @@ a.custom-card:hover {
   width: 30%;
 
 }
+
+.diselect {
+  user-select: none;
+}

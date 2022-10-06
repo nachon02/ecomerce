@@ -1,11 +1,10 @@
-const user = 25801;
-let articulos = JSON.parse(localStorage.getItem("carrito"));
-let articulo = articulos[0];
-console.log(articulos);
-
 const verCarro = () => {
-	let subtotal = parseInt(articulo.unitCost);
-	let contenido = `
+	let articulos = JSON.parse(localStorage.getItem("carrito"));
+	// let articulo = articulos[0];
+	console.log(articulos);
+
+	let contenido = "";
+	contenido = `
         <div id="titulo" class=" mt-3">
             <h2 class="text-center">Carrito de compras</h2>
             <h4 class="mt-4">Articulos a comprar</h4>
@@ -54,35 +53,43 @@ const verCarro = () => {
     `;
 	document.getElementById("carrito").innerHTML = contenido;
 
-	let carrito = `<tr class="borde-btm">
-    <td><img src="${articulo.image}" width="100px" class="my-2"></td>
-    <td>${articulo.name}</td>
-    <td>${articulo.currency} ${articulo.unitCost}</td>
-    <td><input type="number" value="${articulo.count}" class='cantidad' min="0"></input> </td>
-    <td><b id='subtotal'>${articulo.currency} ${articulo.unitCost}</b></td>
-  </tr>`;
+	let carrito = "";
 
+	console.log(articulos);
+	for (let i = 0; i < articulos.length; i++) {
+		let element = articulos[i];
+		let subtotal = element.unitCost;
+		console.log(element);
+		console.log(articulos.length);
+
+		carrito += `<tr class="borde-btm" id="compra_${i + 1}">
+    <td><img src="${element.image}" width="100px" class="my-2"></td>
+    <td>${element.name}</td>
+    <td>${element.currency} ${element.unitCost}</td>
+    <td><input type="number" id="inputCant_${i + 1}" value="1" class='cantidad' min="0"></input> </td>
+    <td><b id='subtotal_${i + 1}'>${element.currency} ${subtotal}</b></td>
+  </tr>
+
+  `;
+	}
 	// console.log(carrito);
 	document.getElementById("carritoInfo").innerHTML += carrito;
-	let inputCant = document.getElementsByClassName("cantidad")[0];
-	inputCant.addEventListener("input", () => {
-		subtotal = parseInt(inputCant.value * articulo.unitCost);
-		document.getElementById("subtotal").innerHTML = `${articulo.currency} ${subtotal}`;
-	});
+
+	for (let i = 0; i < articulos.length; i++) {
+		let p = articulos[i];
+		let inputCant = document.getElementById("inputCant_" + (i + 1));
+		let sub = document.getElementById("subtotal_" + (i + 1));
+		inputCant.addEventListener("input", () => {
+			if (inputCant.value >= 0) {
+				console.log(inputCant.value);
+				subtotales = parseInt(inputCant.value * p.unitCost);
+				sub.innerHTML = `${p.currency} ${subtotales}`;
+			}
+		});
+	}
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-	getJSONData(`${CART_INFO_URL}${user}${EXT_TYPE}`).then(function (resultObj) {
-		// console.log(`${CART_INFO_URL}${user}${EXT_TYPE}`);
-		if (resultObj.status === "ok") {
-			// console.log(articles);
-			cart = resultObj.data;
-			compras = cart.articles;
-
-			localStorage.setItem("carrito", JSON.stringify(compras));
-
-			// console.log(articles);
-			verCarro();
-		}
-	});
+	// console.log(articles);
+	verCarro();
 });

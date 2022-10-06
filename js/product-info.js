@@ -1,6 +1,7 @@
 let estrellaCom = "";
 let max = undefined;
 let min = undefined;
+let carro = JSON.parse(localStorage.getItem("carrito"));
 let infoP = {
 	count: "",
 	currency: "",
@@ -18,10 +19,13 @@ function setProdID(id) {
 function addCart() {
 	// console.log(JSON.parse(localStorage.getItem("carrito")));
 
-	let carro = JSON.parse(localStorage.getItem("carrito"));
-	carro.push({ infoP });
+	carro.push(infoP);
 	// localStorage.setItem("carrito", carro);
 	console.log(carro);
+	localStorage.setItem("carrito", JSON.stringify(carro));
+}
+function goToCart() {
+	location = "cart.html";
 }
 
 //agrego imagenes al carrusel
@@ -108,36 +112,34 @@ function carrusel() {
 
 // obtiene info del getJsonData y la muestra en la pagina
 function mostrarInfo() {
-	// infoP = `${infoProd.name}`;
-	let infoT = "";
+	infoP.id = parseInt(infoProd.id);
+	infoP.unitCost = parseInt(infoProd.cost);
+	infoP.name = infoProd.name;
+	infoP.image = infoProd.images[0];
+	infoP.currency = infoProd.currency;
+	infoP.count = parseInt(infoProd.soldCount);
+
 	let info = "";
 	let imagenes = "";
 	if (infoProd.name != "") {
-		infoT = `
-       <div class="text-center mt-3">
-        <h2 class="borde-btm">${infoProd.name}</h2>
-            
-    </div>`;
-		document.getElementById("h2__infoNombre").innerHTML = infoT;
-
 		info += `
         <div class="row">
 		<div id="images" class="col">        
         </div>
 
 		<div class="col">
-		<h4 class="bold">Precio: </h4>
-        <p>${infoProd.currency} ${infoProd.cost}</p>
-        <h4 class="bold">Descripcion: </h4>
+		<h2 class="borde-btm">${infoProd.name}</h2>
+        <b>Descripcion: </b>
         <p>${infoProd.description}</p>
-        <h4 class="bold">Categoria: </h4>
+        <b>Categoria: </b>
         <p>${infoProd.category}</p>
-        <h4 class="bold">Cantidad de vendidos: </h4>
+        <b>Vendidos: </b>
         <p>${infoProd.soldCount}</p>
-
+		<b>Precio: </b>
+        <p>${infoProd.currency} ${infoProd.cost}</p>
 		<button type="button" class="btn btn-primary" onclick="addCart()">Comprar</button>
-		<br>
-		<button type="button" class="mt-2 btn btn-dark" onclick="addCart()">Ir al Carrito</button>
+	
+		<button type="button" class="btn btn-dark" onclick="goToCart()"><i class="fas fa-shopping-cart"></i></button>
 		</div>
 		</div>
         
@@ -155,7 +157,7 @@ function mostrarInfo() {
 
 			document.getElementById("productos_relacionados").innerHTML += `
             <div class="list-group-item list-group-item-action cursor-active container w-50 border mx-3" onclick="setProdID(${rel.id})">
-            <h4>${rel.name}</h4>
+            <b>${rel.name}</b>
             <img class="p-0 img-thumbnail"src="${rel.image}" alt="Imagen de ${rel.name}"/>
             </div>
             
@@ -163,7 +165,7 @@ function mostrarInfo() {
     `;
 		}
 
-		let commentsFilter = `<div class='d-flex justify-content-between mt-4'> <h4 class="">Comentarios</h4>
+		let commentsFilter = `<div class='d-flex justify-content-between mt-4'> <p class="fs-4">Comentarios</p>
     <div
                 id="filtros"
                 class="mr-2"
@@ -290,14 +292,14 @@ function mostrarComm() {
 }
 
 document.getElementById("nuevoComentario").innerHTML = `
-    <h4 class="mt-5">Escriba su comentario</h4>
+    <b class="mt-5">Escriba su comentario</b>
     <form>
         <div id="agregar_com" class="form-group">
             
             <label id="label_opinion"for="opinion" class="mt-3">Tu opinión:</label>
             <textarea class="form-control" id="opinion" rows="3"></textarea>
             <p class="m-0 mt-3" id="puntuacion">Tu puntuación:</p>
-            <div class="bold">
+            <div class="bold diselect">
                 <i id="estrella1" class="fa fa-star cursor-active estrella" onclick="puntuar(1)"></i>
                 <i id="estrella2" class="fa fa-star cursor-active estrella" onclick="puntuar(2)"></i>
                 <i id="estrella3" class="fa fa-star cursor-active estrella" onclick="puntuar(3)"></i>
