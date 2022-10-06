@@ -2,38 +2,12 @@ let estrellaCom = ""
 let max = undefined
 let min = undefined
 
-//funcion que ordena el array
-function ordenarArray(array) {
-	let arrayOrdenado = []
-	arrayOrdenado = array.sort((a, b) => {
-		if (a.score > b.score) {
-			return -1
-		}
-		if (a.score < b.score) {
-			return 1
-		}
-		return 0
-	})
-	return arrayOrdenado
-}
-
 // guarda en el LS el id del producto y redirecciona a product info, usada en prodctos relacionados
 function setProdID(id) {
 	localStorage.setItem("prodID", id)
 	window.location = "product-info.html"
 }
-//agranda la imagen
-function verImg(id) {
-	let img = document.getElementById(`img${id}`)
-	img.classList.add("imgBg")
-	document.getElementById("cortina").classList.remove("hide")
-}
-//achica la imagen
-function salir() {
-	let bg = document.getElementsByClassName("imgBg")[0]
-	bg.classList.remove("imgBg")
-	document.getElementById("cortina").classList.add("hide")
-}
+
 //agrego imagenes al carrusel
 function carruselImg() {
 	let content = ""
@@ -124,7 +98,7 @@ function mostrarInfo() {
 	if (infoProd.name != "") {
 		infoT = `
        <div class="text-center mt-3">
-        <h2>${infoProd.name}</h2>
+        <h2 class="borde-btm">${infoProd.name}</h2>
             
     </div>`
 		document.getElementById("h2__infoNombre").innerHTML = infoT
