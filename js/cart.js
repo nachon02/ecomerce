@@ -41,7 +41,7 @@ const verCarro = () => {
                     </div>
                     <div class="mb-3 col-md-3">
                         <label for="puerta" class="form-label">Número</label>
-                        <input type="text" class="form-control" id="puerta">
+                        <input type="number" class="form-control" id="puerta">
                     </div>
                     <div class="mb-3 col-md-9">
                         <label for="esq" class="form-label">Esquina</label>
@@ -66,7 +66,7 @@ const verCarro = () => {
     <td><img src="${element.image}" width="100px" class="my-2"></td>
     <td>${element.name}</td>
     <td>${element.currency} ${element.unitCost}</td>
-    <td><input type="number" id="inputCant_${i + 1}" value="1" class='cantidad' min="0"></input> </td>
+    <td><input type="number" id="inputCant_${i + 1}" value="1" class='cantidad' min="1"></input> </td>
     <td><b id='subtotal_${i + 1}'>${element.currency} ${subtotal}</b></td>
   </tr>
 
@@ -80,7 +80,7 @@ const verCarro = () => {
 		let inputCant = document.getElementById("inputCant_" + (i + 1));
 		let sub = document.getElementById("subtotal_" + (i + 1));
 		inputCant.addEventListener("input", () => {
-			if (inputCant.value >= 0) {
+			if (inputCant.value >= 1) {
 				console.log(inputCant.value);
 				subtotales = parseInt(inputCant.value * p.unitCost);
 				sub.innerHTML = `${p.currency} ${subtotales}`;

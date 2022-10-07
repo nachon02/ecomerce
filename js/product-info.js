@@ -2,6 +2,7 @@ let estrellaCom = "";
 let max = undefined;
 let min = undefined;
 let carro = JSON.parse(localStorage.getItem("carrito"));
+console.log(carro);
 let infoP = {
 	count: "",
 	currency: "",
