@@ -267,3 +267,27 @@ a.custom-card:hover {
 .diselect {
   user-select: none;
 }
+
+.dltCart {
+  background-color: #f33;
+  color: #fff;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.dltCart:hover {
+  background-color: #f11;
+}
+
+table {
+  border: 1px solid #212529;
+}
+
+table thead {
+  background-color: #212529;
+  color: #fff;
+}
+
+table img {
+  outline: 2px solid #aaa;
+}
