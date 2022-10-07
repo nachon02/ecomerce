@@ -1,7 +1,6 @@
 const verCarro = () => {
 	let articulos = JSON.parse(localStorage.getItem("carrito"));
 	// let articulo = articulos[0];
-	console.log(articulos);
 
 	let contenido = "";
 	contenido = `
@@ -54,23 +53,32 @@ const verCarro = () => {
 	document.getElementById("carrito").innerHTML = contenido;
 
 	let carrito = "";
+	let cant = 1;
 
 	console.log(articulos);
 	for (let i = 0; i < articulos.length; i++) {
 		let element = articulos[i];
 		let subtotal = element.unitCost;
-		console.log(element);
-		console.log(articulos.length);
-
+		// if (element.currency == "USD") {
+		// 	console.log(element.currency);
 		carrito += `<tr class="borde-btm" id="compra_${i + 1}">
     <td><img src="${element.image}" width="100px" class="my-2"></td>
     <td>${element.name}</td>
     <td>${element.currency} ${element.unitCost}</td>
-    <td><input type="number" id="inputCant_${i + 1}" value="1" class='cantidad' min="1"></input> </td>
-    <td><b id='subtotal_${i + 1}'>${element.currency} ${subtotal}</b></td>
-  </tr>
+    <td><input type="number" id="inputCant_${i + 1}" value="${parseInt(cant)}" class='cantidad' min="1"></input> </td>
+    <td><b moneda="${element.currency}"id='subtotal_${i + 1}'>${element.currency} ${subtotal}</b></td>
+  </tr>`;
+		// }
 
-  `;
+		// 		carrito += `<tr class="borde-btm" id="compra_${i + 1}">
+		//     <td><img src="${element.image}" width="100px" class="my-2"></td>
+		//     <td>${element.name}</td>
+		//     <td>${element.currency} ${element.unitCost}</td>
+		//     <td><input type="number" id="inputCant_${i + 1}" value="1" class='cantidad' min="1"></input> </td>
+		//     <td><b id='subtotal_${i + 1}'>${element.currency} ${subtotal}</b></td>
+		//   </tr>
+
+		//   `;
 	}
 	// console.log(carrito);
 	document.getElementById("carritoInfo").innerHTML += carrito;

@@ -4,12 +4,12 @@ let min = undefined;
 let carro = JSON.parse(localStorage.getItem("carrito"));
 console.log(carro);
 let infoP = {
-	count: "",
-	currency: "",
 	id: "",
-	image: "",
 	name: "",
+	count: "",
 	unitCost: "",
+	currency: "",
+	image: "",
 };
 // guarda en el LS el id del producto y redirecciona a product info, usada en prodctos relacionados
 function setProdID(id) {
@@ -17,16 +17,35 @@ function setProdID(id) {
 	window.location = "product-info.html";
 }
 
-function addCart() {
-	// console.log(JSON.parse(localStorage.getItem("carrito")));
+function addCart(id) {
+	let existe = false;
 
-	carro.push(infoP);
-	// localStorage.setItem("carrito", carro);
-	console.log(carro);
-	localStorage.setItem("carrito", JSON.stringify(carro));
-}
-function goToCart() {
-	location = "cart.html";
+	for (let i = 0; i < carro.length; i++) {
+		const p = carro[i];
+		if (id == p.id) {
+			existe = true;
+		}
+	}
+
+	if (!existe) {
+		carro.push(infoP);
+		// localStorage.setItem("carrito", carro);
+		console.log(carro);
+
+		localStorage.setItem("carrito", JSON.stringify(carro));
+		console.log("Se agrego al carrito");
+		document.getElementById("sucssCart").classList.remove("hide");
+
+		setTimeout(function () {
+			document.getElementById("sucssCart").classList.add("hide");
+		}, 3000);
+	} else {
+		document.getElementById("alreadyCart").classList.remove("hide");
+
+		setTimeout(function () {
+			document.getElementById("alreadyCart").classList.add("hide");
+		}, 3000);
+	}
 }
 
 //agrego imagenes al carrusel
@@ -138,9 +157,9 @@ function mostrarInfo() {
         <p>${infoProd.soldCount}</p>
 		<b>Precio: </b>
         <p>${infoProd.currency} ${infoProd.cost}</p>
-		<button type="button" class="btn btn-primary" onclick="addCart()">Comprar</button>
+		<button type="button" class="btn btn-primary" onclick="addCart(${infoProd.id})">Comprar</button>
 	
-		<button type="button" class="btn btn-dark" onclick="goToCart()"><i class="fas fa-shopping-cart"></i></button>
+		<a href="cart.html" class="btn btn-dark" onclick="goToCart()"><i class="fas fa-shopping-cart"></i></a>
 		</div>
 		</div>
         
@@ -372,12 +391,12 @@ function addComent() {
 		if (document.getElementById("userCom")) {
 			o = false;
 			s = false;
-			document.getElementById("alerta").classList.remove("hide");
+			document.getElementById("alreadyCom").classList.remove("hide");
 			document.getElementById("opinion").value = "";
 			puntuar(0);
 
 			setTimeout(function () {
-				document.getElementById("alerta").classList.add("hide");
+				document.getElementById("alreadyCom").classList.add("hide");
 			}, 2000);
 		} else {
 			ok = true;
