@@ -1,3 +1,4 @@
+let total = [];
 const dltCart = (u) => {
 	let dltcarro = JSON.parse(localStorage.getItem("carrito"));
 	// console.log(dltcarro[u]);
@@ -8,14 +9,13 @@ const dltCart = (u) => {
 };
 const verCarro = () => {
 	let articulos = JSON.parse(localStorage.getItem("carrito"));
-	console.log(articulos[0]);
 	// let articulo = articulos[0];
 
 	if (!articulos[0]) {
 		document.getElementById("carrito").innerHTML = `
             <div id="titulo" class=" mt-3 text-center">
             <h2 class="">Carrito de compras</h2>
-            <h4 class="mt-4 ">No hay productos</h4>
+            <p class="fs-4 mt-4 ">No hay productos</p>
         </div>
         `;
 	} else {
@@ -24,7 +24,7 @@ const verCarro = () => {
 		contenido = `
         <div id="titulo" class=" mt-3 text-center">
             <h2 class="">Carrito de compras</h2>
-            <h4 class="mt-4 ">Articulos a comprar</h4>
+            <p class="fs-4 mt-4 ">Articulos a comprar</p>
         </div>
         <div class="d-flex justify-content-between">
             <table id='carritoInfo'class=" w-100 text-center">
@@ -42,33 +42,44 @@ const verCarro = () => {
             </table>
         </div>
         <div class="mt-3 d-flex flex-row justify-content-evenly">
-
-            <div class="column">
-            <h4 class="mt-4">Tipo de envío</h4>
-                <div class="d-flex flex-column">
+        
+            <div class="col-3">
+            <p class="fs-4 mt-4">Tipo de envío</p>
+                <div class="mt-3">
                     <div class="p-2"><input type="radio" name="envio" id="premium" class="me-2" value="15"></input><label for="premium"> Premium 2 a 5 días (15%)</label></div>
                     <div class="p-2"><input type="radio" name="envio" id="express" class="me-2" value="7"></input><label for="express"> Express 5 a 8 días (7%)</label></div>
                     <div class="p-2"><input type="radio" name="envio" id="standar" class="me-2" value="5"></input><label for="standar"> Standar 12 a 15 días (5%)</label></div>
                 </div>
             </div>
                 
-            <div class="">
-                <h4 class="mt-4">Dirección de envío</h4> 
+            <div class="col-6">
+                <p class="fs-4 mt-4">Dirección de envío</p> 
                 <div class="row">
                     
-                    <div class="mb-3 col-md-9">
+                    <div class="mb-3 ">
                         <label for="calle" class="form-label">Calle</label>
                         <input type="text" class="form-control" id="calle">
                     </div>
-                    <div class="mb-3 col-md-3">
-                        <label for="puerta" class="form-label">Número</label>
-                        <input type="number" class="form-control" id="puerta">
-                    </div>
-                    <div class="mb-3 col-md-9">
+                    <div class="mb-3 col-6">
                         <label for="esq" class="form-label">Esquina</label>
                         <input type="text" class="form-control" id="esq">
                     </div>
+                    <div class="mb-3 col-6">
+                        <label for="puerta" class="form-label">Número</label>
+                        <input type="number" class="form-control" id="puerta">
+                    </div>
                 </div>
+            </div>
+             <div id="total" class="col-3 ms-3">
+            <p class="fs-4 mt-4 borde-btm">Total</p>
+            <div class="row">
+                <div class="col">
+                    <div class="p-2"><input type="radio" name="total" id="usd" class="me-2" value="usd" checked></input><label for="usd"> USD</label></div>
+                    <div class="p-2"><input type="radio" name="total" id="uyu" class="me-2" value="uyu"></input><label for="uyu"> UYU</label></div>
+                </div>
+                <div>
+                </div>
+            </div>
             </div>
         </div>
     `;
@@ -76,10 +87,17 @@ const verCarro = () => {
 
 		let carrito = "";
 
-		console.log(articulos);
 		for (let i = 0; i < articulos.length; i++) {
 			let element = articulos[i];
 			let subtotal = element.unitCost;
+			let precios = {
+				id: element.id,
+				cantidad: 1,
+				precio: subtotal,
+				moneda: element.currency,
+			};
+
+			total.push(precios);
 			// if (element.currency == "USD") {
 			// 	console.log(element.currency);
 			carrito += `<tr class="borde-btm" id="compra_${i + 1}">
@@ -115,10 +133,35 @@ const verCarro = () => {
 					subtotales = parseInt(inputCant.value * p.unitCost);
 					sub.innerHTML = ` ${subtotales}`;
 					console.log(parseInt(sub.innerText));
+					total[i].cantidad = parseInt(inputCant.value);
+					total[i].precio = subtotales;
+					console.log(total);
 				}
 			});
 		}
+		console.log(total);
 	}
+};
+
+const calcTotal = () => {
+	let inputUY = uyu;
+
+	let moneda = "USD";
+	const dolar = 40.97;
+	let precio = 0;
+	// console.log(moneda);
+	for (let i = 0; i < total.length; i++) {
+		const element = total[i];
+		if (element.moneda == "UYU") {
+			console.log(element.moneda);
+			precio += Math.ceil(element.precio / dolar);
+			console.log(precio);
+			// console.log("USD");
+		} else {
+			precio += element.precio;
+		}
+	}
+	document.getElementById("total").innerHTML += `<b>${moneda} ${precio}</b> `;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -126,4 +169,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	localStorage.getItem("carrito");
 
 	verCarro();
+	calcTotal();
 });
