@@ -1,5 +1,8 @@
 let total = [];
-let price = 0;
+let price = {
+	moneda: "",
+	precio: "",
+};
 
 let moneda = "USD";
 const dltCart = (u) => {
@@ -195,46 +198,56 @@ function calcSubtotal() {
 
 	document.getElementById("moneda").innerText = `${moneda}`;
 	document.getElementById("subtotal").innerText = `${precioUSD.toFixed(2)}`;
-	price = precioUSD;
-	calcTotal();
+	price.moneda = moneda;
+	price.precio = precioUSD;
+	calcTotal(moneda);
 }
+console.log(price.precio);
 
-function calcTotal() {
+function calcTotal(m) {
 	let envio;
+	let precioTotal = document.getElementById("precioTotal");
+	let precioEnvio = document.getElementById("precioEnvio");
 	if (document.getElementById("premium").checked) {
-		envio = price * 0.15;
-		priceTotal = (price + parseInt(envio)).toFixed(2);
+		envio = price.precio * 0.15;
+		priceTotal = (parseInt(price.precio) + parseInt(envio)).toFixed(2);
 		// console.log(envio);
-		document.getElementById("precioTotal").innerHTML = "";
+		precioTotal.innerHTML = "";
 		document.getElementById("env").innerText = "15%";
-		document.getElementById("precioTotal").innerHTML = `
+		precioTotal.innerHTML = `
+		<p id="precioTotal" class="fw-bold"> ${price.moneda}
 		${priceTotal}
+		</p>
 		`;
-		document.getElementById("precioEnvio").innerHTML = `${envio.toFixed(2)}`;
+		precioEnvio.innerHTML = `${envio.toFixed(2)}`;
 	}
 	if (document.getElementById("express").checked) {
 		// total = price + envio;
 
-		envio = price * 0.07;
-		priceTotal = (price + parseInt(envio)).toFixed(2);
-		document.getElementById("precioTotal").innerHTML = "";
+		envio = price.precio * 0.07;
+		priceTotal = (parseInt(price.precio) + parseInt(envio)).toFixed(2);
+		precioTotal.innerHTML = "";
 		document.getElementById("env").innerText = "7%";
-		document.getElementById("precioTotal").innerHTML = `
+		precioTotal.innerHTML = `
+		<p id="precioTotal" class="fw-bold"> ${price.moneda}
 		${priceTotal}
+		</p>
 		`;
-		document.getElementById("precioEnvio").innerHTML = `${envio.toFixed(2)}`;
+		precioEnvio.innerHTML = `${envio.toFixed(2)}`;
 	}
 	if (document.getElementById("standar").checked) {
 		// total = price + envio;
 
-		envio = price * 0.05;
-		priceTotal = (price + parseInt(envio)).toFixed(2);
-		document.getElementById("precioTotal").innerHTML = "";
+		envio = price.precio * 0.05;
+		priceTotal = (parseInt(price.precio) + parseInt(envio)).toFixed(2);
+		precioTotal.innerHTML = "";
 		document.getElementById("env").innerText = "5%";
-		document.getElementById("precioTotal").innerHTML = `
+		precioTotal.innerHTML = `
+		<p id="precioTotal" class="fw-bold"> ${price.moneda}
 		${priceTotal}
+		</p>
 		`;
-		document.getElementById("precioEnvio").innerHTML = `${envio.toFixed(2)}`;
+		precioEnvio.innerHTML = `${envio.toFixed(2)}`;
 	}
 }
 
