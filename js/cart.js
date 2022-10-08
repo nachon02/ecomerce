@@ -1,8 +1,12 @@
 let total = [];
+let price = 0;
+
+let moneda = "USD";
 const dltCart = (u) => {
 	let dltcarro = JSON.parse(localStorage.getItem("carrito"));
-	// console.log(dltcarro[u]);
-	dltcarro.pop(u);
+
+	dltcarro.splice(u, 1);
+
 	localStorage.setItem("carrito", JSON.stringify(dltcarro));
 
 	location.reload();
@@ -16,6 +20,7 @@ const verCarro = () => {
             <div id="titulo" class=" mt-3 text-center">
             <h2 class="">Carrito de compras</h2>
             <p class="fs-4 mt-4 ">No hay productos</p>
+                <a href="categories.html">Volver a comprar</a>
         </div>
         `;
 	} else {
@@ -46,9 +51,9 @@ const verCarro = () => {
             <div class="col-3">
             <p class="fs-4 mt-4">Tipo de envío</p>
                 <div class="mt-3">
-                    <div class="p-2"><input type="radio" name="envio" id="premium" class="me-2" value="15"></input><label for="premium"> Premium 2 a 5 días (15%)</label></div>
-                    <div class="p-2"><input type="radio" name="envio" id="express" class="me-2" value="7"></input><label for="express"> Express 5 a 8 días (7%)</label></div>
-                    <div class="p-2"><input type="radio" name="envio" id="standar" class="me-2" value="5"></input><label for="standar"> Standar 12 a 15 días (5%)</label></div>
+                    <div class="p-2"><input type="radio" name="envio" onclick="calcTotal()" id="premium" class="me-2" value="15"></input><label for="premium"> Premium 2 a 5 días (15%)</label></div>
+                    <div class="p-2"><input type="radio" name="envio" onclick="calcTotal()" id="express" class="me-2" value="7"></input><label for="express"> Express 5 a 8 días (7%)</label></div>
+                    <div class="p-2"><input type="radio" name="envio" onclick="calcTotal()" id="standar" class="me-2" value="5"></input><label for="standar"> Standar 12 a 15 días (5%)</label></div>
                 </div>
             </div>
                 
@@ -71,15 +76,37 @@ const verCarro = () => {
                 </div>
             </div>
              <div id="total" class="col-3 ms-3">
-            <p class="fs-4 mt-4 borde-btm">Total</p>
-            <div class="row">
-                <div class="col">
-                    <div class="p-2"><input type="radio" name="total" id="usd" class="me-2" value="usd" checked></input><label for="usd"> USD</label></div>
-                    <div class="p-2"><input type="radio" name="total" id="uyu" class="me-2" value="uyu"></input><label for="uyu"> UYU</label></div>
-                </div>
-                <div>
+				<p class="fs-4 mt-4 borde-btm">Compra</p>
+				<div class="row">
+					<div class="col">
+					<b>Moneda: </b>
+						<div class=""><input type="radio" onclick="calcSubtotal()" name="total" id="usd" class="me-2" value="usd" checked></input><label for="usd"> USD
+						</label></div>
+						<div class=""><input type="radio" onclick="calcSubtotal()" name="total" id="uyu" class="me-2" value="uyu"></input><label for="uyu"> UYU</label>
+						</div>
+					</div>
+					<div class="col">
+						<b >Subtotal: </b> 
+						<div class="row mt-2">
+						<p class="col-4" id="moneda"></p><p class="col-8" id="subtotal"></p> 
+						</div>
+						<div class="row mt-2">
+						 <p class="col-6 fw-bold">Envio: </p> <p class="col-6" id="env"></p>
+						</div>
+						
+						<div class="row mt-2">
+						<p class="col-4" id="precioEnvio"></p>  
+						</div>
+						
+					</div>
+						
+					<div>
                 </div>
             </div>
+			<div>
+				<p class="fs-4  borde-btm">Total</p>
+				<p id="precioTotal" class="fw-bold text-center text-danger">Seleccione el tipo de envio</p>
+			</div>
             </div>
         </div>
     `;
@@ -99,28 +126,19 @@ const verCarro = () => {
 
 			total.push(precios);
 			// if (element.currency == "USD") {
-			// 	console.log(element.currency);
+			// 	urrency);
 			carrito += `<tr class="borde-btm" id="compra_${i + 1}">
     <td class="tbImg"><img src="${element.image}" width="100px" class="my-2"></td>
     <td>${element.name}</td>
     <td>${element.currency} ${element.unitCost}</td>
-    <td><input type="number" id="inputCant_${i + 1}" value="${1}" class='cantidad' min="1"></input> </td>
+    <td><input type="number" id="inputCant_${
+			i + 1
+		}" value="${1}" onclick="calcSubtotal()" class='cantidad' min="1"></input> </td>
     <td><b moneda="${element.currency}">${element.currency} <span id='subtotal_${i + 1}'>${subtotal}</span></b></td>
     <td class="dltCart" onclick="dltCart(${i})"><i class="fas fa-trash-alt"></i></i></td>
   </tr>`;
-			// }
-
-			// 		carrito += `<tr class="borde-btm" id="compra_${i + 1}">
-			//     <td><img src="${element.image}" width="100px" class="my-2"></td>
-			//     <td>${element.name}</td>
-			//     <td>${element.currency} ${element.unitCost}</td>
-			//     <td><input type="number" id="inputCant_${i + 1}" value="1" class='cantidad' min="1"></input> </td>
-			//     <td><b id='subtotal_${i + 1}'>${element.currency} ${subtotal}</b></td>
-			//   </tr>
-
-			//   `;
 		}
-		// console.log(carrito);
+
 		document.getElementById("carritoInfo").innerHTML += carrito;
 
 		for (let i = 0; i < articulos.length; i++) {
@@ -129,45 +147,99 @@ const verCarro = () => {
 			let sub = document.getElementById("subtotal_" + (i + 1));
 			inputCant.addEventListener("input", () => {
 				if (inputCant.value >= 1) {
-					console.log(inputCant.value);
 					subtotales = parseInt(inputCant.value * p.unitCost);
 					sub.innerHTML = ` ${subtotales}`;
-					console.log(parseInt(sub.innerText));
 					total[i].cantidad = parseInt(inputCant.value);
 					total[i].precio = subtotales;
-					console.log(total);
 				}
 			});
 		}
-		console.log(total);
 	}
 };
 
-const calcTotal = () => {
-	let inputUY = uyu;
-
-	let moneda = "USD";
+function calcSubtotal() {
 	const dolar = 40.97;
 	let precio = 0;
-	// console.log(moneda);
-	for (let i = 0; i < total.length; i++) {
-		const element = total[i];
-		if (element.moneda == "UYU") {
-			console.log(element.moneda);
-			precio += Math.ceil(element.precio / dolar);
-			console.log(precio);
-			// console.log("USD");
-		} else {
-			precio += element.precio;
+	let precioUSD = 0;
+	let moneda;
+	let tipo;
+	document.getElementById("subtotal").innerText = "";
+	if (document.getElementById("uyu").checked) {
+		moneda = "UYU";
+		for (let i = 0; i < total.length; i++) {
+			const element = total[i];
+			tipo = element.moneda;
+
+			if (tipo == "UYU") {
+				precioUSD += element.precio;
+			} else {
+				precio += element.precio * dolar;
+				precioUSD += precio;
+			}
 		}
 	}
-	document.getElementById("total").innerHTML += `<b>${moneda} ${precio}</b> `;
-};
+	if (document.getElementById("usd").checked) {
+		moneda = "USD";
+		for (let i = 0; i < total.length; i++) {
+			const element = total[i];
+			tipo = element.moneda;
+
+			if (tipo == "USD") {
+				precioUSD += element.precio;
+			} else {
+				precio += element.precio / dolar;
+				precioUSD += precio;
+			}
+		}
+	}
+
+	document.getElementById("moneda").innerText = `${moneda}`;
+	document.getElementById("subtotal").innerText = `${precioUSD.toFixed(2)}`;
+	price = precioUSD;
+	calcTotal();
+}
+
+function calcTotal() {
+	let envio;
+	if (document.getElementById("premium").checked) {
+		envio = price * 0.15;
+		priceTotal = (price + parseInt(envio)).toFixed(2);
+		// console.log(envio);
+		document.getElementById("precioTotal").innerHTML = "";
+		document.getElementById("env").innerText = "15%";
+		document.getElementById("precioTotal").innerHTML = `
+		${priceTotal}
+		`;
+		document.getElementById("precioEnvio").innerHTML = `${envio.toFixed(2)}`;
+	}
+	if (document.getElementById("express").checked) {
+		// total = price + envio;
+
+		envio = price * 0.07;
+		priceTotal = (price + parseInt(envio)).toFixed(2);
+		document.getElementById("precioTotal").innerHTML = "";
+		document.getElementById("env").innerText = "7%";
+		document.getElementById("precioTotal").innerHTML = `
+		${priceTotal}
+		`;
+		document.getElementById("precioEnvio").innerHTML = `${envio.toFixed(2)}`;
+	}
+	if (document.getElementById("standar").checked) {
+		// total = price + envio;
+
+		envio = price * 0.05;
+		priceTotal = (price + parseInt(envio)).toFixed(2);
+		document.getElementById("precioTotal").innerHTML = "";
+		document.getElementById("env").innerText = "5%";
+		document.getElementById("precioTotal").innerHTML = `
+		${priceTotal}
+		`;
+		document.getElementById("precioEnvio").innerHTML = `${envio.toFixed(2)}`;
+	}
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-	// console.log(articles);
 	localStorage.getItem("carrito");
-
 	verCarro();
-	calcTotal();
+	calcSubtotal();
 });
