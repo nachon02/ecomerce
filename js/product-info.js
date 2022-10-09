@@ -268,8 +268,6 @@ function filtroCom(o) {
 			min = 3;
 			mostrarComm();
 			break;
-		default:
-			break;
 	}
 }
 
