@@ -12,7 +12,8 @@ const dltCart = (u) => {
 
 	localStorage.setItem("carrito", JSON.stringify(dltcarro));
 
-	verCarro();
+	location.reload();
+	// verCarro();
 };
 const verCarro = () => {
 	let articulos = JSON.parse(localStorage.getItem("carrito"));
