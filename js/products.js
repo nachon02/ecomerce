@@ -7,7 +7,78 @@ let pMin = undefined;
 let pMax = undefined;
 let buscarVal = undefined;
 
-/* Sorting the array by the criteria that is passed as a parameter. */
+let carro = JSON.parse(localStorage.getItem("carrito"));
+let infoP = {
+	id: "",
+	name: "",
+	count: 1,
+	unitCost: "",
+	currency: "",
+	image: "",
+};
+
+function addCart(id) {
+	let existe = false;
+
+	let este = false;
+	let j;
+
+	for (let i = 0; i < listaProductos.length; i++) {
+		j = i;
+		const element = listaProductos[i];
+		if (element.id == id) {
+			este = true;
+			console.log("este es " + element.name);
+
+			infoP.id = parseInt(element.id);
+			infoP.unitCost = parseInt(element.cost);
+			infoP.name = element.name;
+			infoP.image = element.image;
+			infoP.currency = element.currency;
+			infoP.count = 1;
+		}
+	}
+
+	for (let i = 0; i < carro.length; i++) {
+		const p = carro[i];
+		if (id == p.id) {
+			console.log(id + " " + p.id);
+			existe = true;
+			console.log(p.name + " holas");
+			console.log(carro);
+			console.log(p);
+		}
+	}
+
+	if (!existe) {
+		carro.push(infoP);
+		// localStorage.setItem("carrito", carro);
+		console.log(carro);
+
+		localStorage.setItem("carrito", JSON.stringify(carro));
+		console.log("Se agrego al carrito");
+		document.getElementById("sucssCart").classList.remove("hide");
+		carro = JSON.parse(localStorage.getItem("carrito"));
+
+		setTimeout(function () {
+			document.getElementById("sucssCart").classList.add("hide");
+		}, 3000);
+	} else {
+		// existe = false;
+
+		// cantidad = infoP.count;
+		// cantidad += 1;
+		// console.log(cantidad);
+		// infoP.count += 1;
+		document.getElementById("alreadyCart").classList.remove("hide");
+		setTimeout(function () {
+			document.getElementById("alreadyCart").classList.add("hide");
+		}, 3000);
+	}
+	// localStorage.setItem("carrito", JSON.stringify(carro));
+	// console.log(j);
+}
+
 function ordenarArray(criterio, array) {
 	let arrayOrdenado = [];
 	if (criterio === asc) {
@@ -75,24 +146,36 @@ function verProductos() {
 					(buscarVal != undefined && product.name.toLowerCase().includes(buscarVal)) ||
 					product.description.toLowerCase().includes(buscarVal))
 			) {
-				// console.log(product.id);
 				contenido += `
         
-        <div onclick="setProdID(${product.id})" class="list-group-item list-group-item-action cursor-active">
+        <div  class="list-group-item list-group-item-action cursor-active">
             
             <div class="row">
-                <div class="col-3">
-                    <img src=${product.image} alt="Imagen de ${product.name}" class="p-0 img-thumbnail">                    
+                <div class="col-3" onclick="setProdID(${product.id})">
+                    <img id="img_p${i + 1}"src=${product.image} alt="Imagen de ${
+					product.name
+				}" class="p-0 img-thumbnail">                    
                 </div>
-                <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
+                <div class="col-7" onclick="setProdID(${product.id})">
+                        
                             <div class="mb-1">
                                 <h4>${product.name} - ${product.currency} ${product.cost} </h4> 
                                 <p mb-1=""> ${product.description} </p> 
-                            </div>
-                            <small class="text-muted">${product.soldCount} vendidos</small> 
+                            
+                            
                         </div>
                     </div>
+					<div class="col-2 text-end">
+
+					<div class="row">
+					<small class="text-muted">${product.soldCount} vendidos</small> 
+					</div>
+
+					<div class="row mt-100">
+					<button type="button" class="btn btn-dark btn-sm buy" onclick="addCart(${product.id})">Comprar</button>
+					</div>
+							
+					</div>
             </div>
         </div>
         `;

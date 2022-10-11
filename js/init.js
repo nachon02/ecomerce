@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </button>
         <div class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="userMenu">
             <a class="dropdown-item" href="my-profile.html">Perfil</a>
-            <a class="dropdown-item" href="cart.html">Ver Carrito <i class="fas fa-shopping-cart"></i></a>
+            <a class="dropdown-item" href="cart.html">Ver Carrito </a>
             <p class="dropdown-item text-danger cursor-active mb-0" href="#" onclick="out()">Cerrar Sesion</p>
         </div>
         `;

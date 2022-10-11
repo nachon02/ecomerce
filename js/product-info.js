@@ -5,7 +5,7 @@ let carro = JSON.parse(localStorage.getItem("carrito"));
 let infoP = {
 	id: "",
 	name: "",
-	count: "",
+	count: 1,
 	unitCost: "",
 	currency: "",
 	image: "",
@@ -40,7 +40,6 @@ function addCart(id) {
 		}, 3000);
 	} else {
 		document.getElementById("alreadyCart").classList.remove("hide");
-
 		setTimeout(function () {
 			document.getElementById("alreadyCart").classList.add("hide");
 		}, 3000);
@@ -136,7 +135,7 @@ function mostrarInfo() {
 	infoP.name = infoProd.name;
 	infoP.image = infoProd.images[0];
 	infoP.currency = infoProd.currency;
-	infoP.count = parseInt(infoProd.soldCount);
+	// infoP.count = parseInt(infoProd.soldCount);
 
 	let info = "";
 	let imagenes = "";

@@ -91,15 +91,15 @@ const verCarro = () => {
 					</div>
 					<div class="col">
 						<b >Subtotal: </b> 
-						<div class="row mt-2 justify-content-between">
-						<p class="col-3" id="moneda"></p><p class="col-7" id="subtotal"></p> 
+						<div class="row justify-content-between precio">
+						<p class="col-3" id="moneda"></p><p class="col-7 " id="subtotal"></p> 
 						</div>
-						<div class="row mt-2">
+						<div class="row">
 						 <p class="col-6 fw-bold">Envio: </p> 
 						</div>
 						
 						<div class="row mt-2">
-						<p class="col" id="precioEnvio"></p>  
+						<p class="col precio" id="precioEnvio"></p>  
 						</div>
 						
 					</div>
@@ -109,7 +109,7 @@ const verCarro = () => {
             </div>
 			<div>
 				<p class="fs-4  borde-btm">Total</p>
-				<p id="precioTotal" class="fw-bold">Seleccione el tipo de envio</p>
+				<p id="precioTotal" class="fw-bold precio">Seleccione el tipo de envio</p>
 			</div>
             </div>
         </div>
@@ -135,9 +135,9 @@ const verCarro = () => {
     <td class="tbImg"><img src="${element.image}" width="100px" class="my-2"></td>
     <td>${element.name}</td>
     <td>${element.currency} ${element.unitCost}</td>
-    <td><input type="number" id="inputCant_${
-			i + 1
-		}" value="${1}" onclick="calcSubtotal()" class='cantidad' min="1"></input> </td>
+    <td><input type="number" id="inputCant_${i + 1}" value="${
+				element.count
+			}" onclick="calcSubtotal()" class='cantidad' min="1"></input> </td>
     <td><b moneda="${element.currency}">${element.currency} <span id='subtotal_${i + 1}'>${subtotal}</span></b></td>
     <td class="dltCart" onclick="dltCart(${i})"><i class="fas fa-trash-alt"></i></i></td>
   </tr>`;

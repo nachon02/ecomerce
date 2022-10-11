@@ -308,3 +308,20 @@ table img {
   padding-left: 0px;
 
 }
+
+.precio {
+  font-family: system-ui;
+}
+
+.mt-100 {
+  margin-top: 125px;
+}
+
+.alert {
+  z-index: 50;
+}
+
+.buy:hover {
+  background-color: rgb(13, 110, 253);
+  border-color: rgb(13, 110, 253);
+}
