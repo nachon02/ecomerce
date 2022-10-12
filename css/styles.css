@@ -356,8 +356,9 @@ table img {
 }
 
 #carouselExampleIndicators {
-  width: 600px;
+  width: 700px;
   padding-bottom: 15px;
+  padding-top: 15px;
 }
 
 #btn-comprar {
@@ -387,8 +388,8 @@ table img {
   margin: 0 8px 0 9px;
 }
 
-/* @media (min-width: 1200px) {
+@media (min-width: 1200px) {
   #carouselExampleIndicators {
-    width: 500px;
+    width: 600px;
   }
-} */
+}
