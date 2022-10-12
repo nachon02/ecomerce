@@ -179,7 +179,7 @@ function mostrarInfo() {
 			// <a href="cart.html" class="btn btn-dark" onclick="goToCart()"><i class="fas fa-shopping-cart"></i></a>
 
 			`
-			<div>
+			<div class="col">
 			
 			<div class=" mb-3 ">
 
@@ -188,12 +188,12 @@ function mostrarInfo() {
 				<input type="number" class="form-control" placeholder="Cantidad" id="cantidad" value="1" min="1">
 			
 			</div>
-			<div class="d-grid gap-2 col-6 mx-auto w-300">
+			<div class="row">
 				
-					<button class="btn btn btn-primary" type="button" onclick="addCart(${infoProd.id})">Comprar</button>
+					<button class="btn btn-primary col-5 gap-2" type="button" id="btn-buy" onclick="addCart(${infoProd.id})">Comprar</button>
 				
 				
-					<a href="cart.html" class="btn btn btn-dark" ><i class="fas fa-shopping-cart"></i></a>
+					<a href="cart.html" class="btn btn btn-cart col-6" >Ver Carrito<i class="fas fa-shopping-cart"></i></a>
 				
 			</div>
 

@@ -356,7 +356,7 @@ table img {
 }
 
 #carouselExampleIndicators {
-  width: 700px;
+  width: 600px;
   padding-bottom: 15px;
 }
 
@@ -382,3 +382,13 @@ table img {
   background-color: #D9E7FA;
   color: #3483fa;
 }
+
+#btn-buy {
+  margin: 0 8px 0 9px;
+}
+
+/* @media (min-width: 1200px) {
+  #carouselExampleIndicators {
+    width: 500px;
+  }
+} */

@@ -123,7 +123,7 @@ const verCarro = () => {
 			let subtotal = element.unitCost;
 			let precios = {
 				id: element.id,
-				cantidad: 1,
+				cantidad: element.count,
 				precio: subtotal,
 				moneda: element.currency,
 			};
@@ -138,7 +138,9 @@ const verCarro = () => {
     <td><input type="number" id="inputCant_${i + 1}" value="${
 				element.count
 			}" onclick="calcSubtotal()" class='cantidad' min="1"></input> </td>
-    <td><b moneda="${element.currency}">${element.currency} <span id='subtotal_${i + 1}'>${subtotal}</span></b></td>
+    <td><b moneda="${element.currency}">${element.currency} <span id='subtotal_${i + 1}'>${
+				subtotal * element.count
+			}</span></b></td>
     <td class="dltCart" onclick="dltCart(${i})"><i class="fas fa-trash-alt"></i></i></td>
   </tr>`;
 		}
@@ -148,7 +150,14 @@ const verCarro = () => {
 		for (let i = 0; i < articulos.length; i++) {
 			let p = articulos[i];
 			let inputCant = document.getElementById("inputCant_" + (i + 1));
+			console.log(inputCant.value);
 			let sub = document.getElementById("subtotal_" + (i + 1));
+
+			subtotales = parseInt(inputCant.value * p.unitCost);
+			sub.innerHTML = ` ${subtotales}`;
+			total[i].cantidad = parseInt(inputCant.value);
+			total[i].precio = subtotales;
+
 			inputCant.addEventListener("input", () => {
 				if (inputCant.value >= 1) {
 					subtotales = parseInt(inputCant.value * p.unitCost);
@@ -159,10 +168,10 @@ const verCarro = () => {
 			});
 		}
 	}
-	calcSubtotal(0);
+	calcSubtotal();
 };
 
-function calcSubtotal(n) {
+function calcSubtotal() {
 	const dolar = 40.97;
 	let precio = 0;
 	let precioUSD = 0;
@@ -180,6 +189,7 @@ function calcSubtotal(n) {
 
 			if (tipo == "UYU") {
 				precioUSD += element.precio;
+				console.log(precioUSD);
 			} else {
 				precio += element.precio * dolar;
 				precioUSD += precio;
