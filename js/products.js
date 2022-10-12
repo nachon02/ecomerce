@@ -172,7 +172,7 @@ function verProductos() {
 					</div>
 
 					<div class="row mt-100">
-					<button type="button" class="btn btn-dark btn-sm buy" onclick="addCart(${product.id})">Comprar</button>
+					<button type="button" class="btn btn-cart btn-sm" onclick="addCart(${product.id})">Comprar</button>
 					</div>
 							
 					</div>
