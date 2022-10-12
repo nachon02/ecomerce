@@ -325,3 +325,60 @@ table img {
   background-color: rgb(13, 110, 253);
   border-color: rgb(13, 110, 253);
 }
+
+.w-300 {
+  width: 300px;
+}
+
+.mt-180 {
+  margin-top: 180px;
+}
+
+.lh-3 {
+  line-height: 3.2;
+}
+
+.img-car {
+
+  height: 115px;
+  margin-top: 7px;
+  object-fit: scale-down;
+  cursor: pointer;
+}
+
+.img-car:nth-child(1) {
+  margin-top: 0;
+}
+
+.img-car:hover {
+  background-color: rgba(65, 137, 230, .15);
+  filter: saturate(130%)
+}
+
+#carouselExampleIndicators {
+  width: 700px;
+  padding-bottom: 15px;
+}
+
+#btn-comprar {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  transition: background-color .2s ease-out;
+}
+
+#btn-comprar:hover {
+  color: #fff;
+  background-color: #2968C8;
+}
+
+.btn-cart {
+  background-color: rgba(65, 137, 230, .15);
+  color: #3483fa;
+  transition: background-color .2s ease-out;
+}
+
+.btn-cart:hover {
+  background-color: #D9E7FA;
+  color: #3483fa;
+}

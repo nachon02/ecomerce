@@ -27,6 +27,7 @@ function addCart(id) {
 	}
 
 	if (!existe) {
+		infoP.count = document.getElementById("cantidad").value;
 		carro.push(infoP);
 		// localStorage.setItem("carrito", carro);
 		console.log(carro);
@@ -82,13 +83,17 @@ function carruselBtn() {
 		let imagen = infoProd.images[i];
 		if (i == 0) {
 			buttons += `
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}" aria-label="Slide 1" class="active" aria-current="true"></button>
+        
+		<img src="${imagen}" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+            aria-label="Slide 1" class="img-car img-thumbnail img-car__active" aria-current="true" alt="Imagen de ${infoProd.name} ${i}"></img>
         `;
 		} else {
 			buttons += `
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}" aria-label="Slide ${
-				i + 1
-			}" class="" ></button>
+
+			<img src="${imagen}" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}"
+            aria-label="Slide ${i + 1}" class="img-car img-thumbnail" aria-current="true" alt="Imagen de ${
+				infoProd.name
+			} ${i + 1}"></img>
         `;
 		}
 	}
@@ -100,30 +105,30 @@ function carrusel() {
 
 	carrusel +=
 		`
-    <div class='d-flex justify-content-center'>
-                <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="true">
-                    <div id='carousel_buttons'class="carousel-indicators">
-                       ` +
-		carruselBtn() +
-		`
-                    </div>
-                    <div id='carousel_images'class="carousel-inner">
+		<div class="row">
+			<div class="col-10">
+				<div class='d-flex justify-content-center'>
+						<div id="carouselExampleIndicators" class="carousel carousel-dark slide container border rounded" data-bs-ride="true">
+							
+							<div id='carousel_images'class="carousel-inner">
 
-                     ` +
+							` +
 		carruselImg() +
 		`
-                        
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon flechas" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                        <span class="carousel-control-next-icon flechas" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
+							
+						</div>
+						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon flechas" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+							<span class="carousel-control-next-icon flechas" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div>
+				</div>
+				</div>
+		</div>
     `;
 	document.getElementById("images").innerHTML += carrusel;
 }
@@ -140,25 +145,63 @@ function mostrarInfo() {
 	let info = "";
 	let imagenes = "";
 	if (infoProd.name != "") {
-		info += `
-        <div class="row">
-		<div id="images" class="col">        
-        </div>
+		info +=
+			`
 
-		<div class="col">
-		<h2 class="borde-btm">${infoProd.name}</h2>
-        <b>Descripcion: </b>
-        <p>${infoProd.description}</p>
-        <b>Categoria: </b>
-        <p>${infoProd.category}</p>
-        <b>Vendidos: </b>
-        <p>${infoProd.soldCount}</p>
-		<b>Precio: </b>
-        <p>${infoProd.currency} ${infoProd.cost}</p>
-		<button type="button" class="btn btn-primary" onclick="addCart(${infoProd.id})">Comprar</button>
-	
-		<a href="cart.html" class="btn btn-dark" onclick="goToCart()"><i class="fas fa-shopping-cart"></i></a>
-		</div>
+
+        <div class="row border rounded py-3 pe-3 bg-white">
+		<div class="col-3">` +
+			carruselBtn() +
+			`</div>
+		
+			<div id="images" class="col-6">        
+			</div>
+
+			<div class="col-3 container border rounded py-3">
+				<div class="row">
+					<small class="text-muted">
+					<a class="link-dark" href="products.html">
+					${infoProd.category}</a> | ${infoProd.soldCount} vendidos </small>
+				</div>
+				<div class="row">
+					<h1 class="borde-btm fs-3">${infoProd.name}</h1>
+				</div>
+			<div></div>
+			<div></div>
+			
+			
+			<p class="fs-2 lh-3">${infoProd.currency} ${infoProd.cost}</p>
+			<p class="fs-5">Descripcion: </p>
+				<p>${infoProd.description}</p>` +
+			//  <b>Vendidos: </b>
+
+			// <button type="button" class="btn btn-primary" onclick="addCart(${infoProd.id})">Comprar</button>
+			// <a href="cart.html" class="btn btn-dark" onclick="goToCart()"><i class="fas fa-shopping-cart"></i></a>
+
+			`
+			<div>
+			
+			<div class=" mb-3 ">
+
+			<label for="cantidad" class="form-label">Cantidad:</label>
+                        
+				<input type="number" class="form-control" placeholder="Cantidad" id="cantidad" value="1" min="1">
+			
+			</div>
+			<div class="d-grid gap-2 col-6 mx-auto w-300">
+				
+					<button class="btn btn btn-primary" type="button" onclick="addCart(${infoProd.id})">Comprar</button>
+				
+				
+					<a href="cart.html" class="btn btn btn-dark" ><i class="fas fa-shopping-cart"></i></a>
+				
+			</div>
+
+			</div>
+			
+		
+			</div>
+			
 		</div>
         
         
