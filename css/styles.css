@@ -388,7 +388,7 @@ table img {
   margin: 0 8px 0 9px;
 }
 
-@media (min-width: 1200px) {
+@media (max-width: 1400px) {
   #carouselExampleIndicators {
     width: 600px;
   }
