@@ -15,6 +15,12 @@ const dltCart = (u) => {
 	location.reload();
 	// verCarro();
 };
+function validaNumericos(event) {
+	if (event.charCode >= 48 && event.charCode <= 57) {
+		return true;
+	}
+	return false;
+}
 const verCarro = () => {
 	let articulos = JSON.parse(localStorage.getItem("carrito"));
 	// let articulo = articulos[0];
@@ -50,9 +56,9 @@ const verCarro = () => {
                 
             </table>
         </div>
-        <div class="mt-3 d-flex flex-row justify-content-evenly">
+        <div class="mt-3 row justify-content-evenly">
         
-            <div class="col-3">
+            <div class="col-lg-3 col-md-6 col-12">
             <p class="fs-4 mt-4">Tipo de envío</p>
                 <div class="mt-3">
                     <div class="p-2"><input type="radio" name="envio" onclick="calcTotal()" id="premium" class="me-2" value="15"></input><label for="premium"> Premium 2 a 5 días (15%)</label></div>
@@ -61,28 +67,28 @@ const verCarro = () => {
                 </div>
             </div>
                 
-            <div class="col-6">
+            <div class="col-lg-5 col-md-6 col-12  ">
                 <p class="fs-4 mt-4">Dirección de envío</p> 
                 <div class="row">
                     
                     <div class="mb-3 ">
                         <label for="calle" class="form-label">Calle</label>
-                        <input type="text" class="form-control" id="calle">
+                        <input type="text" required class="form-control" id="calle">
                     </div>
                     <div class="mb-3 col-6">
                         <label for="esq" class="form-label">Esquina</label>
-                        <input type="text" class="form-control" id="esq">
+                        <input type="text" required class="form-control" id="esq">
                     </div>
                     <div class="mb-3 col-6">
                         <label for="puerta" class="form-label">Número</label>
-                        <input type="number" class="form-control" id="puerta">
+                        <input type="number" required class="form-control" id="puerta">
                     </div>
                 </div>
             </div>
-             <div id="total" class="px-3 col-3 ms-3">
+             <div id="total" class="px-3 col-lg-3 col-md-12 col-12">
 				<p class="fs-4 mt-4 borde-btm">Compra</p>
 				<div class="row">
-					<div class="col-4">
+					<div class="col-lg-4 col-6">
 					<b>Moneda: </b>
 						<div class=""><input type="radio" onclick="calcSubtotal()" name="total" id="usd" class="me-2" value="usd" checked></input><label for="usd"> USD
 						</label></div>
@@ -110,11 +116,240 @@ const verCarro = () => {
 			<div>
 				<p class="fs-4  borde-btm">Total</p>
 				<p id="precioTotal" class="fw-bold precio">Seleccione el tipo de envio</p>
+				
 			</div>
+			<button type="submit" class="btn btn-primary w-100 mb-3"> Confirmar </button>
+
+			<div class="modal fade" id="payForm" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header borde-btm">
+					<h5 class="modal-title fw-bold" id="exampleModalLabel">Forma de pago</h5>
+					
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+				</div>
+				<div class="modal-body container">
+					<form class="row g-3 needs-validation container" novalidate>
+					<div class="form-check">
+							<input class="form-check-input" type="radio" name="payMetod" id="cardMetod" value="creditCard">
+							<label class="form-check-label" for="cardMetod">
+							Tarjeta de crédito
+							</label>
+						</div>
+						<hr>
+						<div class="col-md-8"> <label class="form-label" for="cardNumber">Número de tarjeta</label>
+							<input type="text" disabled class="form-control" id="cardNumber" onkeypress="return validaNumericos(event)" maxlength="16" required>
+							
+							<div class="invalid-feedback">
+							Tarjeta no valida...
+							</div>
+						</div>
+						<div class="col-md-4"> <label class="form-label" for="cardCode">Código de seg</label>
+							<input type="text" disabled class="form-control" id="cardCode" maxlength="3" onkeypress="return validaNumericos(event)"  required>
+							
+							<div class="invalid-feedback">
+							Tarjeta no valida...
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label" for="cardExpMonth">Vencimiento (MM/AA)</label>
+								<div class="input-group mb-3">	
+									<input type="text" disabled class="form-control" id="cardExpMonth" placeholder="Mes" value=""  maxlength="2" onkeypress="return validaNumericos(event)" required>
+									<span class="input-group-text">/</span>
+									<input type="text" class="form-control" id="cardExpYear" placeholder="Año" disabled  maxlength="2" onkeypress="return validaNumericos(event)" required>
+									
+									<div class="invalid-feedback">
+										Fecha de vencimiento invalida.
+									</div>
+							</div>
+						</div>
+
+
+						
+						
+
+						<div class="form-check mb-3">
+							<input type="radio" class="form-check-input" id="bankMetod" name="payMetod" required>
+							<label class="form-check-label" for="bankMetod">Transferencia bancaria</label>
+							<div class="invalid-feedback">More example invalid feedback text</div>
+						</div>
+						<hr>
+						<div class="col-md-8"> <label class="form-label" for="bankNumber">Número de cuenta</label>
+							<input type="text" disabled class="form-control" id="bankNumber" maxlength="16" onkeypress="return validaNumericos(event)" required>
+							
+							<div class="invalid-feedback">
+							Tarjeta no valida...
+							</div>
+						</div>
+						</form>
+										</div>
+							<div class="modal-footer">
+								
+								<button class="btn btn-primary" type="submit" id="modalButton" disabled >Guardar</button>
+								</div>
+							</div>
+						</div>
+						</div>
+				<div class="pay pb-3">
+				<p class="fs-4 borde-btm">Forma de pago</p>
+				<p  class=" mb-0"><span id="payAcc"> Forma de pago</span> <a href="#" id="paySelectButton" type="submit" class="link-primary" data-bs-toggle="modal" data-bs-target="#payForm"> Seleccionar </a></p>
+				
             </div>
+            </div>
+			
         </div>
     `;
+
 		document.getElementById("carrito").innerHTML = contenido;
+		paySelectButton.click(); //quitar luego
+
+		const radioCredit = document.getElementById("cardMetod");
+		const radioBank = document.getElementById("bankMetod");
+		const inputCardN = document.getElementById("cardNumber");
+		const inputCardCode = document.getElementById("cardCode");
+		const inputCardExpM = document.getElementById("cardExpMonth");
+		const inputCardExpY = document.getElementById("cardExpYear");
+		const modalButton = document.getElementById("modalButton");
+
+		const inputBankN = document.getElementById("bankNumber");
+
+		function clearInput(id) {
+			const elemento = document.getElementById(id);
+			elemento.classList.remove("is-invalid");
+			elemento.classList.remove("is-valid");
+
+			elemento.value = "";
+		}
+
+		function swapInputDisabled(element_id) {
+			const estado = document.getElementById(element_id).disabled;
+			document.getElementById(element_id).disabled = !estado;
+		}
+		function disableInput(element_id) {
+			document.getElementById(element_id).disabled = true;
+		}
+		function enableInput(element_id) {
+			document.getElementById(element_id).disabled = false;
+		}
+		let enabledB = false;
+		let enabledC = false;
+		radioCredit.addEventListener("click", () => {
+			if (!enabledC) {
+				enabledC = true;
+				enabledB = false;
+				disableInput("bankNumber");
+				disableInput("cardNumber");
+				disableInput("cardCode");
+				disableInput("cardExpMonth");
+				disableInput("cardExpYear");
+
+				swapInputDisabled("cardNumber");
+				swapInputDisabled("cardCode");
+				swapInputDisabled("cardExpMonth");
+				swapInputDisabled("cardExpYear");
+
+				clearInput("bankNumber");
+				enableInput("modalButton");
+			}
+		});
+
+		radioBank.addEventListener("click", () => {
+			if (!enabledB) {
+				enabledB = true;
+				enabledC = false;
+				enableInput("bankNumber");
+				disableInput("cardNumber");
+				disableInput("cardCode");
+				disableInput("cardExpMonth");
+				disableInput("cardExpYear");
+
+				clearInput("cardNumber");
+				clearInput("cardCode");
+				clearInput("cardExpMonth");
+				clearInput("cardExpYear");
+
+				enableInput("modalButton");
+			}
+		});
+		radioBank.click(); //quitar luego
+
+		function validInput(id, c = "correcto") {
+			let valid = "is-valid";
+			let invalid = "is-invalid";
+
+			const inp = document.getElementById(id);
+			const inpValue = document.getElementById(id).value;
+
+			if (!inp.disabled) {
+				if (c == "error") {
+					inp.classList.remove(valid);
+					inp.classList.add(invalid);
+				} else {
+					inp.classList.add(valid);
+					inp.classList.remove(invalid);
+				}
+			}
+		}
+
+		modalButton.addEventListener("click", (e) => {
+			e.preventDefault();
+			let nGc = 0;
+			let nGb = 0;
+			let greatCard = false;
+			let greatBank = false;
+
+			if (inputCardN.value.length < 4) {
+				validInput("cardNumber", "error");
+			} else {
+				validInput("cardNumber");
+				nGc += 1;
+			}
+			if (inputCardCode.value.length < 3) {
+				validInput("cardCode", "error");
+			} else {
+				validInput("cardCode");
+				nGc += 1;
+			}
+			if (inputCardExpM.value.length < 2 || inputCardExpM.value > 12) {
+				validInput("cardExpMonth", "error");
+			} else {
+				validInput("cardExpMonth");
+				nGc += 1;
+			}
+			if (inputCardExpY.value.length < 2 || inputCardExpY.value > 31) {
+				validInput("cardExpYear", "error");
+			} else {
+				validInput("cardExpYear");
+				nGc += 1;
+			}
+
+			//
+
+			if (inputBankN.value.length < 4) {
+				validInput("bankNumber", "error");
+			} else {
+				validInput("bankNumber");
+				greatBank = true;
+			}
+
+			if (nGc === 4) {
+				greatCard = true;
+			}
+
+			if (greatBank) {
+				let userPaymetod = {
+					user: "",
+					account: "",
+				};
+
+				// localStorage
+			}
+
+			if (greatCard || greatBank) {
+				console.log("Fin");
+			}
+		});
 
 		let carrito = "";
 
@@ -150,7 +385,6 @@ const verCarro = () => {
 		for (let i = 0; i < articulos.length; i++) {
 			let p = articulos[i];
 			let inputCant = document.getElementById("inputCant_" + (i + 1));
-			console.log(inputCant.value);
 			let sub = document.getElementById("subtotal_" + (i + 1));
 
 			subtotales = parseInt(inputCant.value * p.unitCost);
@@ -189,7 +423,6 @@ function calcSubtotal() {
 
 			if (tipo == "UYU") {
 				precioUSD += element.precio;
-				console.log(precioUSD);
 			} else {
 				precio += element.precio * dolar;
 				precioUSD += precio;
@@ -217,7 +450,6 @@ function calcSubtotal() {
 	price.precio = precioUSD;
 	calcTotal(moneda);
 }
-console.log(price.precio);
 
 function calcTotal(m) {
 	let envio;

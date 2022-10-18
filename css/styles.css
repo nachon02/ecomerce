@@ -393,3 +393,17 @@ table img {
     width: 600px;
   }
 }
+
+.pay {
+  background: linear-gradient(180deg, transparent 4%, #ccf);
+  border-radius: 12px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 0 6%;
+  margin: 0 -6%;
+}
+
+.modal-body input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

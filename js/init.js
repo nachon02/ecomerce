@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	let pass = localStorage.getItem("passOK");
 	let mail = localStorage.getItem("mailOK");
 
-	if (!pass || !mail) {
+	if (!pass || pass == "false") {
 		location.replace("login.html");
 	}
 });
