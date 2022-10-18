@@ -195,7 +195,7 @@ const verCarro = () => {
 						</div>
 				<div class="pb-3">
 				<p class="fs-4 borde-btm">Forma de pago</p>
-				<b class="mb-0" id="payB"></b><span id="paySpan" class="fst-italic">No ha seleccionado </span> <a href="#" id="paySelectButton" type="submit" class="link-primary" data-bs-toggle="modal" data-bs-target="#payForm"> Seleccionar </a> <a href="#" id="payDeleteButton"  class="link-danger" > Quitar </a>
+				<b class="mb-0" id="payB">No ha seleccionado </b><span id="paySpan" class="fst-italic"></span> <a href="#" id="paySelectButton" type="submit" class="link-primary" data-bs-toggle="modal" data-bs-target="#payForm"> Seleccionar </a> <a href="#" id="payDeleteButton"  class="link-danger" > Quitar </a>
 				
             </div>
 			<button type="submit" id="buyButton"class="btn btn-primary w-100 mb-3"> Finalizar compra </button>
@@ -446,28 +446,58 @@ const verCarro = () => {
 		});
 
 		buyButton.addEventListener("click", function () {
-			if (
-				(payObj.account || payObj.card) &&
-				(document.getElementById("premium").checked ||
-					document.getElementById("express").checked ||
-					document.getElementById("standar").checked) &&
-				document.getElementById("calle").value != "" &&
-				document.getElementById("esq").value != "" &&
-				document.getElementById("calle").value != ""
-			) {
-				console.log("fin compra");
-				let buyAlert = document.createElement("div");
-				buyAlert.setAttribute("id", "payMetodSuccess");
-				buyAlert.setAttribute("role", "alert");
-				buyAlert.classList.add("text-center");
-				buyAlert.classList.add("alert");
-				buyAlert.classList.add("alert-success");
-				buyAlert.classList.add("hide");
-				buyAlert.textContent = "Felicitaciones! La compra ha sido realizada correctamente";
-				document.getElementById("alerts").appendChild(buyAlert);
-				buyAlert.classList.remove("hide");
-				setTimeout(function () {
+			if (payObj) {
+				if (
+					(payObj.account || payObj.card) &&
+					(document.getElementById("premium").checked ||
+						document.getElementById("express").checked ||
+						document.getElementById("standar").checked) &&
+					document.getElementById("calle").value != "" &&
+					document.getElementById("esq").value != "" &&
+					document.getElementById("calle").value != ""
+				) {
+					console.log("fin compra");
+					let buyAlert = document.createElement("div");
+					buyAlert.setAttribute("id", "buySuccess");
+					buyAlert.setAttribute("role", "alert");
+					buyAlert.classList.add("text-center");
+					buyAlert.classList.add("alert");
+					buyAlert.classList.add("alert-success");
 					buyAlert.classList.add("hide");
+					buyAlert.textContent = "Felicitaciones! La compra ha sido realizada correctamente";
+					document.getElementById("alerts").appendChild(buyAlert);
+					buyAlert.classList.remove("hide");
+					setTimeout(function () {
+						buyAlert.classList.add("hide");
+					}, 3000);
+				} else {
+					// let buyInvAlert = document.createElement("div");
+					// buyInvAlert.setAttribute("id", "buyInvalid");
+					// buyInvAlert.setAttribute("role", "alert");
+					// buyInvAlert.classList.add("text-center");
+					// buyInvAlert.classList.add("alert");
+					// buyInvAlert.classList.add("alert-warning");
+					// buyInvAlert.classList.add("hide");
+					// buyInvAlert.textContent = "Debe completar los datos requieridos";
+					// document.getElementById("alerts").appendChild(buyInvAlert);
+					// buyInvAlert.classList.remove("hide");
+					// setTimeout(function () {
+					// 	buyInvAlert.classList.add("hide");
+					// }, 3000);
+				}
+			} else {
+				let buyInvAlert = document.createElement("div");
+				buyInvAlert.setAttribute("id", "buyInvalid");
+				buyInvAlert.setAttribute("role", "alert");
+				buyInvAlert.classList.add("text-center");
+				buyInvAlert.classList.add("alert");
+				buyInvAlert.classList.add("alert-warning");
+				buyInvAlert.classList.add("hide");
+				buyInvAlert.textContent = "Debe completar los datos requieridos";
+				document.getElementById("alerts").appendChild(buyInvAlert);
+				buyInvAlert.classList.remove("hide");
+				setTimeout(function () {
+					buyInvAlert.classList.add("hide");
 				}, 3000);
 			}
 		});
