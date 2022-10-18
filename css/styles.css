@@ -399,8 +399,8 @@ table img {
   border-radius: 12px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  padding: 0 6%;
-  margin: 0 -6%;
+  /* padding: 0 6%;
+  margin: 0 -6%; */
 }
 
 .modal-body input[type="number"]::-webkit-inner-spin-button {

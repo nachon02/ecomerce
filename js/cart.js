@@ -85,7 +85,7 @@ const verCarro = () => {
                     </div>
                 </div>
             </div>
-             <div id="total" class="px-3 col-lg-3 col-md-12 col-12">
+             <div id="total" class="pay px-3 col-lg-3 col-md-12 col-12">
 				<p class="fs-4 mt-4 borde-btm">Compra</p>
 				<div class="row">
 					<div class="col-lg-4 col-6">
@@ -118,7 +118,7 @@ const verCarro = () => {
 				<p id="precioTotal" class="fw-bold precio">Seleccione el tipo de envio</p>
 				
 			</div>
-			<button type="submit" class="btn btn-primary w-100 mb-3"> Confirmar </button>
+			
 
 			<div class="modal fade" id="payForm" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -139,17 +139,17 @@ const verCarro = () => {
 						</div>
 						<hr>
 						<div class="col-md-8"> <label class="form-label" for="cardNumber">Número de tarjeta</label>
-							<input type="text" disabled class="form-control" id="cardNumber" onkeypress="return validaNumericos(event)" maxlength="16" required>
+							<input type="text" disabled class="form-control" id="cardNumber" placeholder="---- ---- ---- ----" onkeypress="return validaNumericos(event)" maxlength="16" required>
 							
 							<div class="invalid-feedback">
 							Tarjeta no valida...
 							</div>
 						</div>
 						<div class="col-md-4"> <label class="form-label" for="cardCode">Código de seg</label>
-							<input type="text" disabled class="form-control" id="cardCode" maxlength="3" onkeypress="return validaNumericos(event)"  required>
+							<input type="text" disabled class="form-control" id="cardCode" maxlength="3" placeholder="---" onkeypress="return validaNumericos(event)"  required>
 							
 							<div class="invalid-feedback">
-							Tarjeta no valida...
+							Codigo de seguiridad invalido...
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -176,33 +176,40 @@ const verCarro = () => {
 						</div>
 						<hr>
 						<div class="col-md-8"> <label class="form-label" for="bankNumber">Número de cuenta</label>
-							<input type="text" disabled class="form-control" id="bankNumber" maxlength="16" onkeypress="return validaNumericos(event)" required>
+							<input type="text" disabled class="form-control" id="bankNumber"  placeholder="---- ---- ---- ---- ----" maxlength="20" onkeypress="return validaNumericos(event)" required>
 							
 							<div class="invalid-feedback">
-							Tarjeta no valida...
+							Numero de cuenta invalido...
 							</div>
 						</div>
 						</form>
 										</div>
 							<div class="modal-footer">
 								
-								<button class="btn btn-primary" type="submit" id="modalButton" disabled >Guardar</button>
+								<button class="btn btn-secondary" type="submit" id="modalReset" disabled >Nuevo metodo</button>
+								<button class="btn btn-primary" type="submit" id="modalSave" disabled >Guardar</button>
 								</div>
+								
 							</div>
 						</div>
 						</div>
-				<div class="pay pb-3">
+				<div class="pb-3">
 				<p class="fs-4 borde-btm">Forma de pago</p>
-				<p  class=" mb-0"><span id="payAcc"> Forma de pago</span> <a href="#" id="paySelectButton" type="submit" class="link-primary" data-bs-toggle="modal" data-bs-target="#payForm"> Seleccionar </a></p>
+				<b class="mb-0" id="payB"></b><span id="paySpan" class="fst-italic">No ha seleccionado </span> <a href="#" id="paySelectButton" type="submit" class="link-primary" data-bs-toggle="modal" data-bs-target="#payForm"> Seleccionar </a> <a href="#" id="payDeleteButton"  class="link-danger" > Quitar </a>
 				
             </div>
+			<button type="submit" id="buyButton"class="btn btn-primary w-100 mb-3"> Finalizar compra </button>
             </div>
 			
         </div>
     `;
 
 		document.getElementById("carrito").innerHTML = contenido;
-		paySelectButton.click(); //quitar luego
+		const payObj = JSON.parse(localStorage.getItem("payMetod"));
+
+		// paySelectButton.click(); //quitar luego
+
+		const payForm = document.getElementById("payForm");
 
 		const radioCredit = document.getElementById("cardMetod");
 		const radioBank = document.getElementById("bankMetod");
@@ -210,9 +217,22 @@ const verCarro = () => {
 		const inputCardCode = document.getElementById("cardCode");
 		const inputCardExpM = document.getElementById("cardExpMonth");
 		const inputCardExpY = document.getElementById("cardExpYear");
-		const modalButton = document.getElementById("modalButton");
-
+		const modalSave = document.getElementById("modalSave");
+		const modalReset = document.getElementById("modalReset");
 		const inputBankN = document.getElementById("bankNumber");
+		let inputsPay = payForm.getElementsByTagName("input");
+		const deletePay = document.getElementById("payDeleteButton");
+		const buyButton = document.getElementById("buyButton");
+
+		deletePay.addEventListener("click", function () {
+			localStorage.removeItem("payMetod");
+			location.reload();
+		});
+		const userPaymetod = {
+			user: localStorage.getItem("email"),
+			account: "",
+			card: "",
+		};
 
 		function clearInput(id) {
 			const elemento = document.getElementById(id);
@@ -232,6 +252,43 @@ const verCarro = () => {
 		function enableInput(element_id) {
 			document.getElementById(element_id).disabled = false;
 		}
+
+		function showPayInfo() {
+			if (payObj) {
+				let paySpan = document.getElementById("paySpan");
+				let payB = document.getElementById("payB");
+				// disableInput("radioBank");
+				// disableInput("radioCredit");
+
+				for (let i = 0; i < inputsPay.length; i++) {
+					const input = inputsPay[i];
+					input.disabled = true;
+				}
+				modalReset.disabled = false;
+				console.log(payObj.account || payObj.card);
+
+				paySpan.textContent = `${payObj.account || payObj.card}`;
+				if (payObj.account) {
+					payB.textContent = `Nro de cuenta: `;
+				} else if (payObj.card) {
+					payB.textContent = `Nro de tarjeta: `;
+				}
+			} else {
+				modalReset.disabled = true;
+			}
+		}
+		showPayInfo();
+
+		modalReset.addEventListener("click", function () {
+			modalReset.disabled = true;
+			localStorage.removeItem("payMetod");
+			for (let i = 0; i < inputsPay.length; i++) {
+				const input = inputsPay[i];
+				input.disabled = false;
+			}
+			// showPayInfo();
+		});
+
 		let enabledB = false;
 		let enabledC = false;
 		radioCredit.addEventListener("click", () => {
@@ -250,7 +307,7 @@ const verCarro = () => {
 				swapInputDisabled("cardExpYear");
 
 				clearInput("bankNumber");
-				enableInput("modalButton");
+				enableInput("modalSave");
 			}
 		});
 
@@ -269,10 +326,11 @@ const verCarro = () => {
 				clearInput("cardExpMonth");
 				clearInput("cardExpYear");
 
-				enableInput("modalButton");
+				enableInput("modalSave");
 			}
 		});
-		radioBank.click(); //quitar luego
+		// radioBank.click(); //quitar luego
+		// radioCredit.click();
 
 		function validInput(id, c = "correcto") {
 			let valid = "is-valid";
@@ -292,14 +350,14 @@ const verCarro = () => {
 			}
 		}
 
-		modalButton.addEventListener("click", (e) => {
+		modalSave.addEventListener("click", (e) => {
 			e.preventDefault();
 			let nGc = 0;
 			let nGb = 0;
 			let greatCard = false;
 			let greatBank = false;
 
-			if (inputCardN.value.length < 4) {
+			if (inputCardN.value.length < 16) {
 				validInput("cardNumber", "error");
 			} else {
 				validInput("cardNumber");
@@ -317,7 +375,7 @@ const verCarro = () => {
 				validInput("cardExpMonth");
 				nGc += 1;
 			}
-			if (inputCardExpY.value.length < 2 || inputCardExpY.value > 31) {
+			if (inputCardExpY.value.length < 2 || inputCardExpY.value < 22) {
 				validInput("cardExpYear", "error");
 			} else {
 				validInput("cardExpYear");
@@ -326,7 +384,7 @@ const verCarro = () => {
 
 			//
 
-			if (inputBankN.value.length < 4) {
+			if (inputBankN.value.length < 20) {
 				validInput("bankNumber", "error");
 			} else {
 				validInput("bankNumber");
@@ -338,16 +396,79 @@ const verCarro = () => {
 			}
 
 			if (greatBank) {
-				let userPaymetod = {
-					user: "",
-					account: "",
-				};
+				userPaymetod.account = inputBankN.value;
+				console.log(userPaymetod);
 
-				// localStorage
+				localStorage.setItem("payMetod", JSON.stringify(userPaymetod));
+			}
+			if (greatCard) {
+				userPaymetod.card = inputCardN.value;
+				userPaymetod.exipration = `${inputCardExpM.value}/20${inputCardExpY.value}`;
+				// userPaymetod.cvv = inputCardCode.value;
+				console.log(userPaymetod);
+
+				localStorage.setItem("payMetod", JSON.stringify(userPaymetod));
 			}
 
 			if (greatCard || greatBank) {
-				console.log("Fin");
+				let alert = document.createElement("div");
+				alert.setAttribute("id", "payMetodSuccess");
+				alert.setAttribute("role", "alert");
+				alert.classList.add("text-center");
+				alert.classList.add("alert");
+				alert.classList.add("alert-success");
+				alert.classList.add("hide");
+				alert.textContent = "El metodo de pago fue agregado correctamente";
+				document.getElementById("alerts").appendChild(alert);
+				alert.classList.remove("hide");
+				setTimeout(function () {
+					alert.classList.add("hide");
+				}, 3000);
+
+				let modal = bootstrap.Modal.getInstance(payForm);
+				modal.hide();
+
+				disableInput("cardMetod");
+				disableInput("bankMetod");
+				disableInput("modalSave");
+				// inputsPay[inputsPay.length - 1].readOnly = true;
+
+				for (let i = 0; i < inputsPay.length; i++) {
+					const input = inputsPay[i];
+					input.readOnly = true;
+				}
+				console.log(inputsPay);
+
+				location.reload();
+				// showPayInfo();
+				// console.log(alert);
+			}
+		});
+
+		buyButton.addEventListener("click", function () {
+			if (
+				(payObj.account || payObj.card) &&
+				(document.getElementById("premium").checked ||
+					document.getElementById("express").checked ||
+					document.getElementById("standar").checked) &&
+				document.getElementById("calle").value != "" &&
+				document.getElementById("esq").value != "" &&
+				document.getElementById("calle").value != ""
+			) {
+				console.log("fin compra");
+				let buyAlert = document.createElement("div");
+				buyAlert.setAttribute("id", "payMetodSuccess");
+				buyAlert.setAttribute("role", "alert");
+				buyAlert.classList.add("text-center");
+				buyAlert.classList.add("alert");
+				buyAlert.classList.add("alert-success");
+				buyAlert.classList.add("hide");
+				buyAlert.textContent = "Felicitaciones! La compra ha sido realizada correctamente";
+				document.getElementById("alerts").appendChild(buyAlert);
+				buyAlert.classList.remove("hide");
+				setTimeout(function () {
+					buyAlert.classList.add("hide");
+				}, 3000);
 			}
 		});
 
