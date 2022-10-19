@@ -619,7 +619,7 @@ const verCarro = () => {
     <td><b moneda="${element.currency}">${element.currency} <span id='subtotal_${i + 1}'>${
 				subtotal * element.count
 			}</span></b></td>
-    <td class="dltCart" onclick="dltCart(${i})"><i class="fas fa-trash-alt"></i></i></td>
+    <td class="" onclick="dltCart(${i})"><i class="dltCart fas fa-trash-alt"></i></i></td>
   </tr>`;
 		}
 

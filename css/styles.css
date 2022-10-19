@@ -269,14 +269,23 @@ a.custom-card:hover {
 }
 
 .dltCart {
-  background-color: #f33;
-  color: #fff;
-  padding: 0 5px;
-  cursor: pointer;
+      /* background-color: #f33; */
+    /* width: 25px; */
+    color: #f33;
+    padding: 15px;
+    border-radius: 7px;
+    cursor: pointer;
+    border: red solid 1px;
+}
+
+tr td:nth-child(6){
+  
+  width: 80px;
 }
 
 .dltCart:hover {
   background-color: #f11;
+  color: #fff;
 }
 
 table {
