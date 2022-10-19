@@ -60,27 +60,21 @@ getJSONData(`${CART_INFO_URL}${user}${EXT_TYPE}`).then(function (resultObj) {
 document.addEventListener("DOMContentLoaded", function () {
 	const nav = document.getElementsByClassName("nav-item");
 	const navMail = nav[nav.length - 1];
-
-	// if (localStorage.getItem("email") !== null) {
-	//     navMail.innerHTML = `
-	// <a class="nav-link" href="my-profile.html">${localStorage.getItem(
-	//     "email"
-	// )}</a>
-	// `;
-	// }
+	navMail.id = "userMail"
+	
 	if (localStorage.getItem("email") !== null) {
-		navMail.innerHTML = `
-        <button type="button" class="btn nav-link">
-            <span class="ml-2">${localStorage.getItem("email")}</span>
-        </button>
-        <button type="button" class="btn nav-link border-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="sr-only"></span>
-            </button>
-        <div class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="userMenu">
-            <a class="dropdown-item" href="my-profile.html">Perfil</a>
-            <a class="dropdown-item" href="cart.html">Ver Carrito </a>
-            <p class="dropdown-item text-danger cursor-active mb-0" href="#" onclick="out()">Cerrar Sesion</p>
-        </div>
+		navMail.innerHTML = `<div class="dropdown">
+			<a class="btn nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+			${localStorage.getItem("email")}
+			</a>
+
+			
+			<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="userMenu" >
+				<li><a class="dropdown-item" href="my-profile.html">Perfil</a></li>
+				<li><a class="dropdown-item" href="cart.html">Ver Carrito </a></li>
+				<li><p class="dropdown-item text-danger cursor-active mb-0" href="#" onclick="out()">Cerrar Sesion</p></li>
+			</ul>
+		</div>
         `;
 	}
 
