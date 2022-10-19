@@ -56,7 +56,7 @@ const verCarro = () => {
                 
             </table>
         </div>
-        <div class="mt-3 row justify-content-evenly">
+        <div class="mt-3 row justify-content-between pay">
         
             <div class="col-lg-3 col-md-6 col-12">
             <p class="fs-4 mt-4">Tipo de envío</p>
@@ -74,18 +74,30 @@ const verCarro = () => {
                     <div class="mb-3 ">
                         <label for="calle" class="form-label">Calle</label>
                         <input type="text" required class="form-control" id="calle">
+						
+						<div class="invalid-feedback">
+							Ingresa una calle.
+							</div>
                     </div>
                     <div class="mb-3 col-6">
                         <label for="esq" class="form-label">Esquina</label>
                         <input type="text" required class="form-control" id="esq">
+						
+						<div class="invalid-feedback">
+							Ingresa una esquina.
+							</div>
                     </div>
                     <div class="mb-3 col-6">
                         <label for="puerta" class="form-label">Número</label>
-                        <input type="number" required class="form-control" id="puerta">
+                        <input type="text" required class="form-control" id="puerta">
+						
+						<div class="invalid-feedback">
+							Ingresa un número.
+							</div>
                     </div>
                 </div>
             </div>
-             <div id="total" class="pay px-3 col-lg-3 col-md-12 col-12">
+             <div id="total" class=" px-3 col-lg-3 col-md-12 col-12">
 				<p class="fs-4 mt-4 borde-btm">Compra</p>
 				<div class="row">
 					<div class="col-lg-4 col-6">
@@ -134,7 +146,7 @@ const verCarro = () => {
 					<div class="form-check">
 							<input class="form-check-input" type="radio" name="payMetod" id="cardMetod" value="creditCard">
 							<label class="form-check-label" for="cardMetod">
-							Tarjeta de crédito
+							Tarjeta de crédito 
 							</label>
 						</div>
 						<hr>
@@ -172,7 +184,7 @@ const verCarro = () => {
 						<div class="form-check mb-3">
 							<input type="radio" class="form-check-input" id="bankMetod" name="payMetod" required>
 							<label class="form-check-label" for="bankMetod">Transferencia bancaria</label>
-							<div class="invalid-feedback">More example invalid feedback text</div>
+							
 						</div>
 						<hr>
 						<div class="col-md-8"> <label class="form-label" for="bankNumber">Número de cuenta</label>
@@ -196,7 +208,9 @@ const verCarro = () => {
 				<div class="pb-3">
 				<p class="fs-4 borde-btm">Forma de pago</p>
 				<b class="mb-0" id="payB">No ha seleccionado </b><span id="paySpan" class="fst-italic"></span> <a href="#" id="paySelectButton" type="submit" class="link-primary" data-bs-toggle="modal" data-bs-target="#payForm"> Seleccionar </a> <a href="#" id="payDeleteButton"  class="link-danger" > Quitar </a>
-				
+				<div id="payMetodError" class="invalid-feedback">
+										Debe seleccionar una forma de pago.
+									</div>
             </div>
 			<button type="submit" id="buyButton"class="btn btn-primary w-100 mb-3"> Finalizar compra </button>
             </div>
@@ -205,9 +219,14 @@ const verCarro = () => {
     `;
 
 		document.getElementById("carrito").innerHTML = contenido;
-		const payObj = JSON.parse(localStorage.getItem("payMetod"));
+		let payObj = JSON.parse(localStorage.getItem("payMetod"));
+		let userLtion = JSON.parse(localStorage.getItem("userLocation"));
 
 		// paySelectButton.click(); //quitar luego
+
+		const calle = document.getElementById("calle");
+		const esq = document.getElementById("esq");
+		const puerta = document.getElementById("puerta");
 
 		const payForm = document.getElementById("payForm");
 
@@ -220,9 +239,12 @@ const verCarro = () => {
 		const modalSave = document.getElementById("modalSave");
 		const modalReset = document.getElementById("modalReset");
 		const inputBankN = document.getElementById("bankNumber");
-		let inputsPay = payForm.getElementsByTagName("input");
 		const deletePay = document.getElementById("payDeleteButton");
 		const buyButton = document.getElementById("buyButton");
+
+		const paySpan = document.getElementById("paySpan");
+		const payB = document.getElementById("payB");
+		let inputsPay = payForm.getElementsByTagName("input");
 
 		deletePay.addEventListener("click", function () {
 			localStorage.removeItem("payMetod");
@@ -232,6 +254,13 @@ const verCarro = () => {
 			user: localStorage.getItem("email"),
 			account: "",
 			card: "",
+		};
+		const userLocation = {
+			user: localStorage.getItem("email"),
+			calle: "",
+			puerta: "",
+			esq: ""
+
 		};
 
 		function clearInput(id) {
@@ -253,13 +282,34 @@ const verCarro = () => {
 			document.getElementById(element_id).disabled = false;
 		}
 
-		function showPayInfo() {
-			if (payObj) {
-				let paySpan = document.getElementById("paySpan");
-				let payB = document.getElementById("payB");
-				// disableInput("radioBank");
-				// disableInput("radioCredit");
+		function showUserLocation() {
+			
 
+			if (userLtion) {
+				
+				
+
+				calle.value = `${userLtion.calle}`;
+				// calle.classList.add("is-valid")
+				esq.value = `${userLtion.esq}`;
+				// esq.classList.add("is-valid")
+
+				puerta.value = `${userLtion.puerta}`;
+				// puerta.classList.add("is-valid")
+
+				
+			} else {
+				modalReset.disabled = true;
+			}
+		}
+		// setInterval(showPayInfo(), 3000);
+		showUserLocation();
+
+		function showPayInfo() {
+			
+
+			if (payObj) {
+				
 				for (let i = 0; i < inputsPay.length; i++) {
 					const input = inputsPay[i];
 					input.disabled = true;
@@ -277,6 +327,7 @@ const verCarro = () => {
 				modalReset.disabled = true;
 			}
 		}
+		// setInterval(showPayInfo(), 3000);
 		showPayInfo();
 
 		modalReset.addEventListener("click", function () {
@@ -337,7 +388,6 @@ const verCarro = () => {
 			let invalid = "is-invalid";
 
 			const inp = document.getElementById(id);
-			const inpValue = document.getElementById(id).value;
 
 			if (!inp.disabled) {
 				if (c == "error") {
@@ -349,11 +399,29 @@ const verCarro = () => {
 				}
 			}
 		}
+		function createAlert(id,msg,container,time = 3000,type = "success"){
+			let alerta = document.createElement("div");
+					alerta.setAttribute("id", id);
+					alerta.setAttribute("role", "alert");
+					alerta.classList.add("text-center");
+					alerta.classList.add("alert");
+					alerta.classList.add(`alert-${type}`);
+					alerta.classList.add("hide");
+					alerta.textContent = msg;
+					document.getElementById(container).appendChild(alerta);
+					alerta.classList.remove("hide");
+					setTimeout(function () {
+						alerta.classList.add("hide");
+					}, time);
+		}
 
 		modalSave.addEventListener("click", (e) => {
+
+			payObj = JSON.parse(localStorage.getItem("payMetod"));
+
 			e.preventDefault();
+			showPayInfo()
 			let nGc = 0;
-			let nGb = 0;
 			let greatCard = false;
 			let greatBank = false;
 
@@ -400,6 +468,10 @@ const verCarro = () => {
 				console.log(userPaymetod);
 
 				localStorage.setItem("payMetod", JSON.stringify(userPaymetod));
+				payB.textContent = "Nro de Cuenta: "
+				paySpan.textContent = inputBankN.value
+				document.getElementById("payMetodError").classList.remove("d-block")
+
 			}
 			if (greatCard) {
 				userPaymetod.card = inputCardN.value;
@@ -408,22 +480,16 @@ const verCarro = () => {
 				console.log(userPaymetod);
 
 				localStorage.setItem("payMetod", JSON.stringify(userPaymetod));
+				payB.textContent = "Nro de Tarjeta: "
+				paySpan.textContent = inputCardN.value
+				document.getElementById("payMetodError").classList.remove("d-block")
+
 			}
 
 			if (greatCard || greatBank) {
-				let alert = document.createElement("div");
-				alert.setAttribute("id", "payMetodSuccess");
-				alert.setAttribute("role", "alert");
-				alert.classList.add("text-center");
-				alert.classList.add("alert");
-				alert.classList.add("alert-success");
-				alert.classList.add("hide");
-				alert.textContent = "El metodo de pago fue agregado correctamente";
-				document.getElementById("alerts").appendChild(alert);
-				alert.classList.remove("hide");
-				setTimeout(function () {
-					alert.classList.add("hide");
-				}, 3000);
+				createAlert("payMetodSuccess","El metodo de pago fue agregado correctamente","alerts")
+				
+
 
 				let modal = bootstrap.Modal.getInstance(payForm);
 				modal.hide();
@@ -432,73 +498,99 @@ const verCarro = () => {
 				disableInput("bankMetod");
 				disableInput("modalSave");
 				// inputsPay[inputsPay.length - 1].readOnly = true;
+				showPayInfo()
 
 				for (let i = 0; i < inputsPay.length; i++) {
 					const input = inputsPay[i];
 					input.readOnly = true;
 				}
-				console.log(inputsPay);
+				// console.log(inputsPay);
 
-				location.reload();
+				// location.reload();
 				// showPayInfo();
 				// console.log(alert);
 			}
 		});
+		
 
 		buyButton.addEventListener("click", function () {
-			if (payObj) {
-				if (
-					(payObj.account || payObj.card) &&
-					(document.getElementById("premium").checked ||
-						document.getElementById("express").checked ||
-						document.getElementById("standar").checked) &&
-					document.getElementById("calle").value != "" &&
-					document.getElementById("esq").value != "" &&
-					document.getElementById("calle").value != ""
-				) {
-					console.log("fin compra");
-					let buyAlert = document.createElement("div");
-					buyAlert.setAttribute("id", "buySuccess");
-					buyAlert.setAttribute("role", "alert");
-					buyAlert.classList.add("text-center");
-					buyAlert.classList.add("alert");
-					buyAlert.classList.add("alert-success");
-					buyAlert.classList.add("hide");
-					buyAlert.textContent = "Felicitaciones! La compra ha sido realizada correctamente";
-					document.getElementById("alerts").appendChild(buyAlert);
-					buyAlert.classList.remove("hide");
-					setTimeout(function () {
-						buyAlert.classList.add("hide");
-					}, 3000);
-				} else {
-					// let buyInvAlert = document.createElement("div");
-					// buyInvAlert.setAttribute("id", "buyInvalid");
-					// buyInvAlert.setAttribute("role", "alert");
-					// buyInvAlert.classList.add("text-center");
-					// buyInvAlert.classList.add("alert");
-					// buyInvAlert.classList.add("alert-warning");
-					// buyInvAlert.classList.add("hide");
-					// buyInvAlert.textContent = "Debe completar los datos requieridos";
-					// document.getElementById("alerts").appendChild(buyInvAlert);
-					// buyInvAlert.classList.remove("hide");
-					// setTimeout(function () {
-					// 	buyInvAlert.classList.add("hide");
-					// }, 3000);
+			let buyOK = false;
+			let okCount = 0;
+			payObj = JSON.parse(localStorage.getItem("payMetod"));
+
+			if(payObj){
+				document.getElementById("payMetodError").classList.remove("d-block")
+				// console.log(payObj);
+				okCount ++
+			}else{
+				document.getElementById("payMetodError").classList.add("d-block")
+				// createAlert("buyInvalid","Debe completar los datos requeridos","alerts", 3000,"warning")
+				
+			}
+			if ((document.getElementById("premium").checked ||
+			document.getElementById("express").checked ||
+			document.getElementById("standar").checked)) {
+				okCount++
+				let pTotal = document.getElementById("precioTotal")
+
+				pTotal.classList.remove("invalid-feedback","d-block")
+				pTotal.classList.add("fw-bold")
+			}else{
+				let pTotal = document.getElementById("precioTotal")
+
+				pTotal.classList.add("invalid-feedback","d-block")
+				pTotal.classList.remove("fw-bold")
+				
+			}
+			
+
+			if (calle.value != "" ){
+				
+				calle.classList.remove("is-invalid")
+				calle.classList.add("is-valid")
+				okCount++
+
+				userLocation.calle = calle.value
+
+			}else{
+				calle.classList.remove("is-valid")
+
+					calle.classList.add("is-invalid")
+				// userLocation.calle = ""
+
 				}
+			if(esq.value != ""){
+					esq.classList.remove("is-invalid")
+					esq.classList.add("is-valid")
+					okCount++
+				userLocation.esq = esq.value
+
+
+			}else{
+					esq.classList.remove("is-valid")
+					esq.classList.add("is-invalid")
+
+			} if(puerta.value != "") {
+				
+				puerta.classList.remove("is-invalid")
+				puerta.classList.add("is-valid")
+				okCount++
+				userLocation.puerta = puerta.value
+
+				
+				
+				
 			} else {
-				let buyInvAlert = document.createElement("div");
-				buyInvAlert.setAttribute("id", "buyInvalid");
-				buyInvAlert.setAttribute("role", "alert");
-				buyInvAlert.classList.add("text-center");
-				buyInvAlert.classList.add("alert");
-				buyInvAlert.classList.add("alert-warning");
-				buyInvAlert.classList.add("hide");
-				buyInvAlert.textContent = "Debe completar los datos requieridos";
-				document.getElementById("alerts").appendChild(buyInvAlert);
-				buyInvAlert.classList.remove("hide");
-				setTimeout(function () {
-					buyInvAlert.classList.add("hide");
-				}, 3000);
+				puerta.classList.remove("is-valid")
+				puerta.classList.add("is-invalid")
+			}
+			if(okCount === 5){
+				createAlert("buyGreat","La compra ha sido concretada con exito, Felicitaciones!", "alerts")
+				localStorage.setItem("userLocation", JSON.stringify(userLocation))
+
+				// document
+			}else{
+				console.log("Completar los datos requieridos");
 			}
 		});
 
@@ -607,6 +699,7 @@ function calcTotal(m) {
 	let precioTotal = document.getElementById("precioTotal");
 	let precioEnvio = document.getElementById("precioEnvio");
 	if (document.getElementById("premium").checked) {
+		precioTotal.classList.remove("invalid-feedback")
 		envio = price.precio * 0.15;
 		priceTotal = (parseInt(price.precio) + parseInt(envio)).toFixed(2);
 		// console.log(envio);
@@ -620,6 +713,7 @@ function calcTotal(m) {
 		precioEnvio.innerHTML = `${price.moneda} ${envio.toFixed(2)} (15%)`;
 	}
 	if (document.getElementById("express").checked) {
+		precioTotal.classList.remove("invalid-feedback")
 		// total = price + envio;
 
 		envio = price.precio * 0.07;
@@ -634,6 +728,7 @@ function calcTotal(m) {
 		precioEnvio.innerHTML = `${price.moneda} ${envio.toFixed(2)} (7%)`;
 	}
 	if (document.getElementById("standar").checked) {
+		precioTotal.classList.remove("invalid-feedback")
 		// total = price + envio;
 
 		envio = price.precio * 0.05;

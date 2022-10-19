@@ -292,13 +292,6 @@ table img {
   outline: 2px solid #aaa;
 }
 
-#total {
-  background-color: #eee;
-  border-radius: 12px;
-  padding: 0 10px;
-
-}
-
 #total p {
   line-height: 1;
 }
@@ -395,12 +388,10 @@ table img {
 }
 
 .pay {
-  background: linear-gradient(180deg, transparent 4%, #ccf);
+  background: linear-gradient(180deg, transparent 30%, #ccf);
   border-radius: 12px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  /* padding: 0 6%;
-  margin: 0 -6%; */
 }
 
 .modal-body input[type="number"]::-webkit-inner-spin-button {
