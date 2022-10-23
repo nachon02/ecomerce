@@ -60,8 +60,8 @@ getJSONData(`${CART_INFO_URL}${user}${EXT_TYPE}`).then(function (resultObj) {
 document.addEventListener("DOMContentLoaded", function () {
 	const nav = document.getElementsByClassName("nav-item");
 	const navMail = nav[nav.length - 1];
-	navMail.id = "userMail"
-	
+	navMail.id = "userMail";
+
 	if (localStorage.getItem("email") !== null) {
 		navMail.innerHTML = `<div class="dropdown">
 			<a class="btn nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
