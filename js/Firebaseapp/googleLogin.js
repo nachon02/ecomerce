@@ -8,12 +8,13 @@ googleBtn.addEventListener("click", async () => {
 
 	try {
 		const credentials = await signInWithPopup(auth, provider);
+
 		console.log(credentials);
 		console.log("bienvenido " + credentials.user.displayName);
 		localStorage.setItem("mailOK", true);
 		localStorage.setItem("passOK", true);
 		localStorage.setItem("email", credentials.user.email);
-		localStorage.setItem("userGoogle", JSON.parse(credentials));
+		localStorage.setItem("userGoogle", JSON.stringify(credentials));
 		location.replace("index.html");
 	} catch (error) {
 		console.log(error);
