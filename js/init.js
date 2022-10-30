@@ -51,20 +51,27 @@ getJSONData(`${CART_INFO_URL}${user}${EXT_TYPE}`).then(function (resultObj) {
 		// console.log(articles);
 		cart = resultObj.data;
 		compras = cart.articles;
-		if (!localStorage.getItem("carrito")) {
-			localStorage.setItem("carrito", JSON.stringify(compras));
+		if (!localStorage.getItem("cart")) {
+			localStorage.setItem("cart", JSON.stringify(compras));
 		}
 	}
 });
 
 document.addEventListener("DOMContentLoaded", function () {
 	const nav = document.getElementsByClassName("nav-item");
+	const googleUser = JSON.parse(localStorage.getItem("userGoogle"));
+	let img_perfil = "img/img_perfil.png";
 	const navMail = nav[nav.length - 1];
 	navMail.id = "userMail";
+
+	if (googleUser) {
+		// img_perfil = JSON.parse(localStorage.getItem("userGoogle")).user.photoURL;
+	}
 
 	if (localStorage.getItem("email") !== null) {
 		navMail.innerHTML = `<div class="dropdown">
 			<a class="btn nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+			 <img src=${img_perfil} class="userImg">
 			${localStorage.getItem("email")}
 			</a>
 

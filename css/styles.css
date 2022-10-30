@@ -444,3 +444,8 @@ span.buttonText {
   font-size: 14px;
   font-weight: bold;
 }
+
+.userImg {
+  width: 30px;
+  border-radius: 50px;
+}

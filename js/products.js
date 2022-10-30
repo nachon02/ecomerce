@@ -7,7 +7,7 @@ let pMin = undefined;
 let pMax = undefined;
 let buscarVal = undefined;
 
-let carro = JSON.parse(localStorage.getItem("carrito"));
+let carro = JSON.parse(localStorage.getItem("cart"));
 let infoP = {
 	id: "",
 	name: "",

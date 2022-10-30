@@ -6,37 +6,34 @@ let price = {
 
 let moneda = "USD";
 const dltCart = (u) => {
-	let dltcarro = JSON.parse(localStorage.getItem("carrito"));
+	let dltcarro = JSON.parse(localStorage.getItem("cart"));
 
 	dltcarro.splice(u, 1);
 
-	localStorage.setItem("carrito", JSON.stringify(dltcarro));
+	localStorage.setItem("cart", JSON.stringify(dltcarro));
 
 	location.reload();
-	// verCarro();
 };
-function validaNumericos(event) {
+const validaNumericos = (event) => {
 	if (event.charCode >= 48 && event.charCode <= 57) {
 		return true;
 	}
 	return false;
-}
+};
 const verCarro = () => {
-	let articulos = JSON.parse(localStorage.getItem("carrito"));
-	// let articulo = articulos[0];
-
-	if (!articulos[0]) {
+	let articles = JSON.parse(localStorage.getItem("cart"));
+	if (!articles[0]) {
 		document.getElementById("carrito").innerHTML = `
-            <div id="titulo" class=" mt-3 text-center">
+            <div id="titulo" class=" mt-3 text-center"></div>
             <h2 class="">Carrito de compras</h2>
             <p class="fs-4 mt-4 ">No hay productos</p>
                 <a href="categories.html">Volver a comprar</a>
         </div>
         `;
 	} else {
-		let contenido = "";
+		let content = "";
 
-		contenido = `
+		content = `
         <div id="titulo" class=" mt-3 text-center">
             <h2 class="">Carrito de compras</h2>
             <p class="fs-4 mt-4 ">Articulos a comprar</p>
@@ -198,7 +195,7 @@ const verCarro = () => {
 										</div>
 							<div class="modal-footer">
 								
-								<button class="btn btn-secondary" type="submit" id="modalReset" disabled >Nuevo metodo</button>
+								
 								<button class="btn btn-primary" type="submit" id="modalSave" disabled >Guardar</button>
 								</div>
 								
@@ -218,386 +215,14 @@ const verCarro = () => {
         </div>
     `;
 
-		document.getElementById("carrito").innerHTML = contenido;
-		let payObj = JSON.parse(localStorage.getItem("payMetod"));
-		let userLtion = JSON.parse(localStorage.getItem("userLocation"));
+		document.getElementById("carrito").innerHTML = content;
 
-		// paySelectButton.click(); //quitar luego
-
-		const calle = document.getElementById("calle");
-		const esq = document.getElementById("esq");
-		const puerta = document.getElementById("puerta");
-
-		const payForm = document.getElementById("payForm");
-
-		const radioCredit = document.getElementById("cardMetod");
-		const radioBank = document.getElementById("bankMetod");
-		const inputCardN = document.getElementById("cardNumber");
-		const inputCardCode = document.getElementById("cardCode");
-		const inputCardExpM = document.getElementById("cardExpMonth");
-		const inputCardExpY = document.getElementById("cardExpYear");
-		const modalSave = document.getElementById("modalSave");
-		const modalReset = document.getElementById("modalReset");
-		const inputBankN = document.getElementById("bankNumber");
-		const deletePay = document.getElementById("payDeleteButton");
-		const buyButton = document.getElementById("buyButton");
-
-		const paySpan = document.getElementById("paySpan");
-		const payB = document.getElementById("payB");
-		let inputsPay = payForm.getElementsByTagName("input");
-
-		deletePay.addEventListener("click", function () {
-			localStorage.removeItem("payMetod");
-			location.reload();
-		});
-		const userPaymetod = {
-			user: localStorage.getItem("email"),
-			account: "",
-			card: "",
-		};
-		const userLocation = {
-			user: localStorage.getItem("email"),
-			calle: "",
-			puerta: "",
-			esq: ""
-
-		};
-
-		function clearInput(id) {
-			const elemento = document.getElementById(id);
-			elemento.classList.remove("is-invalid");
-			elemento.classList.remove("is-valid");
-
-			elemento.value = "";
-		}
-
-		function swapInputDisabled(element_id) {
-			const estado = document.getElementById(element_id).disabled;
-			document.getElementById(element_id).disabled = !estado;
-		}
-		function disableInput(element_id) {
-			document.getElementById(element_id).disabled = true;
-		}
-		function enableInput(element_id) {
-			document.getElementById(element_id).disabled = false;
-		}
-
-		function showUserLocation() {
-			
-
-			if (userLtion) {
-				
-				
-
-				calle.value = `${userLtion.calle}`;
-				// calle.classList.add("is-valid")
-				esq.value = `${userLtion.esq}`;
-				// esq.classList.add("is-valid")
-
-				puerta.value = `${userLtion.puerta}`;
-				// puerta.classList.add("is-valid")
-
-				
-			} else {
-				modalReset.disabled = true;
-			}
-		}
-		// setInterval(showPayInfo(), 3000);
-		showUserLocation();
-
-		function showPayInfo() {
-			
-
-			if (payObj) {
-				
-				for (let i = 0; i < inputsPay.length; i++) {
-					const input = inputsPay[i];
-					input.disabled = true;
-				}
-				modalReset.disabled = false;
-				console.log(payObj.account || payObj.card);
-
-				paySpan.textContent = `${payObj.account || payObj.card}`;
-				if (payObj.account) {
-					payB.textContent = `Nro de cuenta: `;
-				} else if (payObj.card) {
-					payB.textContent = `Nro de tarjeta: `;
-				}
-			} else {
-				modalReset.disabled = true;
-			}
-		}
-		// setInterval(showPayInfo(), 3000);
-		showPayInfo();
-
-		modalReset.addEventListener("click", function () {
-			modalReset.disabled = true;
-			localStorage.removeItem("payMetod");
-			for (let i = 0; i < inputsPay.length; i++) {
-				const input = inputsPay[i];
-				input.disabled = false;
-			}
-			// showPayInfo();
-		});
-
-		let enabledB = false;
-		let enabledC = false;
-		radioCredit.addEventListener("click", () => {
-			if (!enabledC) {
-				enabledC = true;
-				enabledB = false;
-				disableInput("bankNumber");
-				disableInput("cardNumber");
-				disableInput("cardCode");
-				disableInput("cardExpMonth");
-				disableInput("cardExpYear");
-
-				swapInputDisabled("cardNumber");
-				swapInputDisabled("cardCode");
-				swapInputDisabled("cardExpMonth");
-				swapInputDisabled("cardExpYear");
-
-				clearInput("bankNumber");
-				enableInput("modalSave");
-			}
-		});
-
-		radioBank.addEventListener("click", () => {
-			if (!enabledB) {
-				enabledB = true;
-				enabledC = false;
-				enableInput("bankNumber");
-				disableInput("cardNumber");
-				disableInput("cardCode");
-				disableInput("cardExpMonth");
-				disableInput("cardExpYear");
-
-				clearInput("cardNumber");
-				clearInput("cardCode");
-				clearInput("cardExpMonth");
-				clearInput("cardExpYear");
-
-				enableInput("modalSave");
-			}
-		});
-		// radioBank.click(); //quitar luego
-		// radioCredit.click();
-
-		function validInput(id, c = "correcto") {
-			let valid = "is-valid";
-			let invalid = "is-invalid";
-
-			const inp = document.getElementById(id);
-
-			if (!inp.disabled) {
-				if (c == "error") {
-					inp.classList.remove(valid);
-					inp.classList.add(invalid);
-				} else {
-					inp.classList.add(valid);
-					inp.classList.remove(invalid);
-				}
-			}
-		}
-		function createAlert(id,msg,container,time = 3000,type = "success"){
-			let alerta = document.createElement("div");
-					alerta.setAttribute("id", id);
-					alerta.setAttribute("role", "alert");
-					alerta.classList.add("text-center");
-					alerta.classList.add("alert");
-					alerta.classList.add(`alert-${type}`);
-					alerta.classList.add("hide");
-					alerta.textContent = msg;
-					document.getElementById(container).appendChild(alerta);
-					alerta.classList.remove("hide");
-					setTimeout(function () {
-						alerta.classList.add("hide");
-					}, time);
-		}
-
-		modalSave.addEventListener("click", (e) => {
-
-			payObj = JSON.parse(localStorage.getItem("payMetod"));
-
-			e.preventDefault();
-			showPayInfo()
-			let nGc = 0;
-			let greatCard = false;
-			let greatBank = false;
-
-			if (inputCardN.value.length < 16) {
-				validInput("cardNumber", "error");
-			} else {
-				validInput("cardNumber");
-				nGc += 1;
-			}
-			if (inputCardCode.value.length < 3) {
-				validInput("cardCode", "error");
-			} else {
-				validInput("cardCode");
-				nGc += 1;
-			}
-			if (inputCardExpM.value.length < 2 || inputCardExpM.value > 12) {
-				validInput("cardExpMonth", "error");
-			} else {
-				validInput("cardExpMonth");
-				nGc += 1;
-			}
-			if (inputCardExpY.value.length < 2 || inputCardExpY.value < 22) {
-				validInput("cardExpYear", "error");
-			} else {
-				validInput("cardExpYear");
-				nGc += 1;
-			}
-
-			//
-
-			if (inputBankN.value.length < 20) {
-				validInput("bankNumber", "error");
-			} else {
-				validInput("bankNumber");
-				greatBank = true;
-			}
-
-			if (nGc === 4) {
-				greatCard = true;
-			}
-
-			if (greatBank) {
-				userPaymetod.account = inputBankN.value;
-				console.log(userPaymetod);
-
-				localStorage.setItem("payMetod", JSON.stringify(userPaymetod));
-				payB.textContent = "Nro de Cuenta: "
-				paySpan.textContent = inputBankN.value
-				document.getElementById("payMetodError").classList.remove("d-block")
-
-			}
-			if (greatCard) {
-				userPaymetod.card = inputCardN.value;
-				userPaymetod.exipration = `${inputCardExpM.value}/20${inputCardExpY.value}`;
-				// userPaymetod.cvv = inputCardCode.value;
-				console.log(userPaymetod);
-
-				localStorage.setItem("payMetod", JSON.stringify(userPaymetod));
-				payB.textContent = "Nro de Tarjeta: "
-				paySpan.textContent = inputCardN.value
-				document.getElementById("payMetodError").classList.remove("d-block")
-
-			}
-
-			if (greatCard || greatBank) {
-				createAlert("payMetodSuccess","El metodo de pago fue agregado correctamente","alerts")
-				
-
-
-				let modal = bootstrap.Modal.getInstance(payForm);
-				modal.hide();
-
-				disableInput("cardMetod");
-				disableInput("bankMetod");
-				disableInput("modalSave");
-				// inputsPay[inputsPay.length - 1].readOnly = true;
-				showPayInfo()
-
-				for (let i = 0; i < inputsPay.length; i++) {
-					const input = inputsPay[i];
-					input.readOnly = true;
-				}
-				// console.log(inputsPay);
-
-				// location.reload();
-				// showPayInfo();
-				// console.log(alert);
-			}
-		});
-		
-
-		buyButton.addEventListener("click", function () {
-			let buyOK = false;
-			let okCount = 0;
-			payObj = JSON.parse(localStorage.getItem("payMetod"));
-
-			if(payObj){
-				document.getElementById("payMetodError").classList.remove("d-block")
-				// console.log(payObj);
-				okCount ++
-			}else{
-				document.getElementById("payMetodError").classList.add("d-block")
-				// createAlert("buyInvalid","Debe completar los datos requeridos","alerts", 3000,"warning")
-				
-			}
-			if ((document.getElementById("premium").checked ||
-			document.getElementById("express").checked ||
-			document.getElementById("standar").checked)) {
-				okCount++
-				let pTotal = document.getElementById("precioTotal")
-
-				pTotal.classList.remove("invalid-feedback","d-block")
-				pTotal.classList.add("fw-bold")
-			}else{
-				let pTotal = document.getElementById("precioTotal")
-
-				pTotal.classList.add("invalid-feedback","d-block")
-				pTotal.classList.remove("fw-bold")
-				
-			}
-			
-
-			if (calle.value != "" ){
-				
-				calle.classList.remove("is-invalid")
-				calle.classList.add("is-valid")
-				okCount++
-
-				userLocation.calle = calle.value
-
-			}else{
-				calle.classList.remove("is-valid")
-
-					calle.classList.add("is-invalid")
-				// userLocation.calle = ""
-
-				}
-			if(esq.value != ""){
-					esq.classList.remove("is-invalid")
-					esq.classList.add("is-valid")
-					okCount++
-				userLocation.esq = esq.value
-
-
-			}else{
-					esq.classList.remove("is-valid")
-					esq.classList.add("is-invalid")
-
-			} if(puerta.value != "") {
-				
-				puerta.classList.remove("is-invalid")
-				puerta.classList.add("is-valid")
-				okCount++
-				userLocation.puerta = puerta.value
-
-				
-				
-				
-			} else {
-				puerta.classList.remove("is-valid")
-				puerta.classList.add("is-invalid")
-			}
-			if(okCount === 5){
-				createAlert("buyGreat","La compra ha sido concretada con exito, Felicitaciones!", "alerts")
-				localStorage.setItem("userLocation", JSON.stringify(userLocation))
-
-				// document
-			}else{
-				console.log("Completar los datos requieridos");
-			}
-		});
+		validModal();
 
 		let carrito = "";
 
-		for (let i = 0; i < articulos.length; i++) {
-			let element = articulos[i];
+		for (let i = 0; i < articles.length; i++) {
+			let element = articles[i];
 			let subtotal = element.unitCost;
 			let precios = {
 				id: element.id,
@@ -607,8 +232,6 @@ const verCarro = () => {
 			};
 
 			total.push(precios);
-			// if (element.currency == "USD") {
-			// 	urrency);
 			carrito += `<tr class="borde-btm" id="compra_${i + 1}">
     <td class="tbImg"><img src="${element.image}" width="100px" class="my-2"></td>
     <td>${element.name}</td>
@@ -625,8 +248,8 @@ const verCarro = () => {
 
 		document.getElementById("carritoInfo").innerHTML += carrito;
 
-		for (let i = 0; i < articulos.length; i++) {
-			let p = articulos[i];
+		for (let i = 0; i < articles.length; i++) {
+			let p = articles[i];
 			let inputCant = document.getElementById("inputCant_" + (i + 1));
 			let sub = document.getElementById("subtotal_" + (i + 1));
 
@@ -648,15 +271,12 @@ const verCarro = () => {
 	calcSubtotal();
 };
 
-function calcSubtotal() {
+const calcSubtotal = () => {
 	const dolar = 40.97;
 	let precio = 0;
 	let precioUSD = 0;
 	let moneda;
 	let tipo;
-	// if (n == 0) {
-	// 	precioUSD = 0;
-	// }
 	document.getElementById("subtotal").innerText = "";
 	if (document.getElementById("uyu").checked) {
 		moneda = "UYU";
@@ -692,19 +312,17 @@ function calcSubtotal() {
 	price.moneda = moneda;
 	price.precio = precioUSD;
 	calcTotal(moneda);
-}
+};
 
-function calcTotal(m) {
+const calcTotal = (m) => {
 	let envio;
 	let precioTotal = document.getElementById("precioTotal");
 	let precioEnvio = document.getElementById("precioEnvio");
 	if (document.getElementById("premium").checked) {
-		precioTotal.classList.remove("invalid-feedback")
+		precioTotal.classList.remove("invalid-feedback");
 		envio = price.precio * 0.15;
 		priceTotal = (parseInt(price.precio) + parseInt(envio)).toFixed(2);
-		// console.log(envio);
 		precioTotal.innerHTML = "";
-		// document.getElementById("env").innerText = "15%";
 		precioTotal.innerHTML = `
 		<p id="precioTotal" class="fw-bold"> ${price.moneda}
 		${priceTotal}
@@ -713,13 +331,10 @@ function calcTotal(m) {
 		precioEnvio.innerHTML = `${price.moneda} ${envio.toFixed(2)} (15%)`;
 	}
 	if (document.getElementById("express").checked) {
-		precioTotal.classList.remove("invalid-feedback")
-		// total = price + envio;
-
+		precioTotal.classList.remove("invalid-feedback");
 		envio = price.precio * 0.07;
 		priceTotal = (parseInt(price.precio) + parseInt(envio)).toFixed(2);
 		precioTotal.innerHTML = "";
-		// document.getElementById("env").innerText = "7%";
 		precioTotal.innerHTML = `
 		<p id="precioTotal" class="fw-bold"> ${price.moneda}
 		${priceTotal}
@@ -728,13 +343,11 @@ function calcTotal(m) {
 		precioEnvio.innerHTML = `${price.moneda} ${envio.toFixed(2)} (7%)`;
 	}
 	if (document.getElementById("standar").checked) {
-		precioTotal.classList.remove("invalid-feedback")
-		// total = price + envio;
+		precioTotal.classList.remove("invalid-feedback");
 
 		envio = price.precio * 0.05;
 		priceTotal = (parseInt(price.precio) + parseInt(envio)).toFixed(2);
 		precioTotal.innerHTML = "";
-		// document.getElementById("env").innerText = "5%";
 		precioTotal.innerHTML = `
 		<p id="precioTotal" class="fw-bold"> ${price.moneda}
 		${priceTotal}
@@ -742,10 +355,324 @@ function calcTotal(m) {
 		`;
 		precioEnvio.innerHTML = `${price.moneda} ${envio.toFixed(2)} (5%)`;
 	}
-}
+};
+
+const validModal = () => {
+	let payObj = JSON.parse(localStorage.getItem("payMetod"));
+	let userLtion = JSON.parse(localStorage.getItem("userLocation"));
+
+	const calle = document.getElementById("calle");
+	const esq = document.getElementById("esq");
+	const puerta = document.getElementById("puerta");
+
+	const payForm = document.getElementById("payForm");
+	const radioCredit = document.getElementById("cardMetod");
+	const radioBank = document.getElementById("bankMetod");
+	const inputCardN = document.getElementById("cardNumber");
+	const inputCardCode = document.getElementById("cardCode");
+	const inputCardExpM = document.getElementById("cardExpMonth");
+	const inputCardExpY = document.getElementById("cardExpYear");
+	const modalSave = document.getElementById("modalSave");
+	const inputBankN = document.getElementById("bankNumber");
+	const deletePay = document.getElementById("payDeleteButton");
+	const buyButton = document.getElementById("buyButton");
+
+	const paySpan = document.getElementById("paySpan");
+	const payB = document.getElementById("payB");
+	let inputsPay = payForm.getElementsByTagName("input");
+
+	deletePay.addEventListener("click", function () {
+		localStorage.removeItem("payMetod");
+		location.reload();
+	});
+	const userPaymetod = {
+		user: localStorage.getItem("email"),
+		account: "",
+		card: "",
+	};
+	const userLocation = {
+		user: localStorage.getItem("email"),
+		calle: "",
+		puerta: "",
+		esq: "",
+	};
+
+	function clearInput(id) {
+		const elemento = document.getElementById(id);
+		elemento.classList.remove("is-invalid");
+		elemento.classList.remove("is-valid");
+
+		elemento.value = "";
+	}
+
+	function swapInputDisabled(element_id) {
+		const estado = document.getElementById(element_id).disabled;
+		document.getElementById(element_id).disabled = !estado;
+	}
+	function disableInput(element_id) {
+		document.getElementById(element_id).disabled = true;
+	}
+	function enableInput(element_id) {
+		document.getElementById(element_id).disabled = false;
+	}
+
+	function showUserLocation() {
+		if (userLtion) {
+			calle.value = `${userLtion.calle}`;
+			esq.value = `${userLtion.esq}`;
+
+			puerta.value = `${userLtion.puerta}`;
+		}
+	}
+
+	showUserLocation();
+
+	function showPayInfo() {
+		if (payObj) {
+			for (let i = 0; i < inputsPay.length; i++) {
+				const input = inputsPay[i];
+				input.disabled = true;
+			}
+			console.log(payObj.account || payObj.card);
+
+			paySpan.textContent = `${payObj.account || payObj.card}`;
+			if (payObj.account) {
+				payB.textContent = `Nro de cuenta: `;
+			} else if (payObj.card) {
+				payB.textContent = `Nro de tarjeta: `;
+			}
+		}
+	}
+
+	showPayInfo();
+
+	let enabledB = false;
+	let enabledC = false;
+	radioCredit.addEventListener("click", () => {
+		if (!enabledC) {
+			enabledC = true;
+			enabledB = false;
+			disableInput("bankNumber");
+			disableInput("cardNumber");
+			disableInput("cardCode");
+			disableInput("cardExpMonth");
+			disableInput("cardExpYear");
+
+			swapInputDisabled("cardNumber");
+			swapInputDisabled("cardCode");
+			swapInputDisabled("cardExpMonth");
+			swapInputDisabled("cardExpYear");
+
+			clearInput("bankNumber");
+			enableInput("modalSave");
+		}
+	});
+
+	radioBank.addEventListener("click", () => {
+		if (!enabledB) {
+			enabledB = true;
+			enabledC = false;
+			enableInput("bankNumber");
+			disableInput("cardNumber");
+			disableInput("cardCode");
+			disableInput("cardExpMonth");
+			disableInput("cardExpYear");
+
+			clearInput("cardNumber");
+			clearInput("cardCode");
+			clearInput("cardExpMonth");
+			clearInput("cardExpYear");
+
+			enableInput("modalSave");
+		}
+	});
+
+	function validInput(id, c = "correcto") {
+		let valid = "is-valid";
+		let invalid = "is-invalid";
+
+		const inp = document.getElementById(id);
+
+		if (!inp.disabled) {
+			if (c == "error") {
+				inp.classList.remove(valid);
+				inp.classList.add(invalid);
+			} else {
+				inp.classList.add(valid);
+				inp.classList.remove(invalid);
+			}
+		}
+	}
+	function createAlert(id, msg, container, time = 3000, type = "success") {
+		let alerta = document.createElement("div");
+		alerta.setAttribute("id", id);
+		alerta.setAttribute("role", "alert");
+		alerta.classList.add("text-center");
+		alerta.classList.add("alert");
+		alerta.classList.add(`alert-${type}`);
+		alerta.classList.add("hide");
+		alerta.textContent = msg;
+		document.getElementById(container).appendChild(alerta);
+		alerta.classList.remove("hide");
+		setTimeout(function () {
+			alerta.classList.add("hide");
+		}, time);
+	}
+
+	modalSave.addEventListener("click", (e) => {
+		payObj = JSON.parse(localStorage.getItem("payMetod"));
+
+		e.preventDefault();
+		showPayInfo();
+		let nGc = 0;
+		let greatCard = false;
+		let greatBank = false;
+
+		if (inputCardN.value.length < 16) {
+			validInput("cardNumber", "error");
+		} else {
+			validInput("cardNumber");
+			nGc += 1;
+		}
+		if (inputCardCode.value.length < 3) {
+			validInput("cardCode", "error");
+		} else {
+			validInput("cardCode");
+			nGc += 1;
+		}
+		if (inputCardExpM.value.length < 2 || inputCardExpM.value > 12) {
+			validInput("cardExpMonth", "error");
+		} else {
+			validInput("cardExpMonth");
+			nGc += 1;
+		}
+		if (inputCardExpY.value.length < 2 || inputCardExpY.value < 22) {
+			validInput("cardExpYear", "error");
+		} else {
+			validInput("cardExpYear");
+			nGc += 1;
+		}
+
+		if (inputBankN.value.length < 20) {
+			validInput("bankNumber", "error");
+		} else {
+			validInput("bankNumber");
+			greatBank = true;
+		}
+
+		if (nGc === 4) {
+			greatCard = true;
+		}
+
+		if (greatBank) {
+			userPaymetod.account = inputBankN.value;
+			console.log(userPaymetod);
+
+			localStorage.setItem("payMetod", JSON.stringify(userPaymetod));
+			payB.textContent = "Nro de Cuenta: ";
+			paySpan.textContent = inputBankN.value;
+			document.getElementById("payMetodError").classList.remove("d-block");
+		}
+		if (greatCard) {
+			userPaymetod.card = inputCardN.value;
+			userPaymetod.exipration = `${inputCardExpM.value}/20${inputCardExpY.value}`;
+
+			console.log(userPaymetod);
+
+			localStorage.setItem("payMetod", JSON.stringify(userPaymetod));
+			payB.textContent = "Nro de Tarjeta: ";
+			paySpan.textContent = inputCardN.value;
+			document.getElementById("payMetodError").classList.remove("d-block");
+		}
+
+		if (greatCard || greatBank) {
+			createAlert("payMetodSuccess", "El metodo de pago fue agregado correctamente", "alerts");
+
+			let modal = bootstrap.Modal.getInstance(payForm);
+			modal.hide();
+
+			disableInput("cardMetod");
+			disableInput("bankMetod");
+			disableInput("modalSave");
+
+			showPayInfo();
+
+			for (let i = 0; i < inputsPay.length; i++) {
+				const input = inputsPay[i];
+				input.readOnly = true;
+			}
+		}
+	});
+
+	buyButton.addEventListener("click", function () {
+		let buyOK = false;
+		let okCount = 0;
+		payObj = JSON.parse(localStorage.getItem("payMetod"));
+
+		if (payObj) {
+			document.getElementById("payMetodError").classList.remove("d-block");
+
+			okCount++;
+		} else {
+			document.getElementById("payMetodError").classList.add("d-block");
+		}
+		if (
+			document.getElementById("premium").checked ||
+			document.getElementById("express").checked ||
+			document.getElementById("standar").checked
+		) {
+			okCount++;
+			let pTotal = document.getElementById("precioTotal");
+
+			pTotal.classList.remove("invalid-feedback", "d-block");
+			pTotal.classList.add("fw-bold");
+		} else {
+			let pTotal = document.getElementById("precioTotal");
+
+			pTotal.classList.add("invalid-feedback", "d-block");
+			pTotal.classList.remove("fw-bold");
+		}
+
+		if (calle.value != "") {
+			calle.classList.remove("is-invalid");
+			calle.classList.add("is-valid");
+			okCount++;
+
+			userLocation.calle = calle.value;
+		} else {
+			calle.classList.remove("is-valid");
+
+			calle.classList.add("is-invalid");
+		}
+		if (esq.value != "") {
+			esq.classList.remove("is-invalid");
+			esq.classList.add("is-valid");
+			okCount++;
+			userLocation.esq = esq.value;
+		} else {
+			esq.classList.remove("is-valid");
+			esq.classList.add("is-invalid");
+		}
+		if (puerta.value != "") {
+			puerta.classList.remove("is-invalid");
+			puerta.classList.add("is-valid");
+			okCount++;
+			userLocation.puerta = puerta.value;
+		} else {
+			puerta.classList.remove("is-valid");
+			puerta.classList.add("is-invalid");
+		}
+		if (okCount === 5) {
+			createAlert("buyGreat", "La compra ha sido concretada con exito, Felicitaciones!", "alerts");
+			localStorage.setItem("userLocation", JSON.stringify(userLocation));
+		} else {
+			console.log("Completar los datos requieridos");
+		}
+	});
+};
 
 document.addEventListener("DOMContentLoaded", () => {
-	localStorage.getItem("carrito");
+	localStorage.getItem("cart");
 	verCarro();
 	calcSubtotal();
 });
