@@ -55,10 +55,10 @@ function addCart(id) {
 		// localStorage.setItem("carrito", carro);
 		console.log(carro);
 
-		localStorage.setItem("carrito", JSON.stringify(carro));
+		localStorage.setItem("cart", JSON.stringify(carro));
 		console.log("Se agrego al carrito");
 		document.getElementById("sucssCart").classList.remove("hide");
-		carro = JSON.parse(localStorage.getItem("carrito"));
+		carro = JSON.parse(localStorage.getItem("cart"));
 
 		setTimeout(function () {
 			document.getElementById("sucssCart").classList.add("hide");
