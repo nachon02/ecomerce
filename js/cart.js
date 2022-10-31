@@ -204,7 +204,7 @@ const verCarro = () => {
 						</div>
 				<div class="pb-3">
 				<p class="fs-4 borde-btm">Forma de pago</p>
-				<b class="mb-0" id="payB">No ha seleccionado </b><span id="paySpan" class="fst-italic"></span> <a href="#" id="paySelectButton" type="submit" class="link-primary" data-bs-toggle="modal" data-bs-target="#payForm"> Seleccionar </a> <a href="#" id="payDeleteButton"  class="link-danger" > Quitar </a>
+				<b class="mb-0" id="payB">No ha seleccionado </b><span id="paySpan" class="fst-italic"></span> <a href="#" id="paySelectButton" type="submit" class="link-primary" data-bs-toggle="modal" data-bs-target="#payForm"> Seleccionar </a> <a href="#" id="payDeleteButton"  class="link-dark" > Quitar </a>
 				<div id="payMetodError" class="invalid-feedback">
 										Debe seleccionar una forma de pago.
 									</div>
@@ -357,6 +357,10 @@ const calcTotal = (m) => {
 	}
 };
 
+/**
+ * It validates the inputs of a form, and if they are valid, it saves the data in localStorage, and
+ * shows the data in the page.
+ */
 const validModal = () => {
 	let payObj = JSON.parse(localStorage.getItem("payMetod"));
 	let userLtion = JSON.parse(localStorage.getItem("userLocation"));
@@ -382,8 +386,13 @@ const validModal = () => {
 	let inputsPay = payForm.getElementsByTagName("input");
 
 	deletePay.addEventListener("click", function () {
-		localStorage.removeItem("payMetod");
-		location.reload();
+		if (localStorage.getItem("payMetod")) {
+			localStorage.removeItem("payMetod");
+			location.reload();
+		} else {
+			createAlert("notPayMetod", "No hay metodo de pago para eliminar", "alerts", 3000, "warning");
+			//  createAlert(id, msg, container, (time = 3000), (type = "success"));
+		}
 	});
 	const userPaymetod = {
 		user: localStorage.getItem("email"),
@@ -596,6 +605,8 @@ const validModal = () => {
 			disableInput("modalSave");
 
 			showPayInfo();
+			deletePay.classList.remove("link-dark");
+			deletePay.classList.add("link-danger");
 
 			for (let i = 0; i < inputsPay.length; i++) {
 				const input = inputsPay[i];
