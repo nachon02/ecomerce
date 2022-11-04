@@ -449,3 +449,16 @@ span.buttonText {
   width: 30px;
   border-radius: 50px;
 }
+
+.line {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #C3C4C6;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.line span {
+  background: #F8F9FA;
+  padding: 0 10px;
+}

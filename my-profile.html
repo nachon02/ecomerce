@@ -52,7 +52,40 @@
     </div>
   </nav>
   <main>
-    
+    <div class="container mt-4 bg-light">
+      <div class="p-3">
+        <div class="d-flex justify-content-between">
+          <h3>Perfil</h3>
+          <img src="img/img_perfil.png" alt="imagen de usuario" class="img-thumbnail" width="90px" id="imgUser">
+        </div>
+        <hr>
+        <form action="" class="form-container">
+          <div class="d-flex row w-50 mx-auto">
+
+            <label for="firstName">Primer nombre*</label>
+            <input class="form-control" type="text" name="firstName" id="" required>
+            <label for="firstLastName">Primer apellido*</label>
+            <input class="form-control" type="text" name="firstLastName" id="" required>
+            <label for="userEmail">Email*</label>
+            <input class="form-control" type="email" name="userEmail" id="">
+            <label for="contactCel">Telefono de contacto*</label>
+            <input class="form-control" type="tel" name="contactCel" id="">
+
+
+
+            <label for="secondName">Segundo nombre</label>
+            <input class="form-control" type="text" name="second" id="">
+            <label for="secondLastName">Segundo apellido</label>
+            <input class="form-control" type="text" name="secondLastName" id="">
+            <label for="userImg">Imagen de perfil</label>
+            <input class="form-control" type="file" name="userImg" id="userImgInput">
+
+          </div>
+          <hr>
+          <button type="submit" class="btn btn-primary" id="saveChanges">Guardar cambios</button>
+        </form>
+      </div>
+    </div>
   </main>
   <footer class="text-muted">
     <div class="container">
