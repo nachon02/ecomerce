@@ -488,6 +488,7 @@ span.buttonText {
   justify-content: center;
   align-items: center;
   position: absolute;
+  left: 0;
   background-color: #666;
   color: #ddd;
   content: 'Cambiar \270E';
