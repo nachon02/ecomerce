@@ -52,40 +52,82 @@
     </div>
   </nav>
   <main>
-    <div class="container mt-4 bg-light">
+    <div class="container mt-4 w-50 bg-light">
       <div class="p-3">
-        <div class="d-flex justify-content-between">
+        <div class="">
           <h3>Perfil</h3>
-          <img src="img/img_perfil.png" alt="imagen de usuario" class="img-thumbnail" width="90px" id="imgUser">
-        </div>
-        <hr>
-        <form action="" class="form-container">
-          <div class="d-flex row w-50 mx-auto">
-
-            <label for="firstName">Primer nombre*</label>
-            <input class="form-control" type="text" name="firstName" id="" required>
-            <label for="firstLastName">Primer apellido*</label>
-            <input class="form-control" type="text" name="firstLastName" id="" required>
-            <label for="userEmail">Email*</label>
-            <input class="form-control" type="email" name="userEmail" id="">
-            <label for="contactCel">Telefono de contacto*</label>
-            <input class="form-control" type="tel" name="contactCel" id="">
-
-
-
-            <label for="secondName">Segundo nombre</label>
-            <input class="form-control" type="text" name="second" id="">
-            <label for="secondLastName">Segundo apellido</label>
-            <input class="form-control" type="text" name="secondLastName" id="">
-            <label for="userImg">Imagen de perfil</label>
-            <input class="form-control" type="file" name="userImg" id="userImgInput">
-
-          </div>
           <hr>
-          <button type="submit" class="btn btn-primary" id="saveChanges">Guardar cambios</button>
-        </form>
+          <div class="row">
+            <div class="col-4">
+              <div id="imgimg" onclick="document.querySelector('#userImgInput').click()">
+                <img src="img/img_perfil.png" alt="imagen de usuario" class="img-thumbnail mb-3" id="imgUser">
+              </div>
+            </div>
+            <div class="col-8">
+              <p class="fs-5">Nombre: <span class="fs-6" id="userName"></span></p>
+              <p class="fs-5">Apellido: <span class="fs-6" id="lastName"></span></p>
+              <p class="fs-5">Email: <span class="fs-6" id="email"></span></p>
+
+            </div>
+            <button type="submit" class="btn btn-primary" id="changeData" data-bs-toggle="modal"
+              data-bs-target="#userInfo">Modificar Info
+            </button>
+          </div>
+        </div>
+
+        <!-- <button type="submit" class="btn btn-toolbar" id="imgChange"
+          onclick="document.querySelector('#userImgInput').click()">Cambiar foto<span>&#9998;</span>
+        </button> -->
+
+
+
       </div>
-    </div>
+      <!-- modal userInfo -->
+      <div class="modal fade" id="userInfo" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+          <div class="modal-content">
+            <div class="modal-header borde-btm">
+              <h5 class="modal-title fw-bold" id="exampleModalLabel">Editar Perfil</h5>
+
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body container">
+              <form action="" class="form-container mb-3 p-3">
+
+
+                <label for="firstName">Primer nombre*</label>
+                <input class="form-control" type="text" name="firstName" id="firstName" required>
+                <label for="secondName">Segundo nombre</label>
+                <input class="form-control" type="text" name="secondName" id="secondName">
+                <label for="firstLastName">Primer apellido*</label>
+                <input class="form-control" type="text" name="firstLastName" id="firstLastName" required>
+                <label for="secondLastName">Segundo apellido</label>
+                <input class="form-control" type="text" name="secondLastName" id="secondLastName">
+                <label for="userEmail">Email*</label>
+                <input class="form-control" type="email" name="userEmail" id="userEmail" readonly>
+                <label for="contactCel">Telefono de contacto</label>
+                <input class="form-control" type="tel" name="contactCel" id="contactCel">
+
+
+
+
+                <input class="form-control d-none" type="file" accept="image/*" name="userImg" id="userImgInput">
+
+
+              </form>
+              <div class="modal-footer">
+
+
+                <button class="btn btn-primary" type="submit" id="modalInfoSave">Guardar</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- modal userInfo fin -->
   </main>
   <footer class="text-muted">
     <div class="container">

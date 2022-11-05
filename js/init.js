@@ -64,15 +64,15 @@ document.addEventListener("DOMContentLoaded", function () {
 	const navMail = nav[nav.length - 1];
 	navMail.id = "userMail";
 
-	if (googleUser) {
-		// img_perfil = JSON.parse(localStorage.getItem("userGoogle")).user.photoURL;
+	if (localStorage.getItem("userPic")) {
+		img_perfil = localStorage.getItem("userPic");
 	}
 
-	if (localStorage.getItem("email") !== null) {
+	if (localStorage.getItem("userInfo") !== null) {
 		navMail.innerHTML = `<div class="dropdown">
 			<a class="btn nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 			 <img src=${img_perfil} class="userImg">
-			${localStorage.getItem("email")}
+			${JSON.parse(localStorage.getItem("userInfo")).name}
 			</a>
 
 			

@@ -3,6 +3,10 @@ const formulario = document.getElementById("formulario");
 const inputEmail = document.getElementById("form2Example1");
 const inputPass = document.getElementById("form2Example2");
 const button = document.getElementById("enviarBtn");
+const userInfo = {
+	name: "",
+	email: "",
+};
 
 // Valores y errores
 inputPass.addEventListener("keypress", function (event) {
@@ -76,7 +80,11 @@ function validar() {
 	} else {
 		validMail();
 		mail = true;
-		localStorage.setItem("email", valorEmail);
+		userInfo.email = valorEmail;
+		userInfo.name = valorEmail.split("@")[0];
+		// console.log(userInfo.name);
+		// localStorage.setItem("email", valorEmail);
+		localStorage.setItem("userInfo", JSON.stringify(userInfo));
 	}
 
 	// validacion de contraseña
@@ -112,11 +120,3 @@ document.addEventListener("DOMContentLoaded", () => {
 		location.replace("index.html");
 	}
 });
-
-// GOOGLE AUTH CON FIREBASE
-// import "./firebase.js";
-// import { auth } from "./firebase.js";
-// import "./googleLogin.js";
-
-// min 1:01:50 https://www.youtube.com/watch?v=1rLBjRF0ep0
-// min 1:25 https://www.youtube.com/watch?v=Djh_eVj0D2w

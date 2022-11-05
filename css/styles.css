@@ -447,6 +447,7 @@ span.buttonText {
 
 .userImg {
   width: 30px;
+  height: 30px;
   border-radius: 50px;
 }
 
@@ -461,4 +462,49 @@ span.buttonText {
 .line span {
   background: #F8F9FA;
   padding: 0 10px;
+}
+
+#imgUser {
+
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+
+}
+
+#imgimg {
+  display: inline;
+  position: relative;
+  cursor: pointer;
+}
+
+
+
+#imgimg::before {
+  opacity: 0;
+  display: flex;
+  width: 140px;
+  height: 140px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: #666;
+  color: #ddd;
+  content: 'Cambiar \270E';
+  border-radius: 50%;
+  box-shadow: 0px 0px 0px 5px #aaa inset;
+  box-sizing: border-box;
+  font-size: 20px;
+  font-weight: 600;
+  clip-path: circle(50% at 50% 50%);
+  transition: all ease-in-out .3s;
+
+
+}
+
+#imgimg:hover::before {
+  opacity: 1;
+
+
+
 }
