@@ -66,6 +66,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	if (localStorage.getItem("userPic")) {
 		img_perfil = localStorage.getItem("userPic");
+	} else {
+		img_perfil = "img/img_perfil.png";
 	}
 
 	if (localStorage.getItem("userInfo") !== null) {

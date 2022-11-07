@@ -106,7 +106,7 @@ function carrusel() {
 	carrusel +=
 		`
 		<div class="row">
-			<div class="col-10">
+			<div class="col-12">
 				<div class='d-flex justify-content-center'>
 						<div id="carouselExampleIndicators" class="carousel carousel-dark slide container border rounded" data-bs-ride="true">
 							
@@ -148,16 +148,15 @@ function mostrarInfo() {
 		info +=
 			`
 
-
-        <div class="row border rounded py-3 pe-3 bg-white">
-		<div class="col-3">` +
+        <div class="row row-cols-1 row-cols-sm-2 text-center text-md-start p-3 bg-white border rounded">
+		<div class="col-12 col-xl-2 order-2 order-xl-first border rounded align-items-center">` +
 			carruselBtn() +
 			`</div>
 		
-			<div id="images" class="col-6">        
+			<div id="images" class="col-12 col-xl-7 order-1">        
 			</div>
 
-			<div class="col-3 container border rounded py-3">
+			<div class="col-12 col-xl-3 container border rounded py-3 order-3">
 				<div class="row">
 					<small class="text-muted">
 					<a class="link-dark" href="products.html">
