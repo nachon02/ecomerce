@@ -84,13 +84,13 @@ function carruselBtn() {
 		if (i == 0) {
 			buttons += `
         
-		<img src="${imagen}" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+		<img src="${imagen}" data-bs-target="#prodCarousel" data-bs-slide-to="0"
             aria-label="Slide 1" class="img-car img-thumbnail img-car__active" aria-current="true" alt="Imagen de ${infoProd.name} ${i}"></img>
         `;
 		} else {
 			buttons += `
 
-			<img src="${imagen}" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}"
+			<img src="${imagen}" data-bs-target="#prodCarousel" data-bs-slide-to="${i}"
             aria-label="Slide ${i + 1}" class="img-car img-thumbnail" aria-current="true" alt="Imagen de ${
 				infoProd.name
 			} ${i + 1}"></img>
@@ -108,7 +108,7 @@ function carrusel() {
 		<div class="row">
 			<div class="col-12">
 				<div class='d-flex justify-content-center'>
-						<div id="carouselExampleIndicators" class="carousel carousel-dark slide container border rounded" data-bs-ride="true">
+						<div id="prodCarousel" class="carousel carousel-dark slide container border rounded w-100" data-bs-ride="true">
 							
 							<div id='carousel_images'class="carousel-inner">
 
@@ -117,11 +117,11 @@ function carrusel() {
 		`
 							
 						</div>
-						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						<button class="carousel-control-prev" type="button" data-bs-target="#prodCarousel" data-bs-slide="prev">
 							<span class="carousel-control-prev-icon flechas" aria-hidden="true"></span>
 							<span class="visually-hidden">Previous</span>
 						</button>
-						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						<button class="carousel-control-next" type="button" data-bs-target="#prodCarousel" data-bs-slide="next">
 							<span class="carousel-control-next-icon flechas" aria-hidden="true"></span>
 							<span class="visually-hidden">Next</span>
 						</button>
@@ -149,14 +149,14 @@ function mostrarInfo() {
 			`
 
         <div class="row row-cols-1 row-cols-sm-2 text-center text-md-start p-3 bg-white border rounded">
-		<div class="col-12 col-xl-2 order-2 order-xl-first border rounded align-items-center">` +
+		<div class="col-12 col-xl-2 order-2 order-xl-first border d-md-flex d-none rounded align-items-center mt-2">` +
 			carruselBtn() +
 			`</div>
 		
-			<div id="images" class="col-12 col-xl-7 order-1">        
+			<div id="images" class="col-12 col-xl-7 order-1 mt-2">        
 			</div>
 
-			<div class="col-12 col-xl-3 container border rounded py-3 order-3">
+			<div class="col-12 col-xl-3 container border rounded py-3 order-3 mt-2">
 				<div class="row">
 					<small class="text-muted">
 					<a class="link-dark" href="products.html">
@@ -187,12 +187,12 @@ function mostrarInfo() {
 				<input type="number" class="form-control" placeholder="Cantidad" id="cantidad" value="1" min="1">
 			
 			</div>
-			<div class="row">
+			<div class="mt-3 row justify-content-evenly">
 				
-					<button class="btn btn-primary col-5 gap-2" type="button" id="btn-buy" onclick="addCart(${infoProd.id})">Comprar</button>
+					<button class="btn btn-primary col-xl-5 col-11 gap-2" type="button" id="btn-buy" onclick="addCart(${infoProd.id})">Comprar</button>
 				
 				
-					<a href="cart.html" class="btn btn btn-cart col-6" >Ver Carrito<i class="fas fa-shopping-cart"></i></a>
+					<a href="cart.html" class="btn btn btn-cart col-xl-6 col-11 mt-2 mt-xl-0" >Ver Carrito<i class="fas fa-shopping-cart"></i></a>
 				
 			</div>
 
@@ -216,8 +216,8 @@ function mostrarInfo() {
 			let rel = infoProd.relatedProducts[i];
 
 			document.getElementById("productos_relacionados").innerHTML += `
-            <div class="list-group-item list-group-item-action cursor-active container w-50 border mx-3" onclick="setProdID(${rel.id})">
-            <b>${rel.name}</b>
+            <div class="col-xl-5 col-12 cursor-active border rounded pb-2 mb-3" onclick="setProdID(${rel.id})">
+            <p class="bold">${rel.name}</p>
             <img class="p-0 img-thumbnail"src="${rel.image}" alt="Imagen de ${rel.name}"/>
             </div>
             
@@ -225,7 +225,8 @@ function mostrarInfo() {
     `;
 		}
 
-		let commentsFilter = `<div class='d-flex justify-content-between mt-4'> <p class="fs-4">Comentarios</p>
+		let commentsFilter = `<div class='d-flex justify-content-between mt-4 
+flex-column flex-xl-row align-items-center'> <p class="fs-4">Comentarios</p>
     <div
                 id="filtros"
                 class="mr-2"
@@ -328,15 +329,16 @@ function mostrarComm() {
     
     <div class="list-group-item list-group-item-action "> 
         <div class="d-flex justify-content-between">
-        <p class="bold col">${comentario.user}</p><span class="lighter col-3 text-end"> ${comentario.dateTime}</span>
+        <p class="bold col">${comentario.user}</p>
         
                 
         </div>    
-        <div class="d-flex justify-content-between">
-            <p class="col">${comentario.description} </p> 
+        <div class="row">
+            <p class="col-12 col-lg-10">${comentario.description} </p> 
             
             
-            <div class="col-1 text-end">` +
+            <div class="col-12 text-end">
+			<span class="lighter col-3 text-end"> ${comentario.dateTime}</span>` +
 				verEstrellas(comentario.score) +
 				`</div>
          </div>
@@ -355,7 +357,7 @@ document.getElementById("nuevoComentario").innerHTML = `
         <div id="agregar_com" class="form-group">
             
             <label id="label_opinion"for="opinion" class="mt-3">Tu opinión:</label>
-            <textarea class="form-control" id="opinion" rows="3"></textarea>
+            <textarea class="form-control" id="opinion" rows="3" placeholder="Escriba su comentario"></textarea>
             <p class="m-0 mt-3" id="puntuacion">Tu puntuación:</p>
             <div class="bold diselect">
                 <i id="estrella1" class="fa fa-star cursor-active estrella" onclick="puntuar(1)"></i>

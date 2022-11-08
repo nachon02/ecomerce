@@ -387,9 +387,7 @@ table img {
   color: #3483fa;
 }
 
-#btn-buy {
-  margin: 0 8px 0 9px;
-}
+
 
 @media (max-width: 1400px) {
   #carouselExampleIndicators {
@@ -523,4 +521,26 @@ span.buttonText {
     flex-direction: row;
     justify-content: space-around;
   }
+}
+
+#prodCarousel img {
+  display: inline;
+  position: relative;
+}
+
+
+
+#prodCarousel img::before {
+  opacity: 0.2;
+  content: '';
+  background-color: red;
+  width: 100px;
+  height: 100px;
+
+}
+
+
+
+#prodCarousel img:hover+#images {
+  border: 10px solid red;
 }

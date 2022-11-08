@@ -1,93 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-		<title>eMercado - Todo lo que busques está aquí</title>
 
-		<link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
-		<link href="css/font-awesome.min.css" rel="stylesheet" />
-		<link href="css/bootstrap.min.css" rel="stylesheet" />
-		<link href="css/styles.css" rel="stylesheet" />
-	</head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>eMercado - Todo lo que busques está aquí</title>
 
-	<body>
-		<div id="cortina" onclick="salir()" class="cortina hide"></div>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
-			<div class="container">
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarNav"
-					aria-controls="navbarNav"
-					aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav w-100 justify-content-between">
-						<li class="nav-item">
-							<a class="nav-link" href="index.html">Inicio</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="categories.html">Categorías</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="sell.html">Vender</a>
-						</li>
-						<li class="nav-item btn-group"></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<main class="bg-light">
-			<div id="info_container" class="container pt-5"></div>
-			<div id="comments" class="container mt-3"></div>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+	<link href="css/font-awesome.min.css" rel="stylesheet" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/styles.css" rel="stylesheet" />
+</head>
 
-			<div id="nuevoComentario" class="container mt-3"></div>
-			<div id="alreadyCom" class="text-center alert alert-warning hide" role="alert">
-				Solo puede ingresar un comentario
-			</div>
-			<div id="sucssCart" class="text-center alert alert-success hide" role="alert">
-				El producto se agrego al carrito con exito!
-			</div>
-			<div id="alreadyCart" class="text-center alert alert-warning hide" role="alert">
-				El producto ya se encuentra en el carrito
-			</div>
-			<div id="info" class="container mt-3 text-center">
-				<h4>Productos Relacionados</h4>
-				<div id="productos_relacionados" class="mt-3 d-flex justify-content-between"></div>
-			</div>
-		</main>
-		<footer class="text-muted">
-			<div class="container">
-				<p class="float-end">
-					<a href="#">Volver arriba</a>
-				</p>
-				<p>
-					Este sitio forma parte de
-					<a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
-					- 2022
-				</p>
-				<p>
-					Clickea
-					<a target="_blank" href="Letra.pdf">aquí</a>
-					para descargar la letra del obligatorio.
-				</p>
-			</div>
-		</footer>
-		<div id="spinner-wrapper">
-			<div class="lds-ring">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
+<body>
+	<div id="cortina" onclick="salir()" class="cortina hide"></div>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
+		<div class="container">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav w-100 justify-content-between">
+					<li class="nav-item">
+						<a class="nav-link" href="index.html">Inicio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="categories.html">Categorías</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="sell.html">Vender</a>
+					</li>
+					<li class="nav-item btn-group"></li>
+				</ul>
 			</div>
 		</div>
+	</nav>
+	<main class="bg-light">
+		<div id="info_container" class="container pt-5"></div>
+		<div id="comments" class="container mt-3"></div>
 
-		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/init.js"></script>
-		<script src="js/product-info.js"></script>
-	</body>
+		<div id="nuevoComentario" class="container mt-3"></div>
+		<div id="alreadyCom" class="text-center alert alert-warning hide" role="alert">
+			Solo puede ingresar un comentario
+		</div>
+		<div id="sucssCart" class="text-center alert alert-success hide" role="alert">
+			El producto se agrego al carrito con exito!
+		</div>
+		<div id="alreadyCart" class="text-center alert alert-warning hide" role="alert">
+			El producto ya se encuentra en el carrito
+		</div>
+		<div id="info" class="container mt-3 text-center">
+			<h4>Productos Relacionados</h4>
+			<div id="productos_relacionados" class="mt-3 row justify-content-evenly"></div>
+		</div>
+	</main>
+	<footer class="text-muted">
+		<div class="container">
+			<p class="float-end">
+				<a href="#">Volver arriba</a>
+			</p>
+			<p>
+				Este sitio forma parte de
+				<a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+				- 2022
+			</p>
+			<p>
+				Clickea
+				<a target="_blank" href="Letra.pdf">aquí</a>
+				para descargar la letra del obligatorio.
+			</p>
+		</div>
+	</footer>
+	<div id="spinner-wrapper">
+		<div class="lds-ring">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/init.js"></script>
+	<script src="js/product-info.js"></script>
+</body>
+
 </html>

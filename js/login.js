@@ -8,6 +8,12 @@ const userInfo = {
 	email: "",
 };
 
+const enter = () => {
+	document.querySelector("#form2Example1").value = "alguien@algunlugar.es";
+	document.querySelector("#form2Example2").value = "alguien@algunlugar.es";
+	validar();
+};
+
 // Valores y errores
 inputPass.addEventListener("keypress", function (event) {
 	if (event.key === "Enter") {
@@ -82,6 +88,7 @@ function validar() {
 		mail = true;
 		userInfo.email = valorEmail;
 		userInfo.name = valorEmail.split("@")[0];
+		userInfo.fullName = valorEmail.split("@")[0];
 		// console.log(userInfo.name);
 		// localStorage.setItem("email", valorEmail);
 		localStorage.setItem("userInfo", JSON.stringify(userInfo));

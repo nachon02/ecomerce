@@ -15,6 +15,19 @@ const img = document.querySelector("#imgUser");
 let userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
 // functions
+const standardizeText = (w) => {
+	// let upper = w[0].toUpperCase();
+	let text = "";
+	for (let i = 0; i < w.length; i++) {
+		const letter = w[i];
+		if (i == 0) {
+			text = letter.toUpperCase();
+		} else {
+			text += letter.toLowerCase();
+		}
+	}
+	return text;
+};
 
 const spaces = (w) => {
 	return / /.test(w);
@@ -36,6 +49,9 @@ btnSave.addEventListener("click", (e) => {
 		firstNameInput.classList.add("is-valid");
 	} else {
 		userInfo.name = "";
+		firstNameInput.classList.remove("is-valid");
+
+		firstNameInput.classList.add("is-invalid");
 	}
 	if (firstLastNameInput.value !== "") {
 		userInfo.lastName = deleteSpaces(firstLastNameInput.value);
@@ -45,32 +61,50 @@ btnSave.addEventListener("click", (e) => {
 		firstLastNameInput.classList.add("is-valid");
 	} else {
 		userInfo.lastName = "";
+		firstLastNameInput.classList.remove("is-valid");
+
+		firstLastNameInput.classList.add("is-invalid");
 	}
 
 	//
 	if (secondNameInput.value != "") {
-		userInfo.secondName = deleteSpaces(secondNameInput.value);
+		userInfo.secondName = standardizeText(deleteSpaces(secondNameInput.value));
+		secondNameInput.classList.add("is-valid");
+
 		// console.log(userInfo.name, userInfo.secondName);
 	} else {
 		userInfo.secondName = "";
 	}
 	if (secondLastNameInput.value != "") {
-		userInfo.secondLastName = deleteSpaces(secondLastNameInput.value);
+		userInfo.secondLastName = standardizeText(deleteSpaces(secondLastNameInput.value));
+		secondLastNameInput.classList.add("is-valid");
+
 		// console.log(userInfo.name, userInfo.secondLastName);
 	} else {
 		userInfo.secondLastName = "";
 	}
 	if (contactCelInput.value != "") {
-		userInfo.tel = deleteSpaces(contactCelInput.value);
+		userInfo.tel = standardizeText(deleteSpaces(contactCelInput.value));
+		contactCelInput.classList.add("is-valid");
+
 		// console.log(userInfo.name, userInfo.secondLastName);
 	} else {
 		userInfo.tel = "";
 	}
 	if (firstLastNameInput.value !== "" && firstNameInput.value !== "") {
+		let fullName = `${standardizeText(deleteSpaces(userInfo.name))} ${standardizeText(
+			deleteSpaces(userInfo.secondName)
+		)} ${standardizeText(deleteSpaces(userInfo.lastName))} ${standardizeText(deleteSpaces(userInfo.secondLastName))} `;
+		userInfo.fullName = fullName;
 		localStorage.setItem("userInfo", JSON.stringify(userInfo));
-		let fullName = `${userInfo.name} ${userInfo.secondName} ${userInfo.lastName} ${userInfo.secondLastName} `;
+		document.querySelector("#userName").textContent = fullName;
 
-		console.log(deleteSpaces(fullName));
+		let userModal = bootstrap.Modal.getInstance(document.querySelector("#userInfo"));
+		setTimeout(() => {
+			userModal.hide();
+		}, 300);
+
+		// console.log(JSON.parse(localStorage.getItem("userInfo")).fullName);
 	}
 });
 
@@ -93,14 +127,19 @@ imagenUser.addEventListener("change", () => {
 	let imagends = (document.querySelector(".userImg").src = localStorage.getItem("userPic"));
 });
 document.addEventListener("DOMContentLoaded", () => {
+	//mostrar nombre y email guardados
 	if (localStorage.getItem("userPic")) {
 		img.src = localStorage.getItem("userPic");
 	} else {
 		img.src = "img/img_perfil.png";
 	}
 	userEmailInput.value = userInfo.email;
-	document.querySelector("#userName").textContent = userInfo.name + " " + (userInfo.lastName || "");
+	// document.querySelector("#userName").textContent = userInfo.name + " " + (userInfo.lastName || "");
+	document.querySelector("#userName").textContent = JSON.parse(localStorage.getItem("userInfo")).fullName;
 	document.querySelector("#email").textContent = userInfo.email;
+	document.querySelector("#tel").textContent = JSON.parse(localStorage.getItem("userInfo")).tel;
+
 	firstNameInput.value = userInfo.name;
 	firstLastNameInput.value = userInfo.lastName || "";
+	//mostrar nombre y email guardados
 });
