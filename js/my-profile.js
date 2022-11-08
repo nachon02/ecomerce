@@ -16,6 +16,10 @@ let userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
 // functions
 const standardizeText = (w) => {
+	deleteSpaces(upperFirst(w));
+};
+
+const upperFirst = (w) => {
 	// let upper = w[0].toUpperCase();
 	let text = "";
 	for (let i = 0; i < w.length; i++) {
@@ -68,7 +72,7 @@ btnSave.addEventListener("click", (e) => {
 
 	//
 	if (secondNameInput.value != "") {
-		userInfo.secondName = standardizeText(deleteSpaces(secondNameInput.value));
+		userInfo.secondName = standardizeText(secondNameInput.value);
 		secondNameInput.classList.add("is-valid");
 
 		// console.log(userInfo.name, userInfo.secondName);
@@ -76,7 +80,7 @@ btnSave.addEventListener("click", (e) => {
 		userInfo.secondName = "";
 	}
 	if (secondLastNameInput.value != "") {
-		userInfo.secondLastName = standardizeText(deleteSpaces(secondLastNameInput.value));
+		userInfo.secondLastName = standardizeText(secondLastNameInput.value);
 		secondLastNameInput.classList.add("is-valid");
 
 		// console.log(userInfo.name, userInfo.secondLastName);
@@ -84,7 +88,9 @@ btnSave.addEventListener("click", (e) => {
 		userInfo.secondLastName = "";
 	}
 	if (contactCelInput.value != "") {
-		userInfo.tel = standardizeText(deleteSpaces(contactCelInput.value));
+		userInfo.tel = standardizeText(contactCelInput.value);
+		document.querySelector("#tel").textContent = standardizeText(contactCelInput.value);
+
 		contactCelInput.classList.add("is-valid");
 
 		// console.log(userInfo.name, userInfo.secondLastName);
@@ -92,9 +98,9 @@ btnSave.addEventListener("click", (e) => {
 		userInfo.tel = "";
 	}
 	if (firstLastNameInput.value !== "" && firstNameInput.value !== "") {
-		let fullName = `${standardizeText(deleteSpaces(userInfo.name))} ${standardizeText(
+		let fullName = `${standardizeText(userInfo.name)} ${standardizeText(
 			deleteSpaces(userInfo.secondName)
-		)} ${standardizeText(deleteSpaces(userInfo.lastName))} ${standardizeText(deleteSpaces(userInfo.secondLastName))} `;
+		)} ${standardizeText(userInfo.lastName)} ${standardizeText(userInfo.secondLastName)} `;
 		userInfo.fullName = fullName;
 		localStorage.setItem("userInfo", JSON.stringify(userInfo));
 		document.querySelector("#userName").textContent = fullName;

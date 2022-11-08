@@ -401,7 +401,7 @@ function addComent() {
 
 	let stars = estrellaCom;
 	let newComent = "";
-	let user = localStorage.getItem("email");
+	let user = JSON.parse(localStorage.getItem("userInfo")).email;
 	let o = undefined;
 	let s = undefined;
 	let ok = undefined;
@@ -475,11 +475,12 @@ function addComent() {
 		newComent +=
 			`<div id="userCom"class="list-group-item list-group-item-action "> 
         <div class="d-flex justify-content-between">
-        <p class="bold col">${user}</p><span class="lighter col-3 text-end"> ${fecha}</span> 
+        <p class="bold col">${user}</p> 
         
         </div>    
-        <div class="d-flex justify-content-between">
-            <p class="col">${opinion} </p> <div class="col-1 text-end">` +
+        <div class="row">
+            <p class="col-12 col-lg-10">${opinion} </p> <div class="col-12 text-end">
+			<span class="lighter col-3 text-end"> ${fecha}</span>` +
 			verEstrellas(stars) +
 			`</div>
          </div>
