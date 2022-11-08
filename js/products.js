@@ -28,7 +28,6 @@ function addCart(id) {
 		const element = listaProductos[i];
 		if (element.id == id) {
 			este = true;
-			console.log("este es " + element.name);
 
 			infoP.id = parseInt(element.id);
 			infoP.unitCost = parseInt(element.cost);
@@ -42,21 +41,16 @@ function addCart(id) {
 	for (let i = 0; i < carro.length; i++) {
 		const p = carro[i];
 		if (id == p.id) {
-			console.log(id + " " + p.id);
 			existe = true;
-			console.log(p.name + " holas");
-			console.log(carro);
-			console.log(p);
 		}
 	}
 
 	if (!existe) {
 		carro.push(infoP);
 		// localStorage.setItem("carrito", carro);
-		console.log(carro);
 
 		localStorage.setItem("cart", JSON.stringify(carro));
-		console.log("Se agrego al carrito");
+
 		document.getElementById("sucssCart").classList.remove("hide");
 		carro = JSON.parse(localStorage.getItem("cart"));
 
@@ -68,7 +62,7 @@ function addCart(id) {
 
 		// cantidad = infoP.count;
 		// cantidad += 1;
-		// console.log(cantidad);
+
 		// infoP.count += 1;
 		document.getElementById("alreadyCart").classList.remove("hide");
 		setTimeout(function () {
@@ -76,7 +70,6 @@ function addCart(id) {
 		}, 3000);
 	}
 	// localStorage.setItem("carrito", JSON.stringify(carro));
-	// console.log(j);
 }
 
 function ordenarArray(criterio, array) {
@@ -151,36 +144,37 @@ function verProductos() {
         <div  class="list-group-item list-group-item-action cursor-active">
             
             <div class="row">
-                <div class="col-3" onclick="setProdID(${product.id})">
+                <div class="col-12 col-md-3" onclick="setProdID(${product.id})">
                     <img id="img_p${i + 1}"src=${product.image} alt="Imagen de ${
 					product.name
 				}" class="p-0 img-thumbnail">                    
                 </div>
-                <div class="col-7" onclick="setProdID(${product.id})">
+                <div class="col-12 col-md-9" onclick="setProdID(${product.id})">
                         
                             <div class="mb-1">
-                                <h4>${product.name} - ${product.currency} ${product.cost} </h4> 
+							<div class='row'>
+                                <p class="fs-4 col-9">${product.name} - ${product.currency} ${product.cost} </p> 
+					<span class="text-muted col-3 d-flex justify-content-end align-items-center mb-3">${product.soldCount} vendidos</span> 
                                 <p mb-1=""> ${product.description} </p> 
-                            
+                            </div>
                             
                         </div>
                     </div>
-					<div class="col-2 text-end">
+					<div class="col-12 text-end">
 
-					<div class="row">
-					<small class="text-muted">${product.soldCount} vendidos</small> 
-					</div>
 
-					<div class="row mt-100">
-					<button type="button" class="btn btn-cart btn-sm" onclick="addCart(${product.id})">Comprar</button>
+					<div class="row justify-content-end">
+					<button type="button" id="comprar${i + 1}" class="btn btn-cart btn-sm col-12 col-md-2" onclick="addCart(${
+					product.id
+				})">Comprar</button>
 					</div>
 							
 					</div>
             </div>
         </div>
         `;
+				document.getElementById("product_container").innerHTML = contenido;
 			}
-			document.getElementById("product_container").innerHTML = contenido;
 		}
 	}
 }
@@ -197,7 +191,6 @@ EJECUCIÓN:
 document.addEventListener("DOMContentLoaded", function (e) {
 	let id = localStorage.getItem("catID");
 	getJSONData(`${PRODUCTS_URL}${id}${EXT_TYPE}`).then(function (resultObj) {
-		// console.log(`${PRODUCTS_URL}${catID}${EXT_TYPE}`);
 		if (resultObj.status === "ok") {
 			listaProductos = resultObj.data.products;
 			nameCat = resultObj.data.catName;
@@ -205,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			verProductos();
 		}
 	});
-	// console.log(localStorage.getItem("catID"));
+
 	// funcion que limpia los inputs
 
 	document.getElementById("limpiar").addEventListener("click", function () {
@@ -223,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 	document.getElementById("sortAsc").addEventListener("click", () => {
 		ordenarArray(asc, listaProductos);
-		console.log(ordenarArray(asc, listaProductos));
+
 		verProductos();
 	});
 	document.getElementById("sortDesc").addEventListener("click", () => {
