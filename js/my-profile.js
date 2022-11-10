@@ -16,7 +16,7 @@ let userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
 // functions
 const standardizeText = (w) => {
-	deleteSpaces(upperFirst(w));
+	return deleteSpaces(upperFirst(w));
 };
 
 const upperFirst = (w) => {
@@ -98,12 +98,17 @@ btnSave.addEventListener("click", (e) => {
 		userInfo.tel = "";
 	}
 	if (firstLastNameInput.value !== "" && firstNameInput.value !== "") {
-		let fullName = `${standardizeText(userInfo.name)} ${standardizeText(
-			deleteSpaces(userInfo.secondName)
-		)} ${standardizeText(userInfo.lastName)} ${standardizeText(userInfo.secondLastName)} `;
+		let fullName = `${standardizeText(userInfo.name)}
+		 ${standardizeText(userInfo.secondName)} 
+		 ${standardizeText(userInfo.lastName)} 
+		 ${standardizeText(userInfo.secondLastName)} `;
 		userInfo.fullName = fullName;
 		localStorage.setItem("userInfo", JSON.stringify(userInfo));
-		document.querySelector("#userName").textContent = fullName;
+		document.querySelector("#userName").textContent = fullName; 
+		document.querySelector(".profileName").textContent = userInfo.name;
+
+
+
 
 		let userModal = bootstrap.Modal.getInstance(document.querySelector("#userInfo"));
 		setTimeout(() => {
@@ -126,11 +131,16 @@ imagenUser.addEventListener("change", () => {
 		return;
 	}
 	const primerArchivo = archivos[0];
-	console.log(archivos[0]);
-	const objectURL = URL.createObjectURL(primerArchivo);
-	img.src = objectURL;
-	localStorage.setItem("userPic", objectURL);
+	const reader = new FileReader;
+
+	
+	reader.readAsDataURL(primerArchivo)
+	reader.addEventListener('load',()=>{img.src = reader.result;
+	localStorage.setItem("userPic", reader.result);
 	let imagends = (document.querySelector(".userImg").src = localStorage.getItem("userPic"));
+	// let imagends = (document.querySelector(".userImg").src = localStorage.getItem("userPic"));
+
+	})
 });
 document.addEventListener("DOMContentLoaded", () => {
 	//mostrar nombre y email guardados
