@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		navMail.innerHTML = `<div class="dropdown">
 			<a class="btn nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 			 <img src=${img_perfil} class="userImg">
-			${JSON.parse(localStorage.getItem("userInfo")).name}
+			<span class="profileName">${JSON.parse(localStorage.getItem("userInfo")).name}</span>
 			</a>
 
 			
