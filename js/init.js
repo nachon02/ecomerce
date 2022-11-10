@@ -44,6 +44,12 @@ function out() {
 	localStorage.clear();
 	location.replace("login.html");
 }
+const validaNumericos = (event) => {
+	if (event.charCode >= 48 && event.charCode <= 57) {
+		return true;
+	}
+	return false;
+};
 
 getJSONData(`${CART_INFO_URL}${user}${EXT_TYPE}`).then(function (resultObj) {
 	// console.log(`${CART_INFO_URL}${user}${EXT_TYPE}`);

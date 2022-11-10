@@ -96,6 +96,7 @@ btnSave.addEventListener("click", (e) => {
 		// console.log(userInfo.name, userInfo.secondLastName);
 	} else {
 		userInfo.tel = "";
+		document.querySelector("#tel").textContent = "";
 	}
 	if (firstLastNameInput.value !== "" && firstNameInput.value !== "") {
 		let fullName = `${standardizeText(userInfo.name)}
@@ -104,11 +105,8 @@ btnSave.addEventListener("click", (e) => {
 		 ${standardizeText(userInfo.secondLastName)} `;
 		userInfo.fullName = fullName;
 		localStorage.setItem("userInfo", JSON.stringify(userInfo));
-		document.querySelector("#userName").textContent = fullName; 
+		document.querySelector("#userName").textContent = fullName;
 		document.querySelector(".profileName").textContent = userInfo.name;
-
-
-
 
 		let userModal = bootstrap.Modal.getInstance(document.querySelector("#userInfo"));
 		setTimeout(() => {
@@ -131,16 +129,15 @@ imagenUser.addEventListener("change", () => {
 		return;
 	}
 	const primerArchivo = archivos[0];
-	const reader = new FileReader;
+	const reader = new FileReader();
 
-	
-	reader.readAsDataURL(primerArchivo)
-	reader.addEventListener('load',()=>{img.src = reader.result;
-	localStorage.setItem("userPic", reader.result);
-	let imagends = (document.querySelector(".userImg").src = localStorage.getItem("userPic"));
-	// let imagends = (document.querySelector(".userImg").src = localStorage.getItem("userPic"));
-
-	})
+	reader.readAsDataURL(primerArchivo);
+	reader.addEventListener("load", () => {
+		img.src = reader.result;
+		localStorage.setItem("userPic", reader.result);
+		let imagends = (document.querySelector(".userImg").src = localStorage.getItem("userPic"));
+		// let imagends = (document.querySelector(".userImg").src = localStorage.getItem("userPic"));
+	});
 });
 document.addEventListener("DOMContentLoaded", () => {
 	//mostrar nombre y email guardados
@@ -157,5 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	firstNameInput.value = userInfo.name;
 	firstLastNameInput.value = userInfo.lastName || "";
+	secondNameInput.value = userInfo.secondName || "";
+	secondLastNameInput.value = userInfo.secondLastName || "";
+	contactCelInput.value = userInfo.tel || "";
+	contactCelInput.placeholder = "Opcional";
 	//mostrar nombre y email guardados
 });

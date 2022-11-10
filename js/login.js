@@ -22,6 +22,9 @@ inputPass.addEventListener("keypress", function (event) {
 });
 inputEmail.addEventListener("keypress", function (event) {
 	if (event.key === "Enter") {
+		if (inputEmail.value === "enter") {
+			enter();
+		}
 		validar();
 	}
 });

@@ -68,7 +68,7 @@
           <div class="col-md-8 col-12 " id="userData">
             <p class="fs-5">Nombre: <span class="fs-6" id="userName"></span></p>
             <p class="fs-5">Email: <span class="fs-6" id="email"></span></p>
-            <p class="fs-5">Telefono de contacto: <span class="fs-6" id="tel"></span></p>
+            <p class="fs-5">Telefono de contacto: <span class="fs-6" id="tel">Opcional</span></p>
 
           </div>
 
@@ -96,17 +96,19 @@
 
 
               <label for="firstName">Primer nombre*</label>
-              <input class="form-control" type="text" name="firstName" id="firstName" required>
+              <input class="form-control" type="text" name="firstName" placeholder="Requerido" id="firstName" required>
               <label for="secondName">Segundo nombre</label>
-              <input class="form-control" type="text" name="secondName" id="secondName">
+              <input class="form-control" type="text" name="secondName" placeholder="Opcional" id="secondName">
               <label for="firstLastName">Primer apellido*</label>
-              <input class="form-control" type="text" name="firstLastName" id="firstLastName" required>
+              <input class="form-control" type="text" name="firstLastName" placeholder="Requerido" id="firstLastName"
+                required>
               <label for="secondLastName">Segundo apellido</label>
-              <input class="form-control" type="text" name="secondLastName" id="secondLastName">
+              <input class="form-control" type="text" name="secondLastName" placeholder="Opcional" id="secondLastName">
               <label for="userEmail">Email*</label>
-              <input class="form-control" type="email" name="userEmail" id="userEmail" readonly>
+              <input class="form-control" type="email" name="userEmail" placeholder="Requerido" id="userEmail" readonly>
               <label for="contactCel">Telefono de contacto</label>
-              <input class="form-control" type="tel" name="contactCel" id="contactCel">
+              <input class="form-control" type="tel" placeholder="Opcional" name="contactCel" id="contactCel"
+                onkeypress="return validaNumericos(event)" maxlength="9">
 
 
 

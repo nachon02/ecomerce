@@ -14,12 +14,7 @@ const dltCart = (u) => {
 
 	location.reload();
 };
-const validaNumericos = (event) => {
-	if (event.charCode >= 48 && event.charCode <= 57) {
-		return true;
-	}
-	return false;
-};
+
 const verCarro = () => {
 	let articles = JSON.parse(localStorage.getItem("cart"));
 	if (!articles[0]) {
