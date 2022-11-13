@@ -51,6 +51,35 @@ const validaNumericos = (event) => {
 	return false;
 };
 
+const standardizeText = (w) => {
+	return deleteSpaces(upperFirst(w));
+};
+
+const upperFirst = (w) => {
+	// let upper = w[0].toUpperCase();
+	let text = "";
+	for (let i = 0; i < w.length; i++) {
+		const letter = w[i];
+		if (i == 0) {
+			text = letter.toUpperCase();
+		} else {
+			text += letter.toLowerCase();
+		}
+	}
+	return text;
+};
+
+const spaces = (w) => {
+	return / /.test(w);
+};
+const deleteSpaces = (w) => {
+	if (spaces(w)) {
+		return w.split(" ")[0];
+	} else {
+		return w;
+	}
+};
+
 getJSONData(`${CART_INFO_URL}${user}${EXT_TYPE}`).then(function (resultObj) {
 	// console.log(`${CART_INFO_URL}${user}${EXT_TYPE}`);
 	if (resultObj.status === "ok") {

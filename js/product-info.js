@@ -2,6 +2,10 @@ let estrellaCom = "";
 let max = undefined;
 let min = undefined;
 let carro = JSON.parse(localStorage.getItem("cart"));
+let avgStars;
+let countComm = 0;
+
+let comentariosArray = [];
 let infoP = {
 	id: "",
 	name: "",
@@ -165,8 +169,7 @@ function mostrarInfo() {
 				<div class="row">
 					<h1 class="borde-btm fs-3">${infoProd.name}</h1>
 				</div>
-			<div></div>
-			<div></div>
+			
 			
 			
 			<p class="fs-2 lh-3">${infoProd.currency} ${infoProd.cost}</p>
@@ -316,10 +319,16 @@ function filtroCom(o) {
 // bucle que muestra los comentarios obtenidos con getJSONData
 function mostrarComm() {
 	document.getElementById("comments").innerHTML = "";
+	comentariosArray = comProd;
+	console.log(comentariosArray);
+	countComm = comentariosArray.length;
+	let starss = 0;
 
 	for (let i = 0; i < comProd.length; i++) {
 		let comentario = comProd[i];
 
+		// countComm++;
+		starss += comentario.score;
 		if (
 			((max == undefined || (max != undefined && parseInt(comentario.score) <= max)) && min == undefined) ||
 			(min != undefined && parseInt(comentario.score) >= min)
@@ -349,6 +358,8 @@ function mostrarComm() {
 			document.getElementById("comments").innerHTML += comments;
 		}
 	}
+	avgStars = starss / countComm;
+	console.log(avgStars);
 }
 
 document.getElementById("nuevoComentario").innerHTML = `
@@ -397,6 +408,7 @@ function puntuar(n) {
 
 // funcion que agrega comentario del usuario
 function addComent() {
+	console.log(comentariosArray);
 	let opinion = document.getElementById("opinion").value;
 
 	let stars = estrellaCom;
@@ -472,6 +484,16 @@ function addComent() {
 			fecha += ":" + hoy.getSeconds();
 		}
 
+		let com = {
+			product: infoP.id,
+			score: stars,
+			description: opinion,
+			user: JSON.parse(localStorage.getItem("userInfo")).name,
+			dateTime: fecha,
+		};
+		comentariosArray.push(com);
+		console.log(comentariosArray);
+
 		newComent +=
 			`<div id="userCom"class="list-group-item list-group-item-action "> 
         <div class="d-flex justify-content-between">
@@ -494,6 +516,7 @@ function addComent() {
 		// localStorage.setItem("userCom", JSON.stringify(lcom));
 
 		localStorage.setItem(`userCom${localStorage.getItem("prodID")}`, newComent);
+		mostrarComm();
 	}
 }
 
