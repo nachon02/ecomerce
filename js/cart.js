@@ -14,6 +14,10 @@ const dltCart = (u) => {
 
 	location.reload();
 };
+const setProdID = (id) => {
+	localStorage.setItem("prodID", id);
+	window.location = "product-info.html";
+};
 
 const verCarro = () => {
 	let articles = JSON.parse(localStorage.getItem("cart"));
@@ -33,22 +37,13 @@ const verCarro = () => {
 		content = `
         <div id="titulo" class=" mt-3 text-center">
             <h2 class="">Carrito de compras</h2>
-            <p class="fs-4 mt-4 ">Articulos a comprar</p>
         </div>
-        <div class="d-flex justify-content-between">
-            <table id='carritoInfo'class=" w-100 text-center">
-            <thead>
-            <tr class="borde-btm">
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Costo</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                    <th><i class="fas fa-ellipsis-h"></i></th>
-                </tr>
-            </thead>
-                
-            </table>
+        <div class="row px-3 pb-2 rounded bg-white" id='cont'>
+		<div id='carritoInfo' class='col-9 container rounded bg-success'>
+		<p class="mt-2 pb-1 fs-4 borde-btm">Articulos (${articles.length})</p>
+		
+		</div>
+            
         </div>
         <div class="mt-3 row justify-content-between pay">
         
@@ -91,7 +86,11 @@ const verCarro = () => {
                     </div>
                 </div>
             </div>
-             <div id="total" class=" px-3 col-lg-3 col-md-12 col-12">
+             
+			
+        </div>
+    `;
+		let compra = `<div id="total" class="bg-info px-3 col-lg-3 col-md-12 col-12">
 				<p class="fs-4 mt-4 borde-btm">Compra</p>
 				<div class="row">
 					<div class="col-lg-4 col-6">
@@ -207,12 +206,10 @@ const verCarro = () => {
 									</div>
             </div>
 			<button type="submit" id="buyButton"class="btn btn-primary w-100 mb-3"> Finalizar compra </button>
-            </div>
-			
-        </div>
-    `;
+            </div>`;
 
 		document.getElementById("carrito").innerHTML = content;
+		document.getElementById("cont").innerHTML += compra;
 
 		validModal();
 
@@ -229,18 +226,36 @@ const verCarro = () => {
 			};
 
 			total.push(precios);
-			carrito += `<tr class="borde-btm" id="compra_${i + 1}">
-    <td class="tbImg"><img src="${element.image}" width="100px" class="my-2"></td>
-    <td>${element.name}</td>
-    <td>${element.currency} ${element.unitCost}</td>
-    <td><input type="number" id="inputCant_${i + 1}" value="${
-				element.count
-			}" onclick="calcSubtotal()" class='cantidad' min="1"></input> </td>
-    <td><b moneda="${element.currency}">${element.currency} <span id='subtotal_${i + 1}'>${
+			carrito += `
+			<div class='prodCart row mb-2 me-2 border-bottom rounded'>
+			<div class='col-4 p-2 cursor-active' onclick='setProdID(${element.id})'>
+				<img src="${element.image}" width="300px" class='border rounded'>
+			</div>
+			<div class='col-8'>
+				<div class='row mb-3'>
+					<div class='col-7'>
+					<p class='fs-5 mb-0'>${element.name}</p>
+					</div>
+					<div class='col-5'>
+					<p class='fs-5 fw-bold text-end mb-0' moneda="${element.currency}">${element.currency} <span id='subtotal_${i + 1}'>${
 				subtotal * element.count
-			}</span></b></td>
-    <td class="" onclick="dltCart(${i})"><i class="dltCart fas fa-trash-alt"></i></i></td>
-  </tr>`;
+			}</span></p>
+			</div>
+				</div>
+					<p class='fs-5 mb-0 lh-lg'>${element.currency} ${element.unitCost}</p>
+					<div class='d-flex flex-column mt-4'>
+					<label class='fs-5' for='inputCant_${i + 1}'>Cantidad: </label>
+					<div class='d-flex justify-content-between'>
+					 <input type="number" name='inputCant_${i + 1}' id="inputCant_${i + 1}" value="${
+				element.count
+			}" onclick="calcSubtotal()" class='cantidad' min="1"></input>
+			<div class="" onclick="dltCart(${i})"><i class="dltCart fas fa-trash-alt"></i></i></div>
+			</div>
+			</div>
+			<div></div>
+			</div>
+			</div>
+			`;
 		}
 
 		document.getElementById("carritoInfo").innerHTML += carrito;

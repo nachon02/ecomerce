@@ -57,6 +57,7 @@ function addCart(id) {
 		setTimeout(function () {
 			document.getElementById("sucssCart").classList.add("hide");
 		}, 3000);
+		setProdID(id);
 	} else {
 		// existe = false;
 

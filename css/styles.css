@@ -250,8 +250,9 @@ a.custom-card:hover {
 
 .cantidad {
   padding: 10px;
+  padding-left: 30px;
   width: 70px;
-  border-radius: 10%;
+  border-radius: 40px;
   border: 1px solid;
 }
 
@@ -299,6 +300,10 @@ table thead {
 
 table img {
   outline: 2px solid #aaa;
+}
+
+#total {
+  max-height: 410px;
 }
 
 #total p {
@@ -552,4 +557,8 @@ span.buttonText {
 .prod-related:hover {
   scale: 1.07;
   transition: all ease-in-out .3s;
+}
+
+.prodCart:last-child {
+  /* background-color: red; */
 }
