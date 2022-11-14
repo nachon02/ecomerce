@@ -544,3 +544,12 @@ span.buttonText {
 #prodCarousel img:hover+#images {
   border: 10px solid red;
 }
+
+.prod-related {
+  padding-top: 10px;
+}
+
+.prod-related:hover {
+  scale: 1.07;
+  transition: all ease-in-out .3s;
+}

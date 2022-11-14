@@ -8,12 +8,6 @@ const userInfo = {
 	email: "",
 };
 
-const enter = () => {
-	document.querySelector("#form2Example1").value = "alguien@algunlugar.es";
-	document.querySelector("#form2Example2").value = "alguien@algunlugar.es";
-	validar();
-};
-
 // Valores y errores
 inputPass.addEventListener("keypress", function (event) {
 	if (event.key === "Enter") {
@@ -22,9 +16,6 @@ inputPass.addEventListener("keypress", function (event) {
 });
 inputEmail.addEventListener("keypress", function (event) {
 	if (event.key === "Enter") {
-		if (inputEmail.value === "enter") {
-			enter();
-		}
 		validar();
 	}
 });

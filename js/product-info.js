@@ -138,7 +138,7 @@ function carrusel() {
 }
 
 // obtiene info del getJsonData y la muestra en la pagina
-function mostrarInfo() {
+function showProducts() {
 	infoP.id = parseInt(infoProd.id);
 	infoP.unitCost = parseInt(infoProd.cost);
 	infoP.name = infoProd.name;
@@ -219,7 +219,7 @@ function mostrarInfo() {
 			let rel = infoProd.relatedProducts[i];
 
 			document.getElementById("productos_relacionados").innerHTML += `
-            <div class="col-xl-5 col-12 cursor-active border rounded pb-2 mb-3" onclick="setProdID(${rel.id})">
+            <div class="prod-related col-xl-5 col-12 cursor-active border rounded pb-2 mb-3 bg-white" onclick="setProdID(${rel.id})">
             <p class="bold">${rel.name}</p>
             <img class="p-0 img-thumbnail"src="${rel.image}" alt="Imagen de ${rel.name}"/>
             </div>
@@ -298,26 +298,26 @@ function filtroCom(o) {
 		case "todos":
 			min = undefined;
 			max = undefined;
-			mostrarComm();
+			showComments();
 
 			break;
 
 		case "neg":
 			min = undefined;
 			max = 2;
-			mostrarComm();
+			showComments();
 
 			break;
 
 		case "pos":
 			min = 3;
-			mostrarComm();
+			showComments();
 			break;
 	}
 }
 
 // bucle que muestra los comentarios obtenidos con getJSONData
-function mostrarComm() {
+function showComments() {
 	document.getElementById("comments").innerHTML = "";
 	comentariosArray = comProd;
 	console.log(comentariosArray);
@@ -516,7 +516,7 @@ function addComent() {
 		// localStorage.setItem("userCom", JSON.stringify(lcom));
 
 		localStorage.setItem(`userCom${localStorage.getItem("prodID")}`, newComent);
-		mostrarComm();
+		showComments();
 	}
 }
 
@@ -526,14 +526,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	getJSONData(`${PRODUCT_INFO_URL}${prodID}${EXT_TYPE}`).then(function (resultObj) {
 		if (resultObj.status === "ok") {
 			infoProd = resultObj.data;
-			mostrarInfo();
+			showProducts();
 		}
 	});
 
 	getJSONData(`${PRODUCT_INFO_COMMENTS_URL}${prodID}${EXT_TYPE}`).then(function (resultObj) {
 		if (resultObj.status === "ok") {
 			comProd = resultObj.data;
-			mostrarComm();
+			showComments();
 		}
 	});
 
