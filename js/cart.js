@@ -38,8 +38,8 @@ const verCarro = () => {
         <div id="titulo" class=" mt-3 text-center">
             <h2 class="">Carrito de compras</h2>
         </div>
-        <div class="row px-3 pb-2 rounded bg-white" id='cont'>
-		<div id='carritoInfo' class='col-9 container rounded bg-success'>
+        <div class="row pb-2 rounded bg-white" id='cont'>
+		<div id='carritoInfo' class='col-9 container rounded bg-light'>
 		<p class="mt-2 pb-1 fs-4 borde-btm">Articulos (${articles.length})</p>
 		
 		</div>
@@ -47,7 +47,15 @@ const verCarro = () => {
         </div>
         <div class="mt-3 row justify-content-between pay">
         
-            <div class="col-lg-3 col-md-6 col-12">
+            
+                
+            
+             
+			
+        </div>
+    `;
+		let compra = `<div id="total" class="bg-info px-3 col-lg-3 col-md-12 col-12">
+		<div class="">
             <p class="fs-4 mt-4">Tipo de envío</p>
                 <div class="mt-3">
                     <div class="p-2"><input type="radio" name="envio" onclick="calcTotal()" id="premium" class="me-2" value="15"></input><label for="premium"> Premium 2 a 5 días (15%)</label></div>
@@ -55,8 +63,7 @@ const verCarro = () => {
                     <div class="p-2"><input type="radio" name="envio" onclick="calcTotal()" id="standar" class="me-2" value="5"></input><label for="standar"> Standar 12 a 15 días (5%)</label></div>
                 </div>
             </div>
-                
-            <div class="col-lg-5 col-md-6 col-12  ">
+			<div class="">
                 <p class="fs-4 mt-4">Dirección de envío</p> 
                 <div class="row">
                     
@@ -86,11 +93,6 @@ const verCarro = () => {
                     </div>
                 </div>
             </div>
-             
-			
-        </div>
-    `;
-		let compra = `<div id="total" class="bg-info px-3 col-lg-3 col-md-12 col-12">
 				<p class="fs-4 mt-4 borde-btm">Compra</p>
 				<div class="row">
 					<div class="col-lg-4 col-6">
@@ -102,7 +104,7 @@ const verCarro = () => {
 					</div>
 					<div class="col">
 						<b >Subtotal: </b> 
-						<div class="row justify-content-between precio">
+						<div class="row justify-content-between precio fs-5 fw-bold\">
 						<p class="col-3" id="moneda"></p><p class="col-7 " id="subtotal"></p> 
 						</div>
 						<div class="row">
@@ -206,6 +208,7 @@ const verCarro = () => {
 									</div>
             </div>
 			<button type="submit" id="buyButton"class="btn btn-primary w-100 mb-3"> Finalizar compra </button>
+			
             </div>`;
 
 		document.getElementById("carrito").innerHTML = content;
