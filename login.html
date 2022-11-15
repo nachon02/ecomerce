@@ -2,39 +2,92 @@
 <html lang="es">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>eMercado - Todo lo que busques está aquí</title>
-  
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: rgb(248, 249, 250);
-    }
-  </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>eMercado - Todo lo que busques está aquí</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="js/main.js" type="module"></script>
+
+    <style>
+        body {
+            background-color: rgb(248, 249, 250);
+        }
+    </style>
 </head>
 
 <body>
-  <main class="mt-5">
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
-    </div>
-  </main>
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
-        2022</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
-    </div>
-  </footer>
-  <script src="js/login.js"></script>
+    <main class="mt-5">
+        <div id="login" class="container text-center mt-5">
+            <img src="img/login.png" class="img-fluid" />
+            <p class="mb-3 h4">Inicio de Sesión</p>
+
+            <form id="formulario">
+                <!-- Email input -->
+                <div class="form-outline mb-3">
+                    <label class="form-label" for="form2Example1">Email</label>
+                    <input type="email" id="form2Example1" class="form-control" placeholder="Ingrese su Email"
+                        autofocus />
+                    <div id="validationServer03Feedback" class="invalid-feedback" "
+                        >
+                            Ingrese un email valido ej:
+                            <b>email@gmail.com</b>
+                        </div>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class=" form-outline mb-4">
+                        <label class="form-label" for="form2Example2">Contraseña</label>
+                        <input type="password" id="form2Example2" class="form-control"
+                            placeholder="Ingrese su contraseña" autocomplete="on" />
+                        <div id="passValidationComment" class="invalid-feedback" "
+                        >
+                            Porfavor, ingrese una contraseña valida. <br />
+                            <b>Minimo 8 caracteres</b>
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button
+                        id=" enviarBtn" type="button" class="btn btn-primary btn-block mb-4" onclick="validar()">
+                            Enviar
+                            </button>
+                            <div class="row">
+                                <h2 class="line"><span class="">o</span></h2>
+                            </div>
+
+            </form>
+            <div id="gSignInWrapper">
+                <div id="customBtn" class="customGPlusSignIn">
+                    <span class="icon"></span>
+                    <span class="buttonText">Google</span>
+                </div>
+            </div>
+    </main>
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-end">
+                <a href="#">Volver arriba</a>
+            </p>
+            <p>
+                Este sitio forma parte de
+                <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+                - 2022
+            </p>
+            <p>
+                Clickea <a target="_blank" href="Letra.pdf">aquí</a> para
+                descargar la letra del obligatorio.
+            </p>
+        </div>
+    </footer>
+
+    <!-- <script src="js/login.js" type="module"></script> -->
+    <script src="js/login.js"></script>
+
+    <!-- FIREBASE SCRIPTS -->
+
 </body>
 
 </html>
